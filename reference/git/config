@@ -22,3 +22,8 @@ Host bitbucket.org-cortizqbowl
   User git
   IdentityFile ~/.ssh/id_rsa_cortizqbowl
   
+#Heroku
+Host heroku.com
+  HostName heroku.com
+  User git
+  IdentityFile ~/.ssh/heroku_rsa
