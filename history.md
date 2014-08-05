@@ -1,7 +1,10 @@
 File:     history.md
 Author:   Carlos Adolfo Ortiz Q
 Date:     Feb.21/2013
-Modified: Feb.18/2013
+Modified: Aug.05/2014
+
+Aug.05/2014 V1.0.3.10 Tag: V1.0.3.10-Aug.05/2014
+- Adds new config file settings including heroku to the equation.
 
 Feb.18/2014 V1.0.3.5 Tag: V1.0.3.5-Feb.18/2014
 - Adds new reference material in the CS category.
