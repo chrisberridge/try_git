@@ -23,3 +23,7 @@ Notice that one version is written entirely in Java (contained in the Java folde
 <b>WARNING:</b> When writing the Spring-boot configuration, as Spring Java Config is used with the help of annotations, you must base these
 configuration files in a root package of its own. Next is the structure that reflects this idea from [src] folder like so: `src/main/com/csoftz/spring/boot` as the 
 @EnableAutoConfiguration would start from this folder to scan for all componentes as well and it is also recommended in documentation.
+
+Heroku
+------
+Files in directory named 'Procfile' and 'system.properties' are used by [Heroku](https://www.heroku.com/) cloud platform.
