@@ -1,7 +1,10 @@
 File:     history.md
 Author:   Carlos Adolfo Ortiz Q
 Date:     Feb.21/2013
-Modified: Aug.05/2014
+Modified: Aug.21/2014
+
+Aug.21/2014 v1.0.3.15 Tag: V1.0.3.15-Aug.21/2014
+- Adds new Spring Boot sample apps and readme.
 
 Aug.05/2014 V1.0.3.10 Tag: V1.0.3.10-Aug.05/2014
 - Adds new config file settings including heroku to the equation.
