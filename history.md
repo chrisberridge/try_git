@@ -1,8 +1,13 @@
 File:     history.md
 Author:   Carlos Adolfo Ortiz Q
 Date:     Feb.21/2013
-Modified: Aug.21/2014
+Modified: Dec.29/2014
 
+Dec.29/2014 V1.0.3.20 Tag: V1.0.3.20-Dec.29/2014
+- Demo for Heroku using Spring Boot located in dir '/reference/srping-boot-demo'
+- Adds possibly same Spring boot demo apps for heroku located in '/reference/java/spring-boot/heroku'
+
+d:\dvcs\gitHub\cortizqgithub\public\try_git\reference\spring-boot-demo\
 Aug.21/2014 v1.0.3.15 Tag: V1.0.3.15-Aug.21/2014
 - Adds new Spring Boot sample apps and readme.
 
