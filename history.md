@@ -1,7 +1,10 @@
 File:     history.md
 Author:   Carlos Adolfo Ortiz Q
 Date:     Feb.21/2013
-Modified: Dec.29/2014
+Modified: Jan.14/2015
+
+Jan.14/2015 V1.0.3.25 Tag: V1.0.3.25-Jan.14/2015
+- New reference projects added.
 
 Dec.29/2014 V1.0.3.20 Tag: V1.0.3.20-Dec.29/2014
 - Demo for Heroku using Spring Boot located in dir '/reference/srping-boot-demo'
