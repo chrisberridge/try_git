@@ -1,7 +1,7 @@
 File:     steps.txt
 Author:   Carlos Adolfo Ortiz Q
 Date:     Jul.05/2013
-Modified: Dec.04/2013
+Modified: Jan.26/2015
 
 Since Version 6.1.x of Liferay, they have official support for Maven.
 In order to use this Maven support you must read the User's Guide about it.
@@ -212,5 +212,30 @@ Here’s an example where we’ve specified these properties for Liferay bundled wit
     </liferay.version>
 </properties>
 
+-------------------------------------------------------------
+Jan.26/2015
 
+Using Liferay IDE V2.2, liferay Plugins SDK V6.2 and Liferay Portal V6.2-GA3 (V6.2.2) with maven
+you must include the following Liferay repository in order to get the same version train aka V6.2.2
+    <pluginRepositories>
+		<pluginRepository>
+			<id>liferay-plugin-repo</id>
+			<name>Liferay Repo</name>
+			<url>https://repository.liferay.com/nexus/content/groups/liferay-ce/</url>
+			<layout>default</layout>
+			<snapshots>
+				<enabled>false</enabled>
+			</snapshots>
+			<releases>
+				<updatePolicy>never</updatePolicy>
+			</releases>
+		</pluginRepository>
+	</pluginRepositories>
+	<repositories>
+		<repository>
+			<id>liferay-repo</id>
+			<name>Liferay Repo</name>
+			<url>https://repository.liferay.com/nexus/content/groups/liferay-ce/</url>
+		</repository>
+	</repositories>
 
