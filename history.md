@@ -1,7 +1,10 @@
 File:     history.md
 Author:   Carlos Adolfo Ortiz Q
 Date:     Feb.21/2013
-Modified: Jan.14/2015
+Modified: Jan.26/2015
+
+Jan.26/2015 V1.0.3.30 Tag: V1.0.3.30-Jan.26/2015
+- Added notes to refeence in liferay maven support.
 
 Jan.14/2015 V1.0.3.25 Tag: V1.0.3.25-Jan.14/2015
 - New reference projects added.
