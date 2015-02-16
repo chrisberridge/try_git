@@ -3,6 +3,9 @@ Author:   Carlos Adolfo Ortiz Q
 Date:     Feb.21/2013
 Modified: Jan.26/2015
 
+Feb.16/2015 V1.0.3.35 Tag: V1.0.3.35-Feb.16/2015
+- New reference content for detecting page scroll see folder reference/html/scrollposition
+
 Jan.26/2015 V1.0.3.30 Tag: V1.0.3.30-Jan.26/2015
 - Added notes to refeence in liferay maven support.
 
