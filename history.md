@@ -1,7 +1,10 @@
 File:     history.md
 Author:   Carlos Adolfo Ortiz Q
 Date:     Feb.21/2013
-Modified: Jan.26/2015
+Modified: Feb.18/2015
+
+Feb.18/2015 V1.0.3.40 Tag: V1.0.3.40-Feb.18/2015
+- New c# reference folder.
 
 Feb.16/2015 V1.0.3.35 Tag: V1.0.3.35-Feb.16/2015
 - New reference content for detecting page scroll see folder reference/html/scrollposition
