@@ -1,7 +1,10 @@
 File:     history.md
 Author:   Carlos Adolfo Ortiz Q
 Date:     Feb.21/2013
-Modified: Feb.23/2015
+Modified: Feb.27/2015
+
+Feb.27/2015 V1.0.3.55 Tag: V1.0.3.55-Feb.27/2015
+- Adds new reference materials.
 
 Feb.23/2015 V1.0.3.50 Tag: V1.0.3.50-Feb.23/2015
 - Adds WatchForLocks.sql file (see tips).
