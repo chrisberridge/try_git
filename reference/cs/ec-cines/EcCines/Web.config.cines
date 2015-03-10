@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <appSettings>
+    <add key="FileMovies" value="DE7fDeo/3bZgABrSvMkc2HQJBKCXQh+7hVyOnfsDrB4=" />
+    <add key="FileMoviesCatalog" value="DE7fDeo/3bZgABrSvMkc2F/BPSDYpAJGdAkEoJdCH7uFXI6d+wOsHg==" />
+    <add key="ImageFolder" value="sOvnPtxrD+my6IZZ9VWLww==" />
+	<add key="ImageFolderSave" value="ZCzx9meQJlcCHgIz7UxGcruHUZMMGy5/EoY1pf4OR9LspsejTrknLe5wECe+3lyMEiLOSAdTJzg=" />
+    <add key="JSONFolder" value="ZCzx9meQJlcCHgIz7UxGcruHUZMMGy5/EoY1pf4OR9LspsejTrknLVUwuwRnH9X7" />
+  </appSettings>
+  <system.web>
+  <globalization uiCulture="es" culture="es-CO" />
+    <compilation targetFramework="4.5" />
+    <httpRuntime targetFramework="4.5" />
+  </system.web>
+	
+    <system.webServer>
+		<httpProtocol>
+			 <customHeaders>
+                <remove name="X-Powered-By" />
+                <add name="X-Powered-By" value="ASP.NET" />
+			   
+			 </customHeaders>
+		</httpProtocol>
+        <defaultDocument>
+            <files>
+                <clear />
+                <add value="readjson.aspx" />
+            </files>
+        </defaultDocument>
+    </system.webServer>
+</configuration>

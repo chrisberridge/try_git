@@ -1,0 +1,1 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="ecmovies.aspx.cs" Inherits="EcCines.ecmovies" %>

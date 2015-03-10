@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <appSettings>
+    <add key="Connection" value="PWQrlo5O6HOSOIDTBKh6e0cMfYJr2I6UyWLzlViFdhX2CxCtU6YwzzV8/sQdG8yVAgATY4Z4i7DTmANfSZ5tIdA6PZkK9r5U4S55+dERuDtqtA6fFxGbOGuEHhy0JSej9KqeiCRQPmk=" />
+    <add key="FileMovies" value="DE7fDeo/3bZgABrSvMkc2HQJBKCXQh+7hVyOnfsDrB4=" />
+    <add key="FileMoviesCatalog" value="DE7fDeo/3bZgABrSvMkc2F/BPSDYpAJGdAkEoJdCH7uFXI6d+wOsHg==" />
+	<add key="ImageFolder" value="sOvnPtxrD+my6IZZ9VWLww=="/>
+    <add key="ImageFolderSave" value="ZCzx9meQJlcCHgIz7UxGcruHUZMMGy5/EoY1pf4OR9LspsejTrknLe5wECe+3lyMEiLOSAdTJzg=" />
+    <add key="JSONFolder" value="ZCzx9meQJlcCHgIz7UxGcruHUZMMGy5/EoY1pf4OR9LspsejTrknLVUwuwRnH9X7" />
+    <add key="Usuario" value="t+sT4tMpAiI=" />
+    <add key="Contrasena" value="FyE1esQXzNY=" />
+  </appSettings>
+  <system.web>
+	<globalization uiCulture="es" culture="es-CO" />
+	<customErrors mode="Off"/>
+    <compilation targetFramework="4.5" />
+    <httpRuntime targetFramework="4.5" />
+  </system.web>
+    <system.webServer>
+        <defaultDocument>
+            <files>
+                <clear />
+                <add value="default.aspx" />
+            </files>
+        </defaultDocument>
+    </system.webServer>
+</configuration>
