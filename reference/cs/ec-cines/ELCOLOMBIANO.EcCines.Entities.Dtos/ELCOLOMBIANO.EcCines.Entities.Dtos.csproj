@@ -47,7 +47,7 @@
     <Compile Include="F.cs" />
     <Compile Include="Fm.cs" />
     <Compile Include="FormatoPeliculaDto.cs" />
-    <Compile Include="horaDto.cs" />
+    <Compile Include="HoraDto.cs" />
     <Compile Include="HorarioPeliculaDto.cs" />
     <Compile Include="KeyValue.cs" />
     <Compile Include="Movie\MovieCatalog.cs" />

@@ -1,0 +1,224 @@
+﻿@charset "utf-8";
+/* CSS Document */
+
+/*Font del sitio*/
+@font-face {
+    font-family: 'roboto_condensedbold';
+    src: url('fonts/roboto/roboto-bold/robotocondensed-bold-webfont.eot');
+    src: url('fonts/roboto/roboto-bold/robotocondensed-bold-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/roboto/roboto-bold/robotocondensed-bold-webfont.ttf') format('truetype'),
+         url('fonts/roboto/roboto-bold/robotocondensed-bold-webfont.svg#roboto_condensedbold') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'roboto_condensedlight';
+    src: url('fonts/roboto/roboto-light/robotocondensed-light-webfont.eot');
+    src: url('fonts/roboto/roboto-light/robotocondensed-light-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/roboto/roboto-light/robotocondensed-light-webfont.ttf') format('truetype'),
+         url('fonts/roboto/roboto-light/robotocondensed-light-webfont.svg#roboto_condensedlight') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'roboto_condensedregular';
+    src: url('fonts/roboto/roboto-regular/robotocondensed-regular-webfont.eot');
+    src: url('fonts/roboto/roboto-regular/robotocondensed-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/roboto/roboto-regular/robotocondensed-regular-webfont.ttf') format('truetype'),
+         url('fonts/roboto/roboto-regular/robotocondensed-regular-webfont.svg#roboto_condensedregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'robotomedium';
+    src: url('fonts/roboto/roboto-medium/roboto-medium-webfont.eot');
+    src: url('fonts/roboto/roboto-medium/roboto-medium-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/roboto/roboto-medium/roboto-medium-webfont.ttf') format('truetype'),
+         url('fonts/roboto/roboto-medium/roboto-medium-webfont.svg#robotomedium') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'robotoregular';
+    src: url('fonts/roboto/roboto/roboto-regular-webfont.eot');
+    src: url('fonts/roboto/roboto/roboto-regular-webfont.eot?#iefix') format('embedded-opentype'),
+         url('fonts/roboto/roboto/roboto-regular-webfont.ttf') format('truetype'),
+         url('fonts/roboto/roboto/roboto-regular-webfont.svg#robotoregular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+}
+/* Fin Fuentes */
+
+/*Reset
+********************/ 
+html,body,div,ul,ol,li,dl,dt,dd,h1,h2,h3,h4,h5,h6,pre,form,blockquote,fieldset,input,abbr,article,aside,command,details,figcaption,figure,footer,header,hgroup,mark,meter,nav,output,progress,section,summary,time,p { margin: 0; padding: 0; }
+h1,h2,h3,h4,h5,h6,pre,code,address,caption,cite,code,em,th,figcaption { font-size: 1em; font-weight: normal; font-style: normal; }
+fieldset,iframe { border: none; }
+caption,th { text-align: center; }
+table { border-collapse: collapse; border-spacing: 0; }
+article,aside,footer,header,hgroup,nav,section,figure,figcaption { display: block; }
+.clearfix:after { content: ".";display: block;clear: both;visibility: hidden; line-height: 0; height: 0;}
+
+
+
+#modulo-cine { width:638px; font-family: "roboto_condensedbold";}
+#modulo-cine .name-mc{ background:#E1E1E1 url(../images/shadow-top.png) center bottom no-repeat; border-bottom:1px solid #D5D5D5; -webkit-border-radius: 5px 5px 0px 0px;-moz-border-radius: 5px 5px 0px 0px; border-radius: 5px 5px 0px 0px; padding:10px 20px; font-size:25px;}
+#modulo-cine .select-mc{ background:#DCDCDC; padding: 20px 13px;}
+#modulo-cine .select-mc p{ width:240px; float:left; font-size:13px; min-height:54px;}
+#modulo-cine .select-mc p span{ display:block; text-transform:uppercase; margin-bottom:5px;}
+#modulo-cine .select-mc p.teatro{ background:url(../images/teatro.png) left bottom no-repeat; padding-left:60px;}
+#modulo-cine .select-mc p.formato{ background:url(../images/formato.png) left bottom no-repeat; padding-left:60px; float:right;}
+#modulo-cine .select-mc p select{ border:none; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px;  padding:5px; color:#7f7e7e; font-size:11px; width:240px;}
+#modulo-cine .address-mc{ background:#E1E1E1 url(../images/shadow-bottom.png) center top no-repeat; border-top:1px solid #D5D5D5; padding:10px 20px; font-size:15px; text-transform:uppercase;}
+#modulo-cine .list-days{ background:#ffffff url(../images/bg-list-days.jpg) center bottom no-repeat; padding:5px 20px; position:relative;}
+#modulo-cine .list-days .select-day{ background:url(../images/arrow.png) center top no-repeat; width:5px; height:9px; position:absolute; left:10px; top:15px;}
+#modulo-cine .list-days p{ color:#6c2869; text-transform:uppercase; font-size:22px;} 
+#modulo-cine .list-days p span{ color:#707070; text-transform:uppercase; font-size:14px; float:right; border:1px solid #cccccc; padding:2px 4px; -webkit-border-radius: 3px; -moz-border-radius: 3px; border-radius: 3px; font-family: 'roboto_condensedregular'; margin-top:3px;} 
+#modulo-cine .list-days ul{ margin:0px 0px 10px 0px;}
+#modulo-cine .list-days ul li.first{ padding-right:10px; padding-left:0px;}
+#modulo-cine .list-days ul li{ list-style:none; font-family: 'roboto_condensedregular'; border-right:1px solid #999999; line-height:15px; float:left; padding:0px 10px; margin-top:10px;}
+#modulo-cine .list-days ul li.last{ border-right:0px;}
+#modulo-cine .old{ -webkit-border-radius: 5px; -moz-border-radius: 5px; border-radius: 5px; filter: alpha(opacity=40); opacity: 0.4;}
+#modulo-cine .bg-footer{ background:url(../images/bg-footer.png) center center no-repeat; width:638px; height:25px;}
+
+
+.clear{ clear:both; margin:0px; padding:0px;}
+#Content { width:800px;font-family: 'roboto_condensedlight'; margin:0px auto;}
+#Content .title, #Content .title p { margin:5px 0px;}
+#Content .title label, #Content .title span{ font-weight:bold; width:20%; display:inline-block; vertical-align:top; color:#507CD1;}
+#Content .camp-text{ width:76%; }
+#Content .camp-text, #Content .title textarea, #Content .title select {border:1px solid #cccccc; padding: 5px 13px; font-style: italic;}
+#Content .title select { width:180px;}
+#Content input.btn{padding: 4px 15px;border: 1px solid #2a53a2;background: #507cd1;color: #ffffff; float:right; cursor:pointer; margin-left:5px;}
+#Content input#imgUpload{ margin-left:-3px;}
+
+
+.divDerecho {
+            width: 400px;
+            float:left;
+            height: 319px;
+        }
+        .divIzquierdo {
+            width: 400px;
+            float:left;    
+            margin: -2px 0px 0px 0px !important;
+        }
+        .divLabel{
+            height:50px;
+        }
+        .txt_hora{
+            width:40px;
+            margin: 0px 2px;
+        }
+        .fecha{
+            border: solid 1px;
+            padding: 7px;
+            background: #507cd1;            
+        }
+        .horas{
+            border: solid 1px;
+            padding: 5px 1px;
+            display: none;
+        }
+        .fechas{
+            margin: 2px 0px;
+        }
+        .expanded{
+            display:block;
+        }
+        .mas, .clon{
+            cursor: pointer;
+            float: right;
+            margin: -2px -5px 0 15px;
+            width: 7% !important;
+        }
+        .masHora, .addFecha{
+            cursor:pointer;
+        }
+        .addFecha{
+            width: 110px;
+            float: right;
+            overflow: hidden;
+        }
+        span.addFecha{
+            width: 60% !important;
+        }
+        #imgFecha{
+            max-width: 40px;
+        }
+        .imgFechas{
+            max-width: 25px;
+        }
+
+.logo {
+    float: left;
+    display: inline-block;            
+}
+.logo img {
+     max-width: 230px;
+}
+.title_head {
+    width: 80% !important;
+    /*margin: 15px;*/
+}
+.head {
+    overflow: hidden;
+}
+.head .title {
+    float: right;
+    width: 70%;
+
+}
+.head .title .page {
+    font-size: 1.3em;
+    /*margin: 0px 0px 0px 15px;*/
+    color: #2a53a2 !important;
+}
+
+.msg {
+    margin-bottom: 15px;
+}
+
+.cines {
+    float: left !important;
+}
+.error {
+    color: #fff;
+    width: 800px;
+    background: #dc143c;
+    display: block;
+}
+#checkBoxPeliculas tbody tr td label {
+    margin-left: 5px;
+}
+.titulo_sala {
+    width: 75% !important;
+}
+#ListBox2 option, #ListBoxPeliculas option {
+    font-family: "roboto_condensedlight" !important;
+    font-size: 1.2em !important;
+}
+#fecha_ppal{
+    float: right;
+    height: 45px;
+    width: 120px;
+}
+#sala_cine{
+    width:400px;
+    float:left;
+}
+.btnHorario{
+    margin: 15px 0px !important;
+}
+#lblMsg {
+    color: #fff;
+    width: 800px;
+    background: #008000;
+    display: block;
+}
+.input_login{
+    margin-left:10px;
+}
+.nombre_formato{
+    width: 40% !important;
+}

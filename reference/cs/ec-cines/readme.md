@@ -1,10 +1,15 @@
-ec cines
-========
+ECCines
+=======
 
-Mar.10/2015
+V1.0.0.10-Mar.11/2015
 
-Nuget packages
---------------
-jQuery version=2.1.3
-jQuery.UI.Combined version=1.11.3
-Newtonsoft.Json version=6.0.8
+Sitios para la administración de cartelera de Cine EL COLOMBIANO
+Debe tener en cuenta lo siguiente:
+
+ECCines.Admin es el sitio administrativo y solo debe ser accesible por la red interna de EL COLOMBIANO.
+EcCines es el sitio público.
+
+Siempre que vaya a actualizar el sitio debe realizar una publicación (despliegue en las carpetas indicadas) y de ahí debe 
+coger los contenidos para paso a producción.
+
+

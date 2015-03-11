@@ -46,7 +46,7 @@
                     </div>
                     <div class="title">
                         <label for="imgUpload">Imagen:</label>
-                        <asp:Image ID="imgPoster" runat="server" />
+                        <asp:Image ID="imgPoster" runat="server" Visible="false"/>
                         <asp:FileUpload ID="imgUpload" runat="server" />
                     </div>
                     <div class="title">

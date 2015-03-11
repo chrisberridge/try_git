@@ -38,6 +38,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{64E4CF
 		.nuget\NuGet.targets = .nuget\NuGet.targets
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EcCines.Admin", "EcCines.Admin\EcCines.Admin.csproj", "{D156EC56-A9C9-43F4-BDA6-76491C39319D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,6 +50,7 @@ Global
 		{A66D09DC-7E63-432F-91A2-C28F91B0E9C8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A66D09DC-7E63-432F-91A2-C28F91B0E9C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A66D09DC-7E63-432F-91A2-C28F91B0E9C8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A66D09DC-7E63-432F-91A2-C28F91B0E9C8}.Release|Any CPU.Deploy.0 = Release|Any CPU
 		{D4FE95F0-BDDF-4948-8D61-AFC40EB886A2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D4FE95F0-BDDF-4948-8D61-AFC40EB886A2}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D4FE95F0-BDDF-4948-8D61-AFC40EB886A2}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -68,6 +71,10 @@ Global
 		{D34C8C2E-9289-4B7B-B700-B35506567570}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D34C8C2E-9289-4B7B-B700-B35506567570}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D34C8C2E-9289-4B7B-B700-B35506567570}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D156EC56-A9C9-43F4-BDA6-76491C39319D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D156EC56-A9C9-43F4-BDA6-76491C39319D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D156EC56-A9C9-43F4-BDA6-76491C39319D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D156EC56-A9C9-43F4-BDA6-76491C39319D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -85,5 +92,6 @@ Global
 		{E658B629-3FD2-49C8-A4F2-1D60EFB86265} = {EE7D3664-410C-4F24-B7F2-38AEC9703206}
 		{D34C8C2E-9289-4B7B-B700-B35506567570} = {EE7D3664-410C-4F24-B7F2-38AEC9703206}
 		{A66D09DC-7E63-432F-91A2-C28F91B0E9C8} = {0850B04A-F03F-462E-90BD-2E252E7A6F42}
+		{D156EC56-A9C9-43F4-BDA6-76491C39319D} = {0850B04A-F03F-462E-90BD-2E252E7A6F42}
 	EndGlobalSection
 EndGlobal

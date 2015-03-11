@@ -3,6 +3,9 @@ Author:   Carlos Adolfo Ortiz Q
 Date:     Feb.21/2013
 Modified: Mar.11/2015
 
+Mar.11/2015 V1.0.3.75 Tag: V1.0.3.75-Mar.11/2015
+- Updates reference materials.
+
 Mar.11/2015 V1.0.3.70 Tag: V1.0.3.70-Mar.11/2015
 - Adds an update to referenced project in C#.
 

@@ -63,8 +63,6 @@
     <Reference Include="System.EnterpriseServices" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="cine.aspx" />
-    <Content Include="CinesHorarios.aspx" />
     <Content Include="Content\themes\base\accordion.css" />
     <Content Include="Content\themes\base\all.css" />
     <Content Include="Content\themes\base\autocomplete.css" />
@@ -121,7 +119,6 @@
     <Content Include="css\images\ui-icons_ffffff_256x240.png" />
     <Content Include="css\jquery-ui.min.css" />
     <Content Include="css\toastr.css" />
-    <Content Include="Default.aspx" />
     <Content Include="images\Clonar.png" />
     <Content Include="images\FlechaAba.png" />
     <Content Include="images\FlechaDer.png" />
@@ -154,9 +151,7 @@
     <Content Include="css\reset.css" />
     <Content Include="css\site.css" />
     <Content Include="css\styles.css" />
-    <Content Include="ecmovies.aspx" />
     <Content Include="ecmoviesearch.aspx" />
-    <Content Include="Horario.aspx" />
     <Content Include="images\arrow.png" />
     <Content Include="images\bg-buscador-cine.jpg" />
     <Content Include="images\bg-cartelera-cine.png" />
@@ -169,10 +164,6 @@
     <Content Include="images\shadow-top.png" />
     <Content Include="images\spray-icon-home.png" />
     <Content Include="images\teatro.png" />
-    <Content Include="Index.aspx" />
-    <Content Include="entidad.aspx" />
-    <Content Include="moviedetailiframe.aspx" />
-    <Content Include="showmoviewidget.aspx" />
     <Content Include="readjson.aspx" />
     <Content Include="Scripts\bootstrap-select.min.js" />
     <Content Include="Scripts\jquery-ui-1.11.3.js" />
@@ -183,81 +174,17 @@
     <Content Include="Scripts\toastr.js" />
     <Content Include="Scripts\urlencode.js" />
     <Content Include="showmoviedetail.aspx" />
-    <Content Include="teatro.aspx" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="cine.aspx.cs">
-      <DependentUpon>cine.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="cine.aspx.designer.cs">
-      <DependentUpon>cine.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="CinesHorarios.aspx.cs">
-      <DependentUpon>CinesHorarios.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="CinesHorarios.aspx.designer.cs">
-      <DependentUpon>CinesHorarios.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Default.aspx.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Default.aspx.designer.cs">
-      <DependentUpon>Default.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="ecmovies.aspx.cs">
-      <DependentUpon>ecmovies.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="ecmovies.aspx.designer.cs">
-      <DependentUpon>ecmovies.aspx</DependentUpon>
-    </Compile>
     <Compile Include="ecmoviesearch.aspx.cs">
       <DependentUpon>ecmoviesearch.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="ecmoviesearch.aspx.designer.cs">
       <DependentUpon>ecmoviesearch.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Horario.aspx.cs">
-      <DependentUpon>Horario.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Horario.aspx.designer.cs">
-      <DependentUpon>Horario.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="Index.aspx.cs">
-      <DependentUpon>Index.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="Index.aspx.designer.cs">
-      <DependentUpon>Index.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="entidad.aspx.cs">
-      <DependentUpon>entidad.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="entidad.aspx.designer.cs">
-      <DependentUpon>entidad.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="moviedetailiframe.aspx.cs">
-      <DependentUpon>moviedetailiframe.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="moviedetailiframe.aspx.designer.cs">
-      <DependentUpon>moviedetailiframe.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="showmoviewidget.aspx.cs">
-      <DependentUpon>showmoviewidget.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="showmoviewidget.aspx.designer.cs">
-      <DependentUpon>showmoviewidget.aspx</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="readjson.aspx.cs">
@@ -273,13 +200,6 @@
     </Compile>
     <Compile Include="showmoviedetail.aspx.designer.cs">
       <DependentUpon>showmoviedetail.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="teatro.aspx.cs">
-      <DependentUpon>teatro.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="teatro.aspx.designer.cs">
-      <DependentUpon>teatro.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
