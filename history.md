@@ -1,7 +1,11 @@
 File:     history.md
 Author:   Carlos Adolfo Ortiz Q
 Date:     Feb.21/2013
-Modified: Mar.10/2015
+Modified: Mar.11/2015
+
+Mar.11/2015 V1.0.3.65 Tag: V1.0.3.65-Mar.11/2015
+- In folder 'reference' is saved file 'VS2013Settings-20150311.vssettings' which contains IDE 
+  customizations for better C# coding style.
 
 Mar.10/2015 V1.0.3.60 Tag: V1.0.3.60-Mar.10/2015
 - Adds new reference materials.
