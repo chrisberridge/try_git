@@ -4,7 +4,7 @@
 /* Author:        Leonardino Lima (LLIMA)                                   */
 /*                Carlos Adolfo Ortiz Quirós (COQ)                          */
 /* Date:          Feb.11/2015                                               */
-/* Last Modified: Mar.04/2015                                               */
+/* Last Modified: Mar.11/2015                                               */
 /* Version:       1.5                                                       */
 /* Copyright (c), 2015 Arkix, El Colombiano                                 */
 /*==========================================================================*/
@@ -14,34 +14,29 @@ History
 Feb.11/2015 COQ File created.
 ============================================================================*/
 
-using ELCOLOMBIANO.EcCines.Business;
-using ELCOLOMBIANO.EcCines.Data;
-using ELCOLOMBIANO.EcCines.Entities.Dtos;
-using ELCOLOMBIANO.EcCines.Entities.Dtos.Movie;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using ELCOLOMBIANO.EcCines.Business;
+using ELCOLOMBIANO.EcCines.Data;
+using ELCOLOMBIANO.EcCines.Entities.Dtos;
+using ELCOLOMBIANO.EcCines.Entities.Dtos.Movie;
 
-namespace ELCOLOMBIANO.EcCines.Entities
-{
-    public class Pelicula
-    {
-        public List<DetallePeliculaDto> getPeliculas(PeliculaDto peliculaObj)
-        {
+namespace ELCOLOMBIANO.EcCines.Entities {
+    public class Pelicula {
+        public List<DetallePeliculaDto> getPeliculas(PeliculaDto peliculaObj) {
             SqlDataReader rdr = null;
             SqlTransaction transaction = null;
             HandleDatabase hdb = null;
-            try
-            {
+            try {
                 List<DetallePeliculaDto> lstPelicula = new List<DetallePeliculaDto>();
                 hdb = new HandleDatabase(Settings.Connection);
                 hdb.Open();
                 String sql = "sp_obtenerPeliculas";
                 transaction = hdb.BeginTransaction("getPeliculas");
                 rdr = hdb.ExecSelectSQLStmtAsReader(transaction, sql);
-                while (rdr.Read())
-                {
+                while (rdr.Read()) {
                     DetallePeliculaDto objPelicula = new DetallePeliculaDto();
                     int idPelicula = Convert.ToInt32(rdr["idPelicula"]);
                     int idDetallePelicula = Convert.ToInt32(rdr["idDetallePelicula"]);
@@ -60,37 +55,29 @@ namespace ELCOLOMBIANO.EcCines.Entities
                     objPelicula.idGeneroPelicula = idGeneroPelicula;
                     objPelicula.sinopsis = sinopsis;
                     objPelicula.urlArticuloEc = url;
-                    if (activo.Equals("S"))
-                    {
+                    if (activo.Equals("S")) {
                         objPelicula.enCartelera = "Si";
                     }
-                    else
-                    {
+                    else {
                         objPelicula.enCartelera = "No";
                     }
                     lstPelicula.Add(objPelicula);
                 }
                 return lstPelicula;
-            }
-            catch (Exception)
-            {
+            } catch (Exception) {
                 return null;
-            }
-            finally
-            {
+            } finally {
                 if (rdr != null) { rdr.Close(); }
                 if (transaction != null) { transaction.Commit(); }
                 if (hdb != null) { hdb.Close(); }
             }
         }
 
-        public List<DetallePeliculaDto> getPelicula(PeliculaDto peliculaObj)
-        {
+        public List<DetallePeliculaDto> getPelicula(PeliculaDto peliculaObj) {
             SqlTransaction transaction = null;
             SqlDataReader rdr = null;
             HandleDatabase hdb = null;
-            try
-            {
+            try {
                 List<DetallePeliculaDto> lstPelicula = new List<DetallePeliculaDto>();
                 hdb = new HandleDatabase(Settings.Connection);
                 hdb.Open();
@@ -101,8 +88,7 @@ namespace ELCOLOMBIANO.EcCines.Entities
                 String sql = "sp_obtenerPelicula @IDPELICULA";
                 transaction = hdb.BeginTransaction("getPelicula");
                 rdr = hdb.ExecSelectSQLStmtAsReader(transaction, sql, param);
-                while (rdr.Read())
-                {
+                while (rdr.Read()) {
                     DetallePeliculaDto objPelicula = new DetallePeliculaDto();
                     int idPelicula = Convert.ToInt32(rdr["idPelicula"]);
                     int idDetallePelicula = Convert.ToInt32(rdr["idDetallePelicula"]);
@@ -127,13 +113,9 @@ namespace ELCOLOMBIANO.EcCines.Entities
                     lstPelicula.Add(objPelicula);
                 }
                 return lstPelicula;
-            }
-            catch (Exception)
-            {
+            } catch (Exception) {
                 return null;
-            }
-            finally
-            {
+            } finally {
                 if (rdr != null) { rdr.Close(); }
                 if (transaction != null) { transaction.Commit(); }
                 if (hdb != null) { hdb.Close(); }
@@ -141,13 +123,11 @@ namespace ELCOLOMBIANO.EcCines.Entities
         }
 
 
-        public List<PeliculaDto> getPeliculasPorTeatro(int teatro)
-        {
+        public List<PeliculaDto> getPeliculasPorTeatro(int teatro) {
             HandleDatabase hdb = null;
             SqlTransaction transaction = null;
             SqlDataReader rdr = null;
-            try
-            {
+            try {
                 List<PeliculaDto> lstPeliculasCine = new List<PeliculaDto>();
                 hdb = new HandleDatabase(Settings.Connection);
                 hdb.Open();
@@ -158,8 +138,7 @@ namespace ELCOLOMBIANO.EcCines.Entities
                 String sql = "sp_obtenerPeliculasPorTeatro @TEATRO";
                 transaction = hdb.BeginTransaction("PeliculasPorTeatro");
                 rdr = hdb.ExecSelectSQLStmtAsReader(transaction, sql, paramTeatro);
-                while (rdr.Read())
-                {
+                while (rdr.Read()) {
                     PeliculaDto objPeliculaCine = new PeliculaDto();
                     int idPelicula = Convert.ToInt32(rdr["idPelicula"]);
                     int idTeatro = Convert.ToInt32(rdr["idTeatro"]);
@@ -168,26 +147,20 @@ namespace ELCOLOMBIANO.EcCines.Entities
                     lstPeliculasCine.Add(objPeliculaCine);
                 }
                 return lstPeliculasCine;
-            }
-            catch (Exception)
-            {
+            } catch (Exception) {
                 return null;
-            }
-            finally
-            {
+            } finally {
                 if (rdr != null) { rdr.Close(); }
                 if (transaction != null) { transaction.Commit(); }
                 if (hdb != null) { hdb.Close(); }
             }
         }
 
-        public int crearPeliculaTeatro(int teatro, string peliculas)
-        {
+        public int crearPeliculaTeatro(int teatro, string peliculas) {
             SqlTransaction transaction = null;
             SqlDataReader rdr = null;
             HandleDatabase hdb = null;
-            try
-            {
+            try {
                 hdb = new HandleDatabase(Settings.Connection);
                 hdb.Open();
                 SqlParameter paramPeliculas = new SqlParameter();
@@ -202,26 +175,20 @@ namespace ELCOLOMBIANO.EcCines.Entities
                 transaction = hdb.BeginTransaction("crearPeliculaPorTeatro");
                 rdr = hdb.ExecSelectSQLStmtAsReader(transaction, sql, paramTeatro, paramPeliculas);
                 return 0;
-            }
-            catch (Exception)
-            {
+            } catch (Exception) {
                 return -1;
-            }
-            finally
-            {
+            } finally {
                 if (rdr != null) { rdr.Close(); }
                 if (transaction != null) { transaction.Commit(); }
                 if (hdb != null) { hdb.Close(); }
             }
         }
 
-        public List<PeliculaFullInfoDto> obtenerProgramacionPelicula(int idPelicula, int idTeatro)
-        {
+        public List<PeliculaFullInfoDto> obtenerProgramacionPelicula(int idPelicula, int idTeatro) {
             HandleDatabase hdb = null;
             SqlDataReader rdr = null;
             SqlTransaction transaction = null;
-            try
-            {
+            try {
                 List<PeliculaFullInfoDto> lstResultado = new List<PeliculaFullInfoDto>();
                 hdb = new HandleDatabase(Settings.Connection);
                 hdb.Open();
@@ -236,8 +203,7 @@ namespace ELCOLOMBIANO.EcCines.Entities
                 String sql = "sp_obtenerProgramacionPelicula @idPelicula,@idTeatro";
                 transaction = hdb.BeginTransaction("obtenerProgramacionPelicula");
                 rdr = hdb.ExecSelectSQLStmtAsReader(transaction, sql, paramPelicula, paramTeatro);
-                while (rdr.Read())
-                {
+                while (rdr.Read()) {
                     PeliculaFullInfoDto peliculaObj = new PeliculaFullInfoDto();
                     int idFormato = Convert.ToInt32(rdr["idFormato"]);
                     string nombreFormato = rdr["nombreFormato"].ToString();
@@ -270,27 +236,21 @@ namespace ELCOLOMBIANO.EcCines.Entities
                     lstResultado.Add(peliculaObj);
                 }
                 return lstResultado;
-            }
-            catch (Exception)
-            {
+            } catch (Exception) {
                 return null;
-            }
-            finally
-            {
+            } finally {
                 if (rdr != null) { rdr.Close(); }
                 if (transaction != null) { transaction.Commit(); }
                 if (hdb != null) { hdb.Close(); }
             }
         }
 
-        public int crearPelicula(DetallePeliculaDto pelicula, int operacion)
-        {
+        public int crearPelicula(DetallePeliculaDto pelicula, int operacion) {
             HandleDatabase hdb = null;
             SqlTransaction transaction = null;
             SqlDataReader rdr = null;
 
-            try
-            {
+            try {
                 hdb = new HandleDatabase(Settings.Connection);
                 hdb.Open();
                 SqlParameter paramOperacion = new SqlParameter();
@@ -334,26 +294,21 @@ namespace ELCOLOMBIANO.EcCines.Entities
                 rdr = hdb.ExecSelectSQLStmtAsReader(transaction, sql, paramOperacion, paramPelicula, paramNombre, paramUsuario,
                                                                     paramGenero, paramSinopsis, paramImagen, paramUrl, paramActivo);
                 return 0;
-            }
-            catch (Exception)
-            {
+            } catch (Exception) {
                 return -1;
-            }
-            finally
-            {
+            } finally {
                 if (rdr != null) { rdr.Close(); }
                 if (transaction != null) { transaction.Commit(); }
                 if (hdb != null) { hdb.Close(); }
             }
         }
 
-        public int crearActualizarProgramacionPelicula(ProgramacionPeliculaDto datosProgramacion)
-        {
+
+        public int crearActualizarProgramacionPelicula(ProgramacionPeliculaDto datosProgramacion) {
             HandleDatabase hdb = null;
             SqlTransaction transaction = null;
             SqlDataReader rdr = null;
-            try
-            {
+            try {
                 hdb = new HandleDatabase(Settings.Connection);
                 hdb.Open();
                 SqlParameter paramIdHorario = new SqlParameter();
@@ -406,21 +361,16 @@ namespace ELCOLOMBIANO.EcCines.Entities
                                                                     paramAnnoHorario, paramMesHorario, paramDiaHorario, paramHoraMinuto, paramSala,
                                                                     paramNombreDia, paramFrecuencia);
                 return 0;
-            }
-            catch (Exception)
-            {
+            } catch (Exception) {
                 return -1;
-            }
-            finally
-            {
+            } finally {
                 if (rdr != null) { rdr.Close(); }
                 if (transaction != null) { transaction.Commit(); }
                 if (hdb != null) { hdb.Close(); }
             }
         }
 
-        public List<MovieFullInfo> getMovieFullinfo()
-        {
+        public List<MovieFullInfo> getMovieFullinfo() {
             string sql = "";
             List<MovieFullInfo> movieFullList = new List<MovieFullInfo>();
             sql += "select * from vw_datospelicula ";
@@ -433,16 +383,13 @@ namespace ELCOLOMBIANO.EcCines.Entities
             SqlTransaction transaction = null;
             SqlDataReader rdr = null;
 
-            try
-            {
+            try {
                 hdb = new HandleDatabase(Settings.Connection);
                 hdb.Open();
                 transaction = hdb.BeginTransaction("getMovieFullinfo");
                 rdr = hdb.ExecSelectSQLStmtAsReader(transaction, sql);
-                while (rdr.Read())
-                {
-                    movieFullList.Add(new MovieFullInfo()
-                    {
+                while (rdr.Read()) {
+                    movieFullList.Add(new MovieFullInfo() {
                         id = Convert.ToInt32(rdr["idPelicula"]),
                         name = rdr["nombrePelicula"].ToString(),
                         nameFull = rdr["nombrePelicula"].ToString() + " " + rdr["nombreFormato"].ToString(),
@@ -462,9 +409,7 @@ namespace ELCOLOMBIANO.EcCines.Entities
                         dt = new DateTime(Convert.ToInt32(rdr["annoHorarioPelicula"]), Convert.ToInt32(rdr["mesHorarioPelicula"]), Convert.ToInt32(rdr["diaHorarioPelicula"]))
                     });
                 }
-            }
-            finally
-            {
+            } finally {
                 if (rdr != null) { rdr.Close(); }
                 if (transaction != null) { transaction.Commit(); }
                 if (hdb != null) { hdb.Close(); }
@@ -477,23 +422,19 @@ namespace ELCOLOMBIANO.EcCines.Entities
         /// </summary>
         /// <param name="id">Record to locate</param>
         /// <returns>List of hours for movie.</returns>
-        public List<MovieShowHour> getMovieShowHoursFor(int id)
-        {
+        public List<MovieShowHour> getMovieShowHoursFor(int id) {
             string sql = "select * from tbl_hora where idHorarioPelicula = @id order by horaPelicula, minutoPelicula ";
             List<MovieShowHour> movieHours = new List<MovieShowHour>();
             HandleDatabase hdb = null;
             SqlTransaction transaction = null;
             SqlDataReader rdr = null;
-            try
-            {
+            try {
                 hdb = new HandleDatabase(Settings.Connection);
                 hdb.Open();
                 transaction = hdb.BeginTransaction("getMovieHoursFor");
                 rdr = hdb.ExecSelectSQLStmtAsReader(transaction, sql, new SqlParameter() { ParameterName = "@id", Value = id, SqlDbType = SqlDbType.BigInt });
-                while (rdr.Read())
-                {
-                    movieHours.Add(new MovieShowHour()
-                    {
+                while (rdr.Read()) {
+                    movieHours.Add(new MovieShowHour() {
                         id = Convert.ToInt32(rdr["idHora"]),
                         timeHour = Convert.ToInt32(rdr["horaPelicula"]),
                         timeMinute = Convert.ToInt32(rdr["minutoPelicula"])
@@ -501,24 +442,19 @@ namespace ELCOLOMBIANO.EcCines.Entities
                 }
 
                 // Let's fill field timeFull
-                movieHours.ForEach(h =>
-                {
+                movieHours.ForEach(h => {
                     string ampm = "am";
                     int hour = h.timeHour;
-                    if (hour > 12)
-                    {
+                    if (hour > 12) {
                         ampm = "pm";
                         hour -= 12;
                     }
-                    if (hour == 12)
-                    {
+                    if (hour == 12) {
                         ampm = "pm";
                     }
                     h.timeFull = hour + ":" + h.timeMinute.ToString().PadLeft(2, '0') + " " + ampm;
                 });
-            }
-            finally
-            {
+            } finally {
                 if (rdr != null) { rdr.Close(); }
                 if (transaction != null) { transaction.Commit(); }
                 if (hdb != null) { hdb.Close(); }

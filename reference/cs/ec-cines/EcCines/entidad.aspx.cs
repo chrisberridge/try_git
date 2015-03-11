@@ -3,7 +3,7 @@
 /* Description:   CRUD for TBL_ENTIDAD                                      */
 /* Author:        Carlos Adolfo Ortiz Quirós (COQ)                          */
 /* Date:          Feb.18/2015                                               */
-/* Last Modified: Mar.04/2015                                               */
+/* Last Modified: Mar.11/2015                                               */
 /* Version:       1.3                                                       */
 /* Copyright (c), 2015 Arkix, El Colombiano                                 */
 /*==========================================================================*/
@@ -13,23 +13,19 @@ History
 Feb.18/2015 COQ File created.
 ============================================================================*/
 
-using ELCOLOMBIANO.EcCines.Entities;
-using ELCOLOMBIANO.EcCines.Entities.Dtos;
 using System;
 using System.Collections.Generic;
+using ELCOLOMBIANO.EcCines.Entities;
+using ELCOLOMBIANO.EcCines.Entities.Dtos;
 
-namespace EcCines
-{
+namespace EcCines {
     /// <summary>
     /// CRUD for TBL_ENTIDAD
     /// </summary>
-    public partial class entidad : System.Web.UI.Page
-    {
-        private void CargarGridInfoData()
-        {
+    public partial class entidad : System.Web.UI.Page {
+        private void CargarGridInfoData() {
             var entList = new Entidad().obtenerValoresEntidad(listaEntidades.SelectedValue);
-            if (entList.Count > 0)
-            {
+            if (entList.Count > 0) {
                 btnActualizar.Visible = btnEliminar.Visible = false;
             }
             grdInfo.DataSource = entList;
@@ -37,22 +33,18 @@ namespace EcCines
             grdInfo.DataBind();
         }
 
-        private bool ValidarCampos()
-        {
+        private bool ValidarCampos() {
             bool rslt = true;
-            if (txtEntidad.Text == "")
-            {
+            if (txtEntidad.Text == "") {
                 rslt = false;
             }
-            if (txtDescEntidad.Text == "")
-            {
+            if (txtDescEntidad.Text == "") {
                 rslt = false;
             }
             return rslt;
         }
 
-        private void PoblarListaEntidades()
-        {
+        private void PoblarListaEntidades() {
             ParametroSistema daoPs = new ParametroSistema();
             List<ParametroSistemaDto> sysParamList = daoPs.ObtenerValoresParametroSistema();
             List<KeyValue> l = new List<KeyValue>();
@@ -64,30 +56,26 @@ namespace EcCines
             listaEntidades.DataBind();
         }
 
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            if (Session["autenticado"]==null || !(bool)Session["autenticado"]) Response.Redirect("Default.aspx");
-            if (!IsPostBack)
-            {
+        protected void Page_Load(object sender, EventArgs e) {
+            if (Session["autenticado"] == null || !(bool)Session["autenticado"])
+                Response.Redirect("Default.aspx");
+            if (!IsPostBack) {
                 PoblarListaEntidades();
                 btnNuevo.Visible = btnEliminar.Visible = btnActualizar.Visible = btnCancelar.Visible = false;
             }
             lblMsg.Text = lblError.Text = "";
         }
 
-        protected void OnListaEntidadesIndexChanged(object sender, EventArgs e)
-        {
+        protected void OnListaEntidadesIndexChanged(object sender, EventArgs e) {
             CargarGridInfoData();
             btnNuevo.Visible = (listaEntidades.SelectedValue != "-1");
         }
 
-        protected void OnGridInfoSelectedIndexChanged(object sender, EventArgs e)
-        {
+        protected void OnGridInfoSelectedIndexChanged(object sender, EventArgs e) {
             Entidad entDao = new Entidad();
             var idToLocate = Convert.ToInt32(grdInfo.DataKeys[grdInfo.SelectedIndex].Value);
             EntidadDto r = entDao.obtenerValorEntidad(idToLocate);
-            if (r != null)
-            {
+            if (r != null) {
                 txtEntidad.Text = r.valorEntidad;
                 txtDescEntidad.Text = r.descripcionEntidad;
                 btnNuevo.Visible = false;
@@ -95,34 +83,27 @@ namespace EcCines
             }
         }
 
-        protected void OnGridInfoPageIndexChanging(object sender, System.Web.UI.WebControls.GridViewPageEventArgs e)
-        {
+        protected void OnGridInfoPageIndexChanging(object sender, System.Web.UI.WebControls.GridViewPageEventArgs e) {
             grdInfo.DataSource = new Entidad().obtenerValoresEntidad(listaEntidades.SelectedValue);
             grdInfo.PageIndex = e.NewPageIndex;
             grdInfo.DataBind();
         }
 
-        protected void OnButtonNuevo(object sender, EventArgs e)
-        {
+        protected void OnButtonNuevo(object sender, EventArgs e) {
             lblMsg.Text = lblError.Text = "";
-            if (!ValidarCampos())
-            {
-                if (listaEntidades.SelectedValue == "-1")
-                {
+            if (!ValidarCampos()) {
+                if (listaEntidades.SelectedValue == "-1") {
                     lblError.Text = "Debe seleccionar un valor de entidad para crear un nuevo registro.";
                 }
-                else
-                {
+                else {
                     lblError.Text = "No ha ingresado datos para crear.";
                 }
             }
-            else
-            {
+            else {
                 ParametroSistema daoPs = new ParametroSistema();
                 ParametroSistemaDto ps = daoPs.ObtenerValorParametroSistema(listaEntidades.SelectedValue.ToString());
 
-                if (ps != null)
-                {
+                if (ps != null) {
                     Entidad daoEnt = new Entidad();
                     EntidadDto entInfo = new EntidadDto() { idEntidad = 0, codEntidad = Convert.ToInt32(ps.valorParametro), nombreEntidad = ps.descValorParametro, valorEntidad = txtEntidad.Text, descripcionEntidad = txtDescEntidad.Text };
                     daoEnt.crearEntidad(entInfo, 1);
@@ -135,34 +116,25 @@ namespace EcCines
             }
         }
 
-        protected void OnButtonEliminar(object sender, EventArgs e)
-        {
+        protected void OnButtonEliminar(object sender, EventArgs e) {
             lblMsg.Text = lblError.Text = "";
-            if (grdInfo.SelectedIndex == -1)
-            {
+            if (grdInfo.SelectedIndex == -1) {
                 lblError.Text = "No ha seleccionado un registro para eliminar.";
             }
-            else
-            {
+            else {
                 Entidad daoEnt = new Entidad();
                 var idToLocate = Convert.ToInt32(grdInfo.DataKeys[grdInfo.SelectedIndex].Value);
                 EntidadDto r = daoEnt.obtenerValorEntidad(idToLocate);
-                if (r != null)
-                {
-                    try
-                    {
+                if (r != null) {
+                    try {
                         var rslt = daoEnt.crearEntidad(r, 3);
-                        if (rslt == -1)
-                        {
+                        if (rslt == -1) {
                             lblError.Text = "El registro de entidad a eliminar no se puede eliminar ya que tiene referencias en el sistema.";
                         }
-                        else
-                        {
+                        else {
                             lblMsg.Text = "Registro eliminado con éxito.";
                         }
-                    }
-                    catch (Exception)
-                    {
+                    } catch (Exception) {
                         lblError.Text = "El registro de entidad a eliminar no se puede eliminar ya que tiene referencias en el sistema.";
                     }
                     CargarGridInfoData();
@@ -173,20 +145,16 @@ namespace EcCines
             }
         }
 
-        protected void OnButtonActualizar(object sender, EventArgs e)
-        {
+        protected void OnButtonActualizar(object sender, EventArgs e) {
             lblMsg.Text = lblError.Text = "";
-            if (!ValidarCampos())
-            {
+            if (!ValidarCampos()) {
                 lblError.Text = "No ha ingresado datos para actualizar.";
             }
-            else
-            {
+            else {
                 Entidad daoEnt = new Entidad();
                 var idToLocate = Convert.ToInt32(grdInfo.DataKeys[grdInfo.SelectedIndex].Value);
                 EntidadDto r = daoEnt.obtenerValorEntidad(idToLocate);
-                if (r != null)
-                {
+                if (r != null) {
                     r.valorEntidad = txtEntidad.Text;
                     r.descripcionEntidad = txtDescEntidad.Text;
                     daoEnt.crearEntidad(r, 2);
@@ -199,8 +167,7 @@ namespace EcCines
             }
         }
 
-        protected void OnButtonCancelar(object sender, EventArgs e)
-        {
+        protected void OnButtonCancelar(object sender, EventArgs e) {
             lblMsg.Text = lblError.Text = "";
             txtDescEntidad.Text = txtEntidad.Text = "";
             btnNuevo.Visible = true;

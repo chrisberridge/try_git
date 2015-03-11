@@ -3,7 +3,7 @@
 /* Description:   Helper class to assist with database operations.          */
 /* Author:        Carlos Adolfo Ortiz Quirós (COQ)                          */
 /* Date:          Jul.18/2013                                               */
-/* Last Modified: Feb.21/2015                                               */
+/* Last Modified: Mar.11/2015                                               */
 /* Version:       1.5                                                       */
 /* Copyright (c), 2013, 2015 Arkix, El Colombiano                           */
 /*==========================================================================*/
@@ -17,13 +17,11 @@ using System;
 using System.Data;
 using System.Data.SqlClient;
 
-namespace ELCOLOMBIANO.EcCines.Data
-{
+namespace ELCOLOMBIANO.EcCines.Data {
     /// <summary>
     /// Helper class to assist with database operations.
     /// </summary>
-    public class HandleDatabase : IDisposable
-    {
+    public class HandleDatabase : IDisposable {
         private string _connectionPath = "Data Source=medvrt02;Initial Catalog=SalaEdicion4;User ID=se4;Password=se4;";
         private SqlConnection _conn;
         private bool open = false;
@@ -31,8 +29,7 @@ namespace ELCOLOMBIANO.EcCines.Data
         /// <summary>
         /// Default constructor
         /// </summary>
-        public HandleDatabase()
-        {
+        public HandleDatabase() {
             _conn = new SqlConnection(_connectionPath);
         }
 
@@ -40,16 +37,14 @@ namespace ELCOLOMBIANO.EcCines.Data
         /// Constructor using a supplied connection string
         /// </summary>
         /// <param name="connectionPath">Valid Microsoft SQL Server Connection string</param>
-        public HandleDatabase(string connectionPath)
-        {
+        public HandleDatabase(string connectionPath) {
             _conn = new SqlConnection(connectionPath);
         }
 
         /// <summary>
         /// Open connection to databse
         /// </summary>
-        public void Open()
-        {
+        public void Open() {
             _conn.Open();
             open = true;
         }
@@ -57,8 +52,7 @@ namespace ELCOLOMBIANO.EcCines.Data
         /// <summary>
         /// Close connection to database
         /// </summary>
-        public void Close()
-        {
+        public void Close() {
             if (open)
                 _conn.Close();
         }
@@ -67,10 +61,8 @@ namespace ELCOLOMBIANO.EcCines.Data
         /// Dispose of resources.
         /// </summary>
         /// <param name="disposing">True to dispose</param>
-        protected virtual void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
+        protected virtual void Dispose(bool disposing) {
+            if (disposing) {
                 this.Close();
             }
         }
@@ -78,8 +70,7 @@ namespace ELCOLOMBIANO.EcCines.Data
         /// <summary>
         /// not to virtually overriden.
         /// </summary>
-        public void Dispose()
-        {
+        public void Dispose() {
             Dispose(true);
             GC.SuppressFinalize(this);
         }
@@ -90,16 +81,14 @@ namespace ELCOLOMBIANO.EcCines.Data
         /// <param name="sql">SQL statement to use, it can be INSERT, DELETE, UPDATE, SELECT.</param>
         /// <param name="parameters">List of named parameters to use.</param>
         /// <returns>SqlDataReader to process data</returns>
-        public int ExecuteSelectSQLStmtAsScalar(SqlTransaction trn, string sql, params SqlParameter[] parameters)
-        {
+        public int ExecuteSelectSQLStmtAsScalar(SqlTransaction trn, string sql, params SqlParameter[] parameters) {
             int rslt = 0;
             SqlCommand cmd = _conn.CreateCommand();
             cmd.CommandTimeout = 3600;
             cmd.CommandText = sql;
             cmd.Transaction = trn;
             cmd.CommandType = CommandType.Text;
-            if (parameters != null && parameters.Length > 0)
-            {
+            if (parameters != null && parameters.Length > 0) {
                 foreach (var p in parameters)
                     cmd.Parameters.Add(p);
             }
@@ -115,15 +104,13 @@ namespace ELCOLOMBIANO.EcCines.Data
         /// <param name="sql">SQL statement to use, it can be INSERT, DELETE, UPDATE, SELECT.</param>
         /// <param name="parameters">List of named parameters to use.</param>
         /// <returns>SqlDataReader to process data</returns>
-        public SqlDataReader ExecSelectSQLStmtAsReader(SqlTransaction trn, string sql, params SqlParameter[] parameters)
-        {
+        public SqlDataReader ExecSelectSQLStmtAsReader(SqlTransaction trn, string sql, params SqlParameter[] parameters) {
             SqlCommand cmd = _conn.CreateCommand();
             cmd.CommandTimeout = 3600;
             cmd.CommandText = sql;
             cmd.Transaction = trn;
             cmd.CommandType = CommandType.Text;
-            if (parameters != null && parameters.Length > 0)
-            {
+            if (parameters != null && parameters.Length > 0) {
                 foreach (var p in parameters)
                     cmd.Parameters.Add(p);
             }
@@ -138,15 +125,13 @@ namespace ELCOLOMBIANO.EcCines.Data
         /// <param name="trn">Transaction scope to use</param>
         /// <param name="sql">SQL statement to use, it can be INSERT, DELETE, UPDATE, SELECT.</param>
         /// <param name="parameters">List of named parameters to use.</param>
-        public void ExecSQLStmt(SqlTransaction trn, string sql, params SqlParameter[] parameters)
-        {
+        public void ExecSQLStmt(SqlTransaction trn, string sql, params SqlParameter[] parameters) {
             SqlCommand cmd = _conn.CreateCommand();
             cmd.CommandTimeout = 3600;
             cmd.CommandText = sql;
             cmd.Transaction = trn;
             cmd.CommandType = CommandType.Text;
-            if (parameters != null && parameters.Length > 0)
-            {
+            if (parameters != null && parameters.Length > 0) {
                 foreach (var p in parameters)
                     cmd.Parameters.Add(p);
             }
@@ -158,8 +143,7 @@ namespace ELCOLOMBIANO.EcCines.Data
         /// Start a local transaction
         /// </summary>
         /// <returns>A reference to the transaction</returns>
-        public SqlTransaction BeginTransaction()
-        {
+        public SqlTransaction BeginTransaction() {
             // Start a local transaction.            
             return _conn.BeginTransaction(IsolationLevel.ReadCommitted);
         }
@@ -169,44 +153,8 @@ namespace ELCOLOMBIANO.EcCines.Data
         /// </summary>
         /// <param name="trnName">Transaction name</param>
         /// <returns>A reference to the transaction</returns>
-        public SqlTransaction BeginTransaction(string trnName)
-        {
+        public SqlTransaction BeginTransaction(string trnName) {
             return _conn.BeginTransaction(IsolationLevel.ReadCommitted, trnName);
-        }
-
-
-        public static DataTable ExecuteTableSP(string cnnStr,
-            string procedure, params SqlParameter[] args)
-        {
-            DataTable dt = new DataTable();
-
-            using (SqlConnection cnn = new SqlConnection(cnnStr))
-            {
-                cnn.Open();
-
-                using (SqlCommand cmd = new SqlCommand())
-                {
-                    cmd.Connection = cnn;
-                    cmd.CommandType = CommandType.StoredProcedure;
-                    cmd.CommandText = procedure;
-                    cmd.CommandTimeout = 60;
-
-                    if (args != null && args.Length > 0)
-                    {
-                        foreach (SqlParameter p in args)
-                        {
-                            cmd.Parameters.Add(p);
-                        }
-                    }
-
-                    using (SqlDataAdapter da = new SqlDataAdapter(cmd))
-                    {
-                        da.Fill(dt);
-                    }
-                }
-            }
-
-            return dt;
         }
     }
 }

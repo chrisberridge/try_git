@@ -3,7 +3,7 @@
 /* Description:   Helper class with utility methods.                        */
 /* Author:        Carlos Adolfo Ortiz Quirós (COQ)                          */
 /* Date:          Feb.11/2015                                               */
-/* Last Modified: Feb.26/2015                                               */
+/* Last Modified: Mar.11/2015                                               */
 /* Version:       1.5                                                       */
 /* Copyright (c), 2015 Arkix, El Colombiano                                 */
 /*==========================================================================*/
@@ -13,15 +13,11 @@ History
 Feb.11/2015 COQ File created.
 ============================================================================*/
 
-namespace ELCOLOMBIANO.EcCines.Common
-{
-    public static class Util
-    {
-        public static string getNombreDiaEspañol(string ingles)
-        {
+namespace ELCOLOMBIANO.EcCines.Common {
+    public static class Util {
+        public static string getNombreDiaEspañol(string ingles) {
             string nombre = null;
-            switch (ingles)
-            {
+            switch (ingles) {
                 case "Monday":
                     nombre = "Lunes";
                     break;
@@ -42,19 +38,17 @@ namespace ELCOLOMBIANO.EcCines.Common
                     break;
                 case "Sunday":
                     nombre = "Domingo";
-                    break; 
+                    break;
                 default:
                     nombre = ingles;
-                    break;                  
+                    break;
             }
             return nombre;
         }
 
-        public static int getNumeroDia(string ingles)
-        {
+        public static int getNumeroDia(string ingles) {
             int numero = 0;
-            switch (ingles)
-            {
+            switch (ingles) {
                 case "Monday":
                     numero = 1;
                     break;

@@ -1,17 +1,10 @@
-﻿using ELCOLOMBIANO.EcCines.Business;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System;
 using System.Web.UI;
-using System.Web.UI.WebControls;
+using ELCOLOMBIANO.EcCines.Business;
 
-namespace EcCines
-{
-    public partial class Default : System.Web.UI.Page
-    {
-        protected void Page_Load(object sender, EventArgs e)
-        {
+namespace EcCines {
+    public partial class Default : System.Web.UI.Page {
+        protected void Page_Load(object sender, EventArgs e) {
 
         }
 
@@ -20,29 +13,24 @@ namespace EcCines
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        protected void AutenticarUsuario(object sender, EventArgs e)
-        {
-            if (string.IsNullOrEmpty(txtUsuario.Text) && string.IsNullOrEmpty(txtContrasena.Text))
-            {
+        protected void AutenticarUsuario(object sender, EventArgs e) {
+            if (string.IsNullOrEmpty(txtUsuario.Text) && string.IsNullOrEmpty(txtContrasena.Text)) {
                 MostrarMsg(TipoMensaje.Error, "Ingrese el usuario y la contraseña");
                 txtUsuario.Focus();
                 return;
             }
-            if (string.IsNullOrEmpty(txtUsuario.Text))
-            {
+            if (string.IsNullOrEmpty(txtUsuario.Text)) {
                 MostrarMsg(TipoMensaje.Error, "Ingrese el usuario");
                 txtUsuario.Focus();
                 return;
             }
-            if (string.IsNullOrEmpty(txtContrasena.Text))
-            {
+            if (string.IsNullOrEmpty(txtContrasena.Text)) {
                 MostrarMsg(TipoMensaje.Error, "Ingrese la contraseña");
                 txtContrasena.Focus();
                 return;
             }
             Session["autenticado"] = txtUsuario.Text == Settings.Usuario && txtContrasena.Text == Settings.Contrasena;
-            if ((bool)Session["autenticado"])
-            {
+            if ((bool)Session["autenticado"]) {
                 Session.Timeout = 60;
                 Response.Redirect("Index.aspx");
             }
@@ -54,10 +42,8 @@ namespace EcCines
         /// </summary>
         /// <param name="t">TipoMensaje</param>
         /// <param name="mensaje">string</param>
-        public void MostrarMsg(TipoMensaje t, string mensaje)
-        {
-            switch (t)
-            {
+        public void MostrarMsg(TipoMensaje t, string mensaje) {
+            switch (t) {
                 case TipoMensaje.Informacion:
                     var js1 = string.Format("toastr.info('{0}');", mensaje);
                     ScriptManager.RegisterStartupScript(this, typeof(Page), Guid.NewGuid().ToString(), js1, true);
@@ -77,8 +63,7 @@ namespace EcCines
         /// <summary>
         /// Define los tres tipos de mensajes que se pueden mostrar
         /// </summary>
-        public enum TipoMensaje
-        {
+        public enum TipoMensaje {
             Informacion,
             Error,
             Advertencia

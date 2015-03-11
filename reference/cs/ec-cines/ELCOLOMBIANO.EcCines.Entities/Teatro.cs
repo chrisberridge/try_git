@@ -3,7 +3,7 @@
 /* Description:   Helper database access to TEATRO                          */
 /* Author:        Carlos Adolfo Ortiz Quirós (COQ)                          */
 /* Date:          Feb.21/2015                                               */
-/* Last Modified: Mar.03/2015                                               */
+/* Last Modified: Mar.11/2015                                               */
 /* Version:       1.2                                                       */
 /* Copyright (c), 2015 Arkix, El Colombiano                                 */
 /*==========================================================================*/
@@ -13,33 +13,29 @@ History
 Feb.21/2015 COQ File created.
 ============================================================================*/
 
-using ELCOLOMBIANO.EcCines.Business;
-using ELCOLOMBIANO.EcCines.Data;
-using ELCOLOMBIANO.EcCines.Entities.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using ELCOLOMBIANO.EcCines.Business;
+using ELCOLOMBIANO.EcCines.Data;
+using ELCOLOMBIANO.EcCines.Entities.Dtos;
 
-namespace ELCOLOMBIANO.EcCines.Entities
-{
+namespace ELCOLOMBIANO.EcCines.Entities {
     /// <summary>
     /// Helper database access to TEATRO 
     /// </summary>
-    public class Teatro
-    {
+    public class Teatro {
         /// <summary>
         /// Puts info into DB.
         /// </summary>
         /// <param name="info">Record information to submit</param>
         /// <param name="op">Which kind to operation to make. 1:Insert, 2:update, 3:delete</param>
         /// <returns>Identity ID for just created record.</returns>
-        public int crearTeatro(TeatroDto info, int op)
-        {
+        public int crearTeatro(TeatroDto info, int op) {
             HandleDatabase hdb = null;
             SqlTransaction transaction = null;
-            try
-            {
+            try {
                 int rslt = 0;
                 List<SqlParameter> paramList = new List<SqlParameter>();
                 paramList.Add(new SqlParameter() { ParameterName = "@operacion", Value = op, SqlDbType = SqlDbType.Int });
@@ -59,13 +55,9 @@ namespace ELCOLOMBIANO.EcCines.Entities
                 transaction = hdb.BeginTransaction("crearCine");
                 rslt = hdb.ExecuteSelectSQLStmtAsScalar(transaction, sql, paramList.ToArray());
                 return rslt;
-            }
-            catch (Exception)
-            {
+            } catch (Exception) {
                 return -1;
-            }
-            finally
-            {
+            } finally {
                 if (transaction != null) { transaction.Commit(); }
                 if (hdb != null) { hdb.Close(); }
             }
@@ -76,13 +68,11 @@ namespace ELCOLOMBIANO.EcCines.Entities
         /// </summary>
         /// <param name="id">Filter to use</param>
         /// <returns>NULL if no record found.</returns>
-        public TeatroDto getTeatro(int id)
-        {
+        public TeatroDto getTeatro(int id) {
             SqlTransaction transaction = null;
             SqlDataReader rdr = null;
             HandleDatabase hdb = null;
-            try
-            {
+            try {
                 TeatroDto r = null;
                 hdb = new HandleDatabase(Settings.Connection);
                 hdb.Open();
@@ -93,11 +83,9 @@ namespace ELCOLOMBIANO.EcCines.Entities
                 string sql = "sp_obtenerTeatro @id";
                 transaction = hdb.BeginTransaction("getTeatro");
                 rdr = hdb.ExecSelectSQLStmtAsReader(transaction, sql, param);
-                if (rdr.HasRows)
-                {
+                if (rdr.HasRows) {
                     rdr.Read();
-                    r = new TeatroDto()
-                    {
+                    r = new TeatroDto() {
                         idTeatro = Convert.ToInt32(rdr["idteatro"]),
                         idCine = Convert.ToInt32(rdr["idcine"]),
                         nombreTeatro = rdr["nombreteatro"].ToString(),
@@ -108,38 +96,30 @@ namespace ELCOLOMBIANO.EcCines.Entities
                         idDepeartamentoTeatro = Convert.ToInt32(rdr["idDepartamentoTeatro"]),
                         direccionTeatro = rdr["direccionteatro"].ToString()
                     };
-                }    
+                }
                 return r;
-            }
-            catch (Exception)
-            {
+            } catch (Exception) {
                 return null;
-            }
-            finally
-            {
+            } finally {
                 if (rdr != null) { rdr.Close(); }
                 if (transaction != null) { transaction.Commit(); }
                 if (hdb != null) { hdb.Close(); }
             }
         }
 
-        public List<TeatroDto> getTeatros()
-        {
+        public List<TeatroDto> getTeatros() {
             HandleDatabase hdb = null;
             SqlTransaction transaction = null;
             SqlDataReader rdr = null;
-            try
-            {
+            try {
                 List<TeatroDto> lstTeatros = new List<TeatroDto>();
                 hdb = new HandleDatabase(Settings.Connection);
                 hdb.Open();
                 String sql = "sp_obtenerTeatros";
                 transaction = hdb.BeginTransaction("getTeatros");
                 rdr = hdb.ExecSelectSQLStmtAsReader(transaction, sql);
-                while (rdr.Read())
-                {
-                    lstTeatros.Add(new TeatroDto()
-                    {
+                while (rdr.Read()) {
+                    lstTeatros.Add(new TeatroDto() {
                         idTeatro = Convert.ToInt32(rdr["idteatro"]),
                         idCine = Convert.ToInt32(rdr["idcine"]),
                         nombreTeatro = rdr["nombreteatro"].ToString(),
@@ -150,38 +130,30 @@ namespace ELCOLOMBIANO.EcCines.Entities
                         idDepeartamentoTeatro = Convert.ToInt32(rdr["idDepeartamentoTeatro"]),
                         direccionTeatro = rdr["direccionteatro"].ToString()
                     });
-                }               
+                }
                 return lstTeatros;
-            }
-            catch (Exception)
-            {
+            } catch (Exception) {
                 return null;
-            }
-            finally
-            {
+            } finally {
                 if (rdr != null) { rdr.Close(); }
                 if (transaction != null) { transaction.Commit(); }
                 if (hdb != null) { hdb.Close(); }
             }
         }
 
-        public List<TeatroExDto> getTeatrosEx()
-        {
+        public List<TeatroExDto> getTeatrosEx() {
             SqlDataReader rdr = null;
             SqlTransaction transaction = null;
             HandleDatabase hdb = null;
-            try
-            {
+            try {
                 List<TeatroExDto> lstTeatros = new List<TeatroExDto>();
                 hdb = new HandleDatabase(Settings.Connection);
                 hdb.Open();
                 String sql = "sp_obtenerExTeatros";
                 transaction = hdb.BeginTransaction("getTeatrosEx");
                 rdr = hdb.ExecSelectSQLStmtAsReader(transaction, sql);
-                while (rdr.Read())
-                {
-                    lstTeatros.Add(new TeatroExDto()
-                    {
+                while (rdr.Read()) {
+                    lstTeatros.Add(new TeatroExDto() {
                         idTeatro = Convert.ToInt32(rdr["idteatro"]),
                         idCine = Convert.ToInt32(rdr["idcine"]),
                         nombreTeatro = rdr["nombreteatro"].ToString(),
@@ -195,15 +167,11 @@ namespace ELCOLOMBIANO.EcCines.Entities
                         nombreMunicipio = rdr["nombreMunicipio"].ToString(),
                         nombreDepartamento = rdr["nombreDepartamento"].ToString()
                     });
-                }                
+                }
                 return lstTeatros;
-            }
-            catch (Exception)
-            {
+            } catch (Exception) {
                 return null;
-            }
-            finally
-            {
+            } finally {
                 if (rdr != null) { rdr.Close(); }
                 if (transaction != null) { transaction.Commit(); }
                 if (hdb != null) { hdb.Close(); }

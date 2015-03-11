@@ -1,9 +1,9 @@
 ﻿/*==========================================================================*/
 /* Source File:   ENTIDAD.CS                                                */
-/* Description:  Helper database access to ENTIDAD                          */
+/* Description:   Helper database access to ENTIDAD                         */
 /* Author:        Leonardino Lima (LLI)                                     */
 /* Date:          Feb.11/2015                                               */
-/* Last Modified: Mar.03/2015                                               */
+/* Last Modified: Mar.11/2015                                               */
 /* Version:       1.2                                                       */
 /* Copyright (c), 2015 Arkix, El Colombiano                                 */
 /*==========================================================================*/
@@ -13,33 +13,29 @@ History
 Feb.11/2015 COQ File created.
 ============================================================================*/
 
-using ELCOLOMBIANO.EcCines.Business;
-using ELCOLOMBIANO.EcCines.Data;
-using ELCOLOMBIANO.EcCines.Entities.Dtos;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using ELCOLOMBIANO.EcCines.Business;
+using ELCOLOMBIANO.EcCines.Data;
+using ELCOLOMBIANO.EcCines.Entities.Dtos;
 
-namespace ELCOLOMBIANO.EcCines.Entities
-{
+namespace ELCOLOMBIANO.EcCines.Entities {
     /// <summary>
     /// Helper database access to ENTIDAD.
     /// </summary>
-    public class Entidad
-    {
+    public class Entidad {
         /// <summary>
         /// Puts info into DB.
         /// </summary>
         /// <param name="info">Record information to submit</param>
         /// <param name="op">Which kind to operation to make. 1:Insert, 2:update, 3:delete</param>
         /// <returns>Identity ID for just created record.</returns>
-        public int crearEntidad(EntidadDto info, int op)
-        {
+        public int crearEntidad(EntidadDto info, int op) {
             HandleDatabase hdb = null;
             SqlTransaction transaction = null;
-            try
-            {
+            try {
                 int rslt = 0;
                 List<SqlParameter> paramList = new List<SqlParameter>();
                 paramList.Add(new SqlParameter() { ParameterName = "@operacion", Value = op, SqlDbType = SqlDbType.Int });
@@ -55,13 +51,9 @@ namespace ELCOLOMBIANO.EcCines.Entities
                 transaction = hdb.BeginTransaction("crearEntidad");
                 rslt = hdb.ExecuteSelectSQLStmtAsScalar(transaction, sql, paramList.ToArray());
                 return rslt;
-            }
-            catch (Exception)
-            {
+            } catch (Exception) {
                 return -1;
-            }
-            finally
-            {
+            } finally {
                 if (transaction != null) { transaction.Commit(); }
                 if (hdb != null) { hdb.Close(); }
             }
@@ -72,13 +64,11 @@ namespace ELCOLOMBIANO.EcCines.Entities
         /// </summary>
         /// <param name="id">id to match</param>
         /// <returns>NULL if not found, else record information</returns>
-        public EntidadDto obtenerValorEntidad(int id)
-        {
+        public EntidadDto obtenerValorEntidad(int id) {
             HandleDatabase hdb = null;
             SqlTransaction transaction = null;
             SqlDataReader rdr = null;
-            try
-            {
+            try {
                 EntidadDto r = null;
                 hdb = new HandleDatabase(Settings.Connection);
                 hdb.Open();
@@ -89,8 +79,7 @@ namespace ELCOLOMBIANO.EcCines.Entities
                 String sql = "sp_obtenerValorEntidad @id";
                 transaction = hdb.BeginTransaction("obtenerValorEntidad");
                 rdr = hdb.ExecSelectSQLStmtAsReader(transaction, sql, param);
-                if (rdr.HasRows)
-                {
+                if (rdr.HasRows) {
                     rdr.Read();
                     r = new EntidadDto();
                     r.idEntidad = Convert.ToInt32(rdr["IDENTIDAD"]);
@@ -100,13 +89,9 @@ namespace ELCOLOMBIANO.EcCines.Entities
                     r.descripcionEntidad = rdr["DESCRIPCIONENTIDAD"].ToString();
                 }
                 return r;
-            }
-            catch (Exception)
-            {
+            } catch (Exception) {
                 return null;
-            }
-            finally
-            {
+            } finally {
                 if (rdr != null) { rdr.Close(); }
                 if (transaction != null) { transaction.Commit(); }
                 if (hdb != null) { hdb.Close(); }
@@ -118,13 +103,11 @@ namespace ELCOLOMBIANO.EcCines.Entities
         /// </summary>
         /// <param name="nombreEntidad">The entity to retrieve from</param>
         /// <returns>A list of EntidadDto objects, empty if no records found</returns>
-        public List<EntidadDto> obtenerValoresEntidad(string nombreEntidad)
-        {
+        public List<EntidadDto> obtenerValoresEntidad(string nombreEntidad) {
             HandleDatabase hdb = null;
             SqlTransaction transaction = null;
             SqlDataReader rdr = null;
-            try
-            {
+            try {
                 List<EntidadDto> listaResultado = new List<EntidadDto>();
                 hdb = new HandleDatabase(Settings.Connection);
                 hdb.Open();
@@ -136,8 +119,7 @@ namespace ELCOLOMBIANO.EcCines.Entities
                 transaction = hdb.BeginTransaction(sql);
                 rdr = hdb.ExecSelectSQLStmtAsReader(transaction, sql, param);
                 EntidadDto entidad;
-                while (rdr.Read())
-                {
+                while (rdr.Read()) {
                     entidad = new EntidadDto();
                     entidad.idEntidad = Convert.ToInt32(rdr["IDENTIDAD"]);
                     entidad.codEntidad = Convert.ToInt32(rdr["CODENTIDAD"]);
@@ -147,13 +129,9 @@ namespace ELCOLOMBIANO.EcCines.Entities
                     listaResultado.Add(entidad);
                 }
                 return listaResultado;
-            }
-            catch (Exception)
-            {
+            } catch (Exception) {
                 return null;
-            }
-            finally
-            {
+            } finally {
                 if (rdr != null) { rdr.Close(); }
                 if (transaction != null) { transaction.Commit(); }
                 if (hdb != null) { hdb.Close(); }

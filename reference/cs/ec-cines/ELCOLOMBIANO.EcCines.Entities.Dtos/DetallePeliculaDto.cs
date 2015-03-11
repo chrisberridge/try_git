@@ -1,10 +1,8 @@
 ﻿using System;
 
-namespace ELCOLOMBIANO.EcCines.Entities.Dtos
-{
-    public class DetallePeliculaDto
-    {        
-        public int idDetallePelicula { get ; set ; }
+namespace ELCOLOMBIANO.EcCines.Entities.Dtos {
+    public class DetallePeliculaDto {
+        public int idDetallePelicula { get; set; }
         public int idPelicula { get; set; }
         public string nombrePelicula { get; set; }
         public int idUsuarioCreador { get; set; }
@@ -15,8 +13,7 @@ namespace ELCOLOMBIANO.EcCines.Entities.Dtos
         public string urlArticuloEc { get; set; }
         public string enCartelera { get; set; }
 
-        public DetallePeliculaDto()
-        {
+        public DetallePeliculaDto() {
             idDetallePelicula = 0;
             idPelicula = 0;
             nombrePelicula = "";

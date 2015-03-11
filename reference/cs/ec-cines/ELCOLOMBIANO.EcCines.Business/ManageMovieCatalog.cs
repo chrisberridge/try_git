@@ -3,8 +3,8 @@
 /* Description:   Project constants                                         */
 /* Author:        Carlos Adolfo Ortiz Quirós (COQ)                          */
 /* Date:          Feb.11/2015                                               */
-/* Last Modified: Mar.09/2015                                               */
-/* Version:       1.9                                                       */
+/* Last Modified: Mar.11/2015                                               */
+/* Version:       1.8                                                       */
 /* Copyright (c), 2015 Arkix, El Colombiano                                 */
 /*==========================================================================*/
 
@@ -13,23 +13,21 @@ History
 Feb.11/2015 COQ File created.
 ============================================================================*/
 
-using ELCOLOMBIANO.EcCines.Entities;
-using ELCOLOMBIANO.EcCines.Entities.Dtos;
-using ELCOLOMBIANO.EcCines.Entities.Dtos.Movie;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using ELCOLOMBIANO.EcCines.Entities;
+using ELCOLOMBIANO.EcCines.Entities.Dtos;
+using ELCOLOMBIANO.EcCines.Entities.Dtos.Movie;
+using Newtonsoft.Json;
 
-namespace ELCOLOMBIANO.EcCines.Business
-{
+namespace ELCOLOMBIANO.EcCines.Business {
     /// <summary>
     /// The purpose for this class is to be a helper to manipulate movie catalog. Dasource comes from MS Server 2012 database.
     /// Records from database are serialized in a defined folder as JSON files for easy processing.
     /// </summary>
-    public class ManageMovieCatalog
-    {
+    public class ManageMovieCatalog {
         private string catalogNameFileName { get; set; }
         private string moviesFileName { get; set; }
         private string imgPathUrl { get; set; }
@@ -41,8 +39,7 @@ namespace ELCOLOMBIANO.EcCines.Business
         /// <param name="moviesFileName">File name for Movie JSON</param>
         /// <param name="imgPathUrl">Used internally to prefix URL domain to images to properly locate
         /// images. NOTE: It is  optional, with a default of empty string.</param>
-        public ManageMovieCatalog(string catalogNameFileName, string moviesFileName, string imgPathUrl = "")
-        {
+        public ManageMovieCatalog(string catalogNameFileName, string moviesFileName, string imgPathUrl = "") {
             this.catalogNameFileName = catalogNameFileName;
             this.moviesFileName = moviesFileName;
             this.imgPathUrl = imgPathUrl;
@@ -52,16 +49,13 @@ namespace ELCOLOMBIANO.EcCines.Business
         /// Main method to compute DB records to JSON files. All JSON files are stored in a
         /// configurable folder.
         /// </summary>
-        public void CompileAllMoviesSchedule()
-        {
+        public void CompileAllMoviesSchedule() {
             Pelicula movieDao = new Pelicula();
             List<MovieFullInfo> movieFullList = movieDao.getMovieFullinfo();
 
             // Normalize image to conform to URI.
-            movieFullList.ForEach(m =>
-            {
-                if (!m.img.Contains("http"))
-                {
+            movieFullList.ForEach(m => {
+                if (!m.img.Contains("http")) {
                     m.img = imgPathUrl + m.img;
                 }
             });
@@ -72,18 +66,14 @@ namespace ELCOLOMBIANO.EcCines.Business
             MovieLocation movieLocationInfo = null;
             MovieFormat movieFormatInfo = null;
             MovieShow movieShowInfo = null;
-            movieFullList.ForEach(mfInfo =>
-            {
+            movieFullList.ForEach(mfInfo => {
                 // Let's first find movie existence
                 var movieExist = movieList.Where(x => x.id == mfInfo.id).FirstOrDefault<Movie>();
-                if (movieExist != null)
-                {
+                if (movieExist != null) {
                     movieInfo = movieExist;
                 }
-                else
-                {
-                    movieInfo = new Movie()
-                    {
+                else {
+                    movieInfo = new Movie() {
                         id = mfInfo.id,
                         name = mfInfo.name,
                         img = mfInfo.img,
@@ -99,14 +89,11 @@ namespace ELCOLOMBIANO.EcCines.Business
                 // Fill remaining data for movieInfo record
                 // 1. Fill Location
                 var movieLocationExist = movieInfo.locations.Where(x => x.id == mfInfo.idLocation).FirstOrDefault<MovieLocation>();
-                if (movieLocationExist != null)
-                {
+                if (movieLocationExist != null) {
                     movieLocationInfo = movieLocationExist;
                 }
-                else
-                {
-                    movieLocationInfo = new MovieLocation()
-                    {
+                else {
+                    movieLocationInfo = new MovieLocation() {
                         id = mfInfo.idLocation,
                         name = mfInfo.nameLocation,
                         branchName = mfInfo.branchName,
@@ -119,14 +106,11 @@ namespace ELCOLOMBIANO.EcCines.Business
 
                 // 2. Fill Format
                 var movieFormatExist = movieLocationInfo.formats.Where(x => x.id == mfInfo.idFormat).FirstOrDefault<MovieFormat>();
-                if (movieFormatExist != null)
-                {
+                if (movieFormatExist != null) {
                     movieFormatInfo = movieFormatExist;
                 }
-                else
-                {
-                    movieFormatInfo = new MovieFormat()
-                    {
+                else {
+                    movieFormatInfo = new MovieFormat() {
                         id = mfInfo.idFormat,
                         name = mfInfo.nameFormat,
                         shows = new List<MovieShow>()
@@ -136,14 +120,11 @@ namespace ELCOLOMBIANO.EcCines.Business
 
                 // 3. Fill Show
                 var movieShowExist = movieFormatInfo.shows.Where(x => x.id == mfInfo.idShow).FirstOrDefault<MovieShow>();
-                if (movieShowExist != null)
-                {
+                if (movieShowExist != null) {
                     movieShowInfo = movieShowExist;
                 }
-                else
-                {
-                    movieShowInfo = new MovieShow()
-                    {
+                else {
+                    movieShowInfo = new MovieShow() {
                         id = mfInfo.idShow,
                         dt = mfInfo.dt,
                         hours = movieDao.getMovieShowHoursFor(mfInfo.idShow)
@@ -172,10 +153,8 @@ namespace ELCOLOMBIANO.EcCines.Business
             mc.genres = new List<MovieGenreShort>();
 
             // 1. Load Movie Name list
-            movieList.ForEach(movie =>
-            {
-                MovieShortFormat movieShort = new MovieShortFormat()
-                {
+            movieList.ForEach(movie => {
+                MovieShortFormat movieShort = new MovieShortFormat() {
                     id = movie.id,
                     name = movie.name,
                     formats = new List<MovieFormatShort>()
@@ -184,11 +163,9 @@ namespace ELCOLOMBIANO.EcCines.Business
                 // Now load formats 
                 movie.locations.ForEach(movieLocation =>
                 movieLocation.formats.ForEach(
-                    movieFormat =>
-                    {
+                    movieFormat => {
                         var formatExist = movieShort.formats.Where(x => x.id == movieFormat.id).FirstOrDefault<MovieFormatShort>();
-                        if (formatExist == null)
-                        {
+                        if (formatExist == null) {
                             movieShort.formats.Add(new MovieFormatShort() { id = movieFormat.id, name = movieFormat.name });
                         }
                     }
@@ -200,23 +177,19 @@ namespace ELCOLOMBIANO.EcCines.Business
             // End 1.Load Movie Name List
 
             // 2. Movie Formats Name list and 3. Movie Genre Name list and 4. Load all theaters referenced in the schedule.
-            movieFullList.ForEach(movie =>
-            {
+            movieFullList.ForEach(movie => {
                 var movieFormatExist = mc.formats.Where(x => x.id == movie.idFormat).FirstOrDefault<MovieFormatShort>();
-                if (movieFormatExist == null)
-                {
+                if (movieFormatExist == null) {
                     mc.formats.Add(new MovieFormatShort() { id = movie.idFormat, name = movie.nameFormat });
                 }
 
                 var movieGenreExist = mc.genres.Where(x => x.id == movie.idGenre).FirstOrDefault<MovieGenreShort>();
-                if (movieGenreExist == null)
-                {
+                if (movieGenreExist == null) {
                     mc.genres.Add(new MovieGenreShort() { id = movie.idGenre, name = movie.genre });
                 }
 
                 var movieTheaterExist = mc.theaters.Where(x => x.id == movie.idLocation).FirstOrDefault<MovieLocationShort>();
-                if (movieTheaterExist == null)
-                {
+                if (movieTheaterExist == null) {
                     mc.theaters.Add(new MovieLocationShort() { id = movie.idLocation, name = movie.nameLocation, branchName = movie.branchName, nameFull = movie.nameFullLocation });
                 }
             });
@@ -234,8 +207,8 @@ namespace ELCOLOMBIANO.EcCines.Business
             // Now fill locations per movie.
             movieList.ForEach(movie => {
                 var movieTheaterSelected = movieInTheaters[movie.id];
-                movie.locations.ForEach(loc => movieTheaterSelected.Add(new MovieLocationShort() {id=loc.id, name = loc.name, branchName = loc.branchName, nameFull = loc.nameFull}));
-                movieTheaterSelected = movieTheaterSelected.OrderBy(x=> x.nameFull).ToList<MovieLocationShort>();
+                movie.locations.ForEach(loc => movieTheaterSelected.Add(new MovieLocationShort() { id = loc.id, name = loc.name, branchName = loc.branchName, nameFull = loc.nameFull }));
+                movieTheaterSelected = movieTheaterSelected.OrderBy(x => x.nameFull).ToList<MovieLocationShort>();
             });
 
             // Now store in catalog.
@@ -260,15 +233,12 @@ namespace ELCOLOMBIANO.EcCines.Business
             theaterNameList.ForEach(t => theaterMoviesDictionary.Add(t, new List<MovieShortFormat>()));
 
             // Let's add values to theaterMoviesDictionary
-            movieList.ForEach(movie =>
-            {
-                movie.locations.ForEach(location =>
-                {
+            movieList.ForEach(movie => {
+                movie.locations.ForEach(location => {
                     // Retrieve theater item from dictionary
                     var theaterItem = theaterMoviesDictionary[location.nameFull];
                     var existMovie = theaterItem.Where(x => x.id == movie.id).FirstOrDefault<MovieShortFormat>();
-                    if (existMovie == null)
-                    {
+                    if (existMovie == null) {
                         // WARNING!: At this point and supported by mc.movies (which must be already compiled at this point.
                         var movieFormats = mc.movies.Where(x => x.id == movie.id).FirstOrDefault();
                         theaterItem.Add(new MovieShortFormat() { id = movie.id, name = movie.name, formats = movieFormats.formats });
@@ -279,8 +249,7 @@ namespace ELCOLOMBIANO.EcCines.Business
             // Now it is time to copy contents from theaterMoviesDictionary to mc.theaterMovies
             // When traversing its contents the list is sorted as well by name.
             mc.theaterMovies = new Dictionary<string, List<MovieShortFormat>>();
-            foreach (var pair in theaterMoviesDictionary)
-            {
+            foreach (var pair in theaterMoviesDictionary) {
                 mc.theaterMovies.Add(pair.Key, pair.Value.OrderBy(m => m.name).ToList<MovieShortFormat>());
             }
 
@@ -295,14 +264,12 @@ namespace ELCOLOMBIANO.EcCines.Business
 
             // Full movie catalog (mapped from origin).
             string fileName = moviesFileName;
-            using (StreamWriter writer = new StreamWriter(fileName))
-            {
+            using (StreamWriter writer = new StreamWriter(fileName)) {
                 writer.Write(movieLookupJSON);
             }
 
             fileName = catalogNameFileName;
-            using (StreamWriter writer = new StreamWriter(fileName))
-            {
+            using (StreamWriter writer = new StreamWriter(fileName)) {
                 writer.Write(movieCatalogJSON);
             }
         }
@@ -315,8 +282,7 @@ namespace ELCOLOMBIANO.EcCines.Business
         /// <param name="m">Movie Id. Possible value are '-1', or '1|29' this means movieId=1 and movieIdFormat=29</param>
         /// <param name="g">Gender Id. Possible value are '-1', or '2'</param>
         /// <returns>A list of 'Movie'  objects serialized as JSON. If list is empty, serialized should be empty.</returns>
-        public string Search(string t, string m, string g)
-        {
+        public string Search(string t, string m, string g) {
             int theaterId = Convert.ToInt32(t);
             int movieId = 0;
             int movieIdFormat = 0; // Only used where movieId is not set to -1
@@ -325,43 +291,32 @@ namespace ELCOLOMBIANO.EcCines.Business
 
             // We must split 'm' parameter to its constituent values.
             // If m = -1", no need to split
-            if (m == "-1")
-            {
+            if (m == "-1") {
                 movieId = Convert.ToInt32(m);
             }
-            else
-            {
+            else {
                 var movieValuesArray = m.Split('|');
-                if (movieValuesArray.Length == 2)
-                {
-                    try
-                    {
+                if (movieValuesArray.Length == 2) {
+                    try {
                         movieId = Convert.ToInt32(movieValuesArray[0]);
-                    }
-                    catch (Exception)
-                    {
+                    } catch (Exception) {
                         movieId = -1;
-                    }                    
+                    }
                     movieIdFormat = Convert.ToInt32(movieValuesArray[1]);
                 }
-                else
-                {
-                    try
-                    {
+                else {
+                    try {
                         movieId = Convert.ToInt32(movieValuesArray[0]);
-                    }
-                    catch (Exception)
-                    {
+                    } catch (Exception) {
                         movieId = -1;
-                    }                    
+                    }
                     movieIdFormat = -1;
                 }
             }
 
             List<Movie> movieList = RetrieveMovieList();
             MovieCatalog mc = RetriveMovieCatalog();
-            if (theaterId == -1 && movieId == -1 && genreId == -1)
-            {
+            if (theaterId == -1 && movieId == -1 && genreId == -1) {
                 // Retrieves all records.
                 // For the purpose, we need to return Movie objects with its location but not its formats and schedule                
                 List<Movie> searchMovieList = new List<Movie>();
@@ -369,10 +324,8 @@ namespace ELCOLOMBIANO.EcCines.Business
                 searchMovieList = searchMovieList.OrderBy(x => x.name).ToList<Movie>();
                 rslt = JsonConvert.SerializeObject(searchMovieList);
             }
-            else
-            {
-                if (theaterId == -1 && movieId == -1 && genreId != -1)
-                {
+            else {
+                if (theaterId == -1 && movieId == -1 && genreId != -1) {
                     // Search only by Genre
                     List<Movie> searchMovieList = new List<Movie>();
                     var movieByGenreList = movieList.Where(x => x.idGenre == genreId).ToList<Movie>();
@@ -380,10 +333,8 @@ namespace ELCOLOMBIANO.EcCines.Business
                     searchMovieList = searchMovieList.OrderBy(x => x.name).ToList<Movie>();
                     rslt = JsonConvert.SerializeObject(searchMovieList);
                 }
-                else
-                {
-                    if (theaterId != -1 && movieId != -1 && genreId == -1)
-                    {
+                else {
+                    if (theaterId != -1 && movieId != -1 && genreId == -1) {
                         // Search a specific movie by theater. Any Genre.
                         // No idFormat is required herein.
 
@@ -392,8 +343,7 @@ namespace ELCOLOMBIANO.EcCines.Business
                         var movieTheaterSelected = movieSelected.locations.Where(x => x.id == theaterId).FirstOrDefault<MovieLocation>();
 
                         // Build return movie object
-                        Movie movieReturn = new Movie()
-                        {
+                        Movie movieReturn = new Movie() {
                             id = movieSelected.id,
                             name = movieSelected.name,
                             img = movieSelected.img,
@@ -414,16 +364,13 @@ namespace ELCOLOMBIANO.EcCines.Business
                         //});
                         rslt = JsonConvert.SerializeObject(movieReturn);
                     }
-                    else
-                    {
-                        if (theaterId == -1 && movieId != -1 && genreId == -1)
-                        {
+                    else {
+                        if (theaterId == -1 && movieId != -1 && genreId == -1) {
                             // Search a movie and give me all the locations for it.
                             // Only one movie must be selected.
                             // Movie record must match criteria for movieId
                             var movieSelected = movieList.Where(x => x.id == movieId).FirstOrDefault<Movie>();
-                            Movie movieReturn = new Movie()
-                            {
+                            Movie movieReturn = new Movie() {
                                 id = movieSelected.id,
                                 name = movieSelected.name,
                                 img = movieSelected.img,
@@ -431,48 +378,42 @@ namespace ELCOLOMBIANO.EcCines.Business
                                 active = movieSelected.active,
                                 idGenre = movieSelected.idGenre,
                                 genre = movieSelected.genre
-                            };                            
+                            };
 
                             // Add the location but without its schedule
                             rslt = JsonConvert.SerializeObject(movieReturn);
                         }
-                        else
-                        {
-                            if (theaterId != -1 && movieId == -1 && genreId == -1)
-                            {
+                        else {
+                            if (theaterId != -1 && movieId == -1 && genreId == -1) {
                                 // Find all movies by given theaterId
                                 // Remove duplicates in the process.
                                 // This search is best suited by using the MovieCatalog object, as required
                                 // objects are compiled to do so.
                                 List<Movie> searchMovieList = new List<Movie>();
                                 var theaterInfo = mc.theaters.Where(x => x.id == theaterId).FirstOrDefault<MovieLocationShort>();
-                                if (theaterInfo == null)
-                                {
+                                if (theaterInfo == null) {
                                     // Return nothing as no record is found.
                                     rslt = JsonConvert.SerializeObject(searchMovieList);
                                 }
-                                else
-                                {
+                                else {
                                     // Retrieve Movie List by theater from theaterMovies
                                     var moviesByTheaterList = mc.theaterMovies[theaterInfo.nameFull];
 
                                     // Compile required information.
-                                    moviesByTheaterList.ForEach(movie =>
-                                    {
+                                    moviesByTheaterList.ForEach(movie => {
                                         // Before creating the movie in 'searchMovieList', it must
                                         // be retrived from 'movieList' as 'movie' item is a short version of what
                                         // we require.
                                         var movieComplete = movieList.Where(x => x.id == movie.id).FirstOrDefault<Movie>();
-                                        Movie mv = new Movie()
-                                        {
+                                        Movie mv = new Movie() {
                                             id = movieComplete.id,
                                             name = movieComplete.name,
                                             img = movieComplete.img,
                                             url = movieComplete.url,
                                             active = movieComplete.active,
                                             idGenre = movieComplete.idGenre,
-                                            genre = movieComplete.genre                                            
-                                        };                                       
+                                            genre = movieComplete.genre
+                                        };
                                         searchMovieList.Add(mv);
                                     });
                                 }
@@ -490,11 +431,9 @@ namespace ELCOLOMBIANO.EcCines.Business
         /// Helper method to load a JSON file and deserialized to proper structure. NOTE: This is the movie list catalog.
         /// </summary>
         /// <returns>A list of Movie objects</returns>
-        public List<Movie> RetrieveMovieList()
-        {
+        public List<Movie> RetrieveMovieList() {
             string s;
-            using (StreamReader reader = new StreamReader(moviesFileName))
-            {
+            using (StreamReader reader = new StreamReader(moviesFileName)) {
                 s = reader.ReadToEnd();
             }
             return JsonConvert.DeserializeObject<List<Movie>>(s);
@@ -504,12 +443,10 @@ namespace ELCOLOMBIANO.EcCines.Business
         /// Helper method to load a JSON file and deserialized to proper structure. NOTE: This is the movie catalog.
         /// </summary>
         /// <returns>An object of type MovieCatalog that contains helper information when consumed by third-party.</returns>
-        public MovieCatalog RetriveMovieCatalog()
-        {
+        public MovieCatalog RetriveMovieCatalog() {
             MovieCatalog mc = null;
             string s;
-            using (StreamReader reader = new StreamReader(catalogNameFileName))
-            {
+            using (StreamReader reader = new StreamReader(catalogNameFileName)) {
                 s = reader.ReadToEnd();
             }
             mc = JsonConvert.DeserializeObject<MovieCatalog>(s);
@@ -525,11 +462,9 @@ namespace ELCOLOMBIANO.EcCines.Business
         /// </summary>
         /// <param name="m">Which file to get. 1:Movies, 2: Movie Catalog</param>
         /// <returns></returns>
-        public string RetrieveJSonContentsForModule(string m)
-        {
+        public string RetrieveJSonContentsForModule(string m) {
             string rslt = "";
-            switch (m)
-            {
+            switch (m) {
                 case "1":
                     rslt = JsonConvert.SerializeObject(RetrieveMovieList());
                     break;
@@ -547,12 +482,9 @@ namespace ELCOLOMBIANO.EcCines.Business
         /// </summary>
         /// <param name="searchMovieList">The list to act upon.</param>
         /// <returns>The action to use in Lambda expressions.</returns>
-        private Action<Movie> FillMovieDataWithoutLocationSchedule(List<Movie> searchMovieList)
-        {
-            return movie =>
-            {
-                Movie mv = new Movie()
-                {
+        private Action<Movie> FillMovieDataWithoutLocationSchedule(List<Movie> searchMovieList) {
+            return movie => {
+                Movie mv = new Movie() {
                     id = movie.id,
                     name = movie.name,
                     img = movie.img,

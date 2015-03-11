@@ -1,8 +1,6 @@
 ﻿
-namespace ELCOLOMBIANO.EcCines.Entities.Dtos
-{
-    public class HorarioPeliculaDto
-    {
+namespace ELCOLOMBIANO.EcCines.Entities.Dtos {
+    public class HorarioPeliculaDto {
         public int idHorarioPelicula { get; set; }
         public int idFormato { get; set; }
         public int idPelicula { get; set; }

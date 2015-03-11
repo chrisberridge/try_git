@@ -1,8 +1,6 @@
 ﻿
-namespace ELCOLOMBIANO.EcCines.Entities.Dtos
-{
-    public class PeliculaFullInfoDto
-    {
+namespace ELCOLOMBIANO.EcCines.Entities.Dtos {
+    public class PeliculaFullInfoDto {
         public int idFormato { get; set; }
         public string nombreFormato { get; set; }
         public int idPelicula { get; set; }

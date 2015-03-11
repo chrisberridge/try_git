@@ -3,7 +3,7 @@
 /* Description:   CRUD for TBL_TEATRO                                       */
 /* Author:        Carlos Adolfo Ortiz Quirós (COQ)                          */
 /* Date:          Feb.21/2015                                               */
-/* Last Modified: Mar.04/2015                                               */
+/* Last Modified: Mar.11/2015                                               */
 /* Version:       1.5                                                       */
 /* Copyright (c), 2015 Arkix, El Colombiano                                 */
 /*==========================================================================*/
@@ -13,21 +13,18 @@ History
 Feb.21/2015 COQ File created.
 ============================================================================*/
 
+using System;
+using System.Collections.Generic;
 using ELCOLOMBIANO.EcCines.Business;
 using ELCOLOMBIANO.EcCines.Entities;
 using ELCOLOMBIANO.EcCines.Entities.Dtos;
-using System;
-using System.Collections.Generic;
 
-namespace EcCines
-{
+namespace EcCines {
     /// <summary>
     /// CRUD for TBL_CINE
     /// </summary>
-    public partial class teatro : System.Web.UI.Page
-    {
-        private void LimpiarControles()
-        {
+    public partial class teatro : System.Web.UI.Page {
+        private void LimpiarControles() {
             listaCines.SelectedIndex = -1;
             txtNombre.Text = "";
             txtTelefono1.Text = txtTelefono2.Text = txtTelefono3.Text = "";
@@ -36,37 +33,29 @@ namespace EcCines
             txtDireccion.Text = "";
         }
 
-        private bool ValidarCampos()
-        {
+        private bool ValidarCampos() {
             bool rslt = true;
-            if (listaCines.SelectedValue == "-1")
-            {
+            if (listaCines.SelectedValue == "-1") {
                 rslt = false;
             }
-            if (txtNombre.Text == "")
-            {
+            if (txtNombre.Text == "") {
                 return rslt;
             }
-            if (listaMunicipios.SelectedValue == "-1")
-            {
+            if (listaMunicipios.SelectedValue == "-1") {
                 rslt = false;
             }
-            if (listaDepartamentos.SelectedValue == "-1")
-            {
+            if (listaDepartamentos.SelectedValue == "-1") {
                 rslt = false;
             }
-            if (txtDireccion.Text == "")
-            {
+            if (txtDireccion.Text == "") {
                 rslt = false;
             }
             return rslt;
         }
 
-        private void CargarGridInfoData()
-        {
+        private void CargarGridInfoData() {
             var theaterList = new Teatro().getTeatrosEx();
-            if (theaterList.Count > 0)
-            {
+            if (theaterList.Count > 0) {
                 btnActualizar.Visible = btnEliminar.Visible = false;
             }
             grdInfo.DataSource = theaterList;
@@ -74,8 +63,7 @@ namespace EcCines
             grdInfo.DataBind();
         }
 
-        private void PoblarCines()
-        {
+        private void PoblarCines() {
             Cine daoMovie = new Cine();
             List<CineDto> movieList = daoMovie.getCines();
             List<KeyValue> l = new List<KeyValue>();
@@ -87,8 +75,7 @@ namespace EcCines
             listaCines.DataBind();
         }
 
-        private void PoblarMunicipios()
-        {
+        private void PoblarMunicipios() {
             Entidad daoEntity = new Entidad();
             List<EntidadDto> countyList = daoEntity.obtenerValoresEntidad(Settings.SysParamCounty);
             List<KeyValue> l = new List<KeyValue>();
@@ -100,8 +87,7 @@ namespace EcCines
             listaMunicipios.DataBind();
         }
 
-        private void PoblarDepartamentos()
-        {
+        private void PoblarDepartamentos() {
             Entidad daoEntity = new Entidad();
             List<EntidadDto> countyList = daoEntity.obtenerValoresEntidad(Settings.SysParamEstate);
             List<KeyValue> l = new List<KeyValue>();
@@ -113,11 +99,10 @@ namespace EcCines
             listaDepartamentos.DataBind();
         }
 
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            if (Session["autenticado"] == null || !(bool)Session["autenticado"]) Response.Redirect("Default.aspx");
-            if (!IsPostBack)
-            {
+        protected void Page_Load(object sender, EventArgs e) {
+            if (Session["autenticado"] == null || !(bool)Session["autenticado"])
+                Response.Redirect("Default.aspx");
+            if (!IsPostBack) {
                 PoblarCines();
                 PoblarMunicipios();
                 PoblarDepartamentos();
@@ -128,13 +113,11 @@ namespace EcCines
             lblMsg.Text = lblError.Text = "";
         }
 
-        protected void OnGridInfoSelectedIndexChanged(object sender, EventArgs e)
-        {
+        protected void OnGridInfoSelectedIndexChanged(object sender, EventArgs e) {
             Teatro daoTheater = new Teatro();
             var idToLocate = Convert.ToInt32(grdInfo.DataKeys[grdInfo.SelectedIndex].Value);
             TeatroDto r = daoTheater.getTeatro(idToLocate);
-            if (r != null)
-            {
+            if (r != null) {
                 listaCines.SelectedValue = r.idCine.ToString();
                 listaMunicipios.SelectedValue = r.idMunicipioTeatro.ToString();
                 listaDepartamentos.SelectedValue = r.idDepeartamentoTeatro.ToString();
@@ -148,25 +131,20 @@ namespace EcCines
             }
         }
 
-        protected void OnGridInfoPageIndexChanging(object sender, System.Web.UI.WebControls.GridViewPageEventArgs e)
-        {
+        protected void OnGridInfoPageIndexChanging(object sender, System.Web.UI.WebControls.GridViewPageEventArgs e) {
             grdInfo.DataSource = new Teatro().getTeatrosEx();
             grdInfo.PageIndex = e.NewPageIndex;
             grdInfo.DataBind();
         }
 
-        protected void OnButtonNuevo(object sender, EventArgs e)
-        {
+        protected void OnButtonNuevo(object sender, EventArgs e) {
             lblMsg.Text = lblError.Text = "";
-            if (!ValidarCampos())
-            {
+            if (!ValidarCampos()) {
                 lblError.Text = "No ha ingresado datos para crear.";
             }
-            else
-            {
+            else {
                 Teatro daoTheter = new Teatro();
-                TeatroDto theaterInfo = new TeatroDto()
-                {
+                TeatroDto theaterInfo = new TeatroDto() {
                     idCine = Convert.ToInt32(listaCines.SelectedValue),
                     nombreTeatro = txtNombre.Text,
                     telefono1Teatro = txtTelefono1.Text,
@@ -184,34 +162,25 @@ namespace EcCines
             }
         }
 
-        protected void OnButtonEliminar(object sender, EventArgs e)
-        {
+        protected void OnButtonEliminar(object sender, EventArgs e) {
             lblMsg.Text = lblError.Text = "";
-            if (grdInfo.SelectedIndex == -1)
-            {
+            if (grdInfo.SelectedIndex == -1) {
                 lblError.Text = "No ha seleccionado un registro para eliminar.";
             }
-            else
-            {
+            else {
                 Teatro daoTheater = new Teatro();
                 var idToLocate = Convert.ToInt32(grdInfo.DataKeys[grdInfo.SelectedIndex].Value);
                 TeatroDto r = daoTheater.getTeatro(idToLocate);
-                if (r != null)
-                {
-                    try
-                    {
+                if (r != null) {
+                    try {
                         var rslt = daoTheater.crearTeatro(r, 3);
-                        if (rslt == -1)
-                        {
+                        if (rslt == -1) {
                             lblError.Text = "El registro de teatro a eliminar no se puede eliminar ya que tiene referencias en el sistema.";
                         }
-                        else
-                        {
+                        else {
                             lblMsg.Text = "Registro eliminado con éxito.";
                         }
-                    }
-                    catch (Exception)
-                    {
+                    } catch (Exception) {
                         lblError.Text = "El registro de teatro a eliminar no se puede eliminar ya que tiene referencias en el sistema.";
                     }
                     CargarGridInfoData();
@@ -222,20 +191,16 @@ namespace EcCines
             }
         }
 
-        protected void OnButtonActualizar(object sender, EventArgs e)
-        {
+        protected void OnButtonActualizar(object sender, EventArgs e) {
             lblMsg.Text = lblError.Text = "";
-            if (!ValidarCampos())
-            {
+            if (!ValidarCampos()) {
                 lblError.Text = "No ha ingresado datos para actualizar.";
             }
-            else
-            {
+            else {
                 Teatro daoTheater = new Teatro();
                 var idToLocate = Convert.ToInt32(grdInfo.DataKeys[grdInfo.SelectedIndex].Value);
                 TeatroDto r = daoTheater.getTeatro(idToLocate);
-                if (r != null)
-                {
+                if (r != null) {
                     r.idCine = Convert.ToInt32(listaCines.SelectedValue);
                     r.idMunicipioTeatro = Convert.ToInt32(listaMunicipios.SelectedValue);
                     r.idDepeartamentoTeatro = Convert.ToInt32(listaDepartamentos.SelectedValue);
@@ -254,8 +219,7 @@ namespace EcCines
             }
         }
 
-        protected void OnButtonCancelar(object sender, EventArgs e)
-        {
+        protected void OnButtonCancelar(object sender, EventArgs e) {
             lblMsg.Text = lblError.Text = "";
             LimpiarControles();
             btnNuevo.Visible = true;

@@ -3,6 +3,9 @@ Author:   Carlos Adolfo Ortiz Q
 Date:     Feb.21/2013
 Modified: Mar.11/2015
 
+Mar.11/2015 V1.0.3.70 Tag: V1.0.3.70-Mar.11/2015
+- Adds an update to referenced project in C#.
+
 Mar.11/2015 V1.0.3.65 Tag: V1.0.3.65-Mar.11/2015
 - In folder 'reference' is saved file 'VS2013Settings-20150311.vssettings' which contains IDE 
   customizations for better C# coding style.

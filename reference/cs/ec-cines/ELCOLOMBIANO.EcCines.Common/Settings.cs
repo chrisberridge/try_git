@@ -4,8 +4,8 @@
 /*                in a configuration file, i.e., web.config.                */
 /* Author:        Carlos Adolfo Ortiz Quirós (COQ)                          */
 /* Date:          Feb.19/2015                                               */
-/* Last Modified: Feb.26/2015                                               */
-/* Version:       1.5                                                       */
+/* Last Modified: Mar.11/2015                                               */
+/* Version:       1.6                                                       */
 /* Copyright (c), 2015 Arkix, El Colombiano                                 */
 /*==========================================================================*/
 
@@ -14,23 +14,19 @@ History
 Feb.19/2015 COQ File created.
 ============================================================================*/
 
-using ELCOLOMBIANO.EcCines.Constants;
 using System.Configuration;
+using ELCOLOMBIANO.EcCines.Constants;
 
-namespace ELCOLOMBIANO.EcCines.Business
-{
+namespace ELCOLOMBIANO.EcCines.Business {
     /// <summary>
     /// Helper class to retrieve system settings (usually stored in a configuration file, i.e., web.config.
     /// </summary>
-    public class Settings
-    {
+    public class Settings {
         /// <summary>
         /// Retrieves the connection key from configuration file.
         /// </summary>
-        public static string Connection
-        {
-            get
-            {
+        public static string Connection {
+            get {
                 return Crypto.Decrypt(ConfigurationManager.AppSettings[GlobalConstants.ConnectionKey], GlobalConstants.EncryptKey);
             }
         }
@@ -38,10 +34,8 @@ namespace ELCOLOMBIANO.EcCines.Business
         /// <summary>
         /// Retrieves the file movies key from configuration file.
         /// </summary>
-        public static string FileMovies
-        {
-            get
-            {
+        public static string FileMovies {
+            get {
                 return Crypto.Decrypt(ConfigurationManager.AppSettings[GlobalConstants.FileMoviesKey], GlobalConstants.EncryptKey);
             }
         }
@@ -49,98 +43,74 @@ namespace ELCOLOMBIANO.EcCines.Business
         /// <summary>
         /// Retrieves the file catalog movies key from configuration file.
         /// </summary>
-        public static string FileMovieCatalog
-        {
-            get
-            {
+        public static string FileMovieCatalog {
+            get {
                 return Crypto.Decrypt(ConfigurationManager.AppSettings[GlobalConstants.FileMoviesCatalogKey], GlobalConstants.EncryptKey);
             }
         }
 
-        public static string ImageFolder
-        {
-            get
-            {
+        public static string ImageFolder {
+            get {
                 return Crypto.Decrypt(ConfigurationManager.AppSettings[GlobalConstants.ImageFolderKey], GlobalConstants.EncryptKey);
             }
         }
 
-        public static string JSONFolder
-        {
-            get
-            {
+        public static string JSONFolder {
+            get {
                 return Crypto.Decrypt(ConfigurationManager.AppSettings[GlobalConstants.JSONFolderKey], GlobalConstants.EncryptKey);
             }
         }
 
-        public static string SysParamGender
-        {
-            get
-            {
+        public static string SysParamGender {
+            get {
                 return GlobalConstants.SysParamGenderKey;
             }
         }
 
-        public static string SysParamFormat
-        {
-            get
-            {
+        public static string SysParamFormat {
+            get {
                 return GlobalConstants.SysParamFormatKey;
             }
         }
 
-        public static string SysParamCounty
-        {
-            get
-            {
+        public static string SysParamCounty {
+            get {
                 return GlobalConstants.SysParamCountyKey;
             }
         }
 
-        public static string SysParamEstate
-        {
-            get
-            {
+        public static string SysParamEstate {
+            get {
                 return GlobalConstants.SysParamEstateKey;
             }
         }
 
-        public static string SysParamCountry
-        {
-            get
-            {
+        public static string SysParamCountry {
+            get {
                 return GlobalConstants.SysParamCountryKey;
             }
         }
 
-        public static string SysParamClassification
-        {
-            get
-            {
+        public static string SysParamClassification {
+            get {
                 return GlobalConstants.SysParamClassificationKey;
             }
         }
 
-        public static string Usuario
-        {
-            get
-            {
+        public static string Usuario {
+            get {
                 return Crypto.Decrypt(ConfigurationManager.AppSettings[GlobalConstants.Usuario], GlobalConstants.EncryptKey);
             }
         }
 
-        public static string Contrasena
-        {
-            get
-            {
+        public static string Contrasena {
+            get {
                 return Crypto.Decrypt(ConfigurationManager.AppSettings[GlobalConstants.Contrasena], GlobalConstants.EncryptKey);
             }
         }
-        
-        public static string ImageFolderSave
-        {
-            get
-            {
+
+        public static string ImageFolderSave {
+            get {
                 return Crypto.Decrypt(ConfigurationManager.AppSettings[GlobalConstants.ImageFolderSaveKey], GlobalConstants.EncryptKey);
             }
         }

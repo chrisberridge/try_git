@@ -3,8 +3,8 @@
 /* Description:   Project constants                                         */
 /* Author:        Carlos Adolfo Ortiz Quirós (COQ)                          */
 /* Date:          Feb.11/2015                                               */
-/* Last Modified: Feb.24/2015                                               */
-/* Version:       1.5                                                       */
+/* Last Modified: Mar.11/2015                                               */
+/* Version:       1.6                                                       */
 /* Copyright (c), 2015 Arkix, El Colombiano                                 */
 /*==========================================================================*/
 
@@ -12,7 +12,6 @@
 History
 Feb.11/2015 COQ File created.
 ============================================================================*/
-using System;
 
 namespace ELCOLOMBIANO.EcCines.Constants {
     /// <summary>
@@ -38,6 +37,5 @@ namespace ELCOLOMBIANO.EcCines.Constants {
         public const string JSONFolderKey = "JSONFolder";
         public const string Usuario = "Usuario";
         public const string Contrasena = "Contrasena";
-
     }
 }
