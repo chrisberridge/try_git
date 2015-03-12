@@ -6,6 +6,7 @@
 <head runat="server">
     <title>Movie Detail FRAME</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="Scripts/iframeResizer.min.js"></script>
     <link href="css/styles.css" rel="stylesheet" type="text/css" media="screen" />
 </head>
 <body>
@@ -18,8 +19,9 @@
                 </div>
             </asp:Panel>
             <asp:HiddenField runat="server" ID="idPelicula" />
-            <iframe id="movieDetailFrame" src="" width="655px" height="500px" frameborder="0"></iframe>
+            <iframe id="movieDetailFrame" src="" width="100%" frameborder="0" scrolling="no"></iframe>                        
         </form>
+        <p id="callback">ICI</p>
     </div>
 </body>
 <script language="javascript">
@@ -29,6 +31,32 @@
         if (url == "undefined")
             url = window.location.protocol + "//" + window.location.host;
         $("#movieDetailFrame").attr("src", url + "/showmoviedetail.aspx?" + a);
+        $('#movieDetailFrame').iFrameResize({
+            log: true,
+            enablePublicMethods: true,
+            enableInPageLinks: false,
+            resizedCallback: function (messageData) { 
+                $('p#callback').html(
+                    '<b>Frame ID:</b> ' + messageData.iframe.id +
+                    ' <b>Height:</b> ' + messageData.height +
+                    ' <b>Width:</b> ' + messageData.width +
+                    ' <b>Event type:</b> ' + messageData.type
+                );
+            },
+            messageCallback: function (messageData) {
+                $('p#callback').html(
+                    '<b>Frame ID:</b> ' + messageData.iframe.id +
+                    ' <b>Message:</b> ' + messageData.message
+                );
+                alert(messageData.message);
+            },
+            closedCallback: function (id) { // Callback fn when iFrame is closed
+                $('p#callback').html(
+                    '<b>IFrame (</b>' + id +
+                    '<b>) removed from page.</b>'
+                );
+            }
+        });
     });
 
 </script>

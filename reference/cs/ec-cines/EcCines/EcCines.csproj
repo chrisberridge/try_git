@@ -128,6 +128,8 @@
     <Content Include="packages.config" />
     <None Include="Properties\PublishProfiles\cines.pubxml" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
+    <Content Include="Scripts\iframeResizer.contentWindow.min.js" />
+    <Content Include="Scripts\iframeResizer.min.js" />
     <Content Include="Scripts\Index.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
     <Content Include="Scripts\jquery-2.1.3.min.js" />

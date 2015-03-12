@@ -160,14 +160,10 @@
     <Content Include="css\fonts\roboto\roboto\roboto-regular-webfont.eot" />
     <Content Include="css\fonts\roboto\roboto\roboto-regular-webfont.ttf" />
     <Content Include="css\fonts\roboto\roboto\roboto-regular-webfont.woff" />
-    <Content Include="recursos\json\planepoly-movies-catalog-v2.json" />
-    <Content Include="recursos\json\planepoly-movies-v2.json" />
     <None Include="Scripts\jquery-2.1.3.intellisense.js" />
-    <Content Include="recursos\poster\20150223Annie.jpg" />
-    <Content Include="recursos\poster\20150223Birdman.jpg" />
-    <Content Include="recursos\poster\201502247days.jpg" />
-    <Content Include="recursos\poster\20150306_7dwarfs.jpg" />
     <Content Include="Scripts\bootstrap-select.min.js" />
+    <Content Include="Scripts\iframeResizer.contentWindow.min.js" />
+    <Content Include="Scripts\iframeResizer.min.js" />
     <Content Include="Scripts\Index.js" />
     <Content Include="Scripts\jquery-2.1.3.js" />
     <Content Include="Scripts\jquery-2.1.3.min.js" />
@@ -243,6 +239,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="showmoviedetail.aspx.cs">
       <DependentUpon>showmoviedetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
     </Compile>
     <Compile Include="showmoviedetail.aspx.designer.cs">
       <DependentUpon>showmoviedetail.aspx</DependentUpon>

@@ -5,7 +5,7 @@
 /*                Carlos Adolfo Ortiz Quirós (COQ)                          */
 /* Date:          Feb.11/2015                                               */
 /* Last Modified: Mar.11/2015                                               */
-/* Version:       1.5                                                       */
+/* Version:       1.6                                                       */
 /* Copyright (c), 2015 Arkix, El Colombiano                                 */
 /*==========================================================================*/
 
@@ -376,7 +376,7 @@ namespace ELCOLOMBIANO.EcCines.Entities {
             sql += "select * from vw_datospelicula ";
             sql += "where activo = 'S' ";
             sql += " and DATEFROMPARTS (annoHorarioPelicula, mesHorarioPelicula, diaHorarioPelicula) >= ";
-            sql += "     DATEFROMPARTS (YEAR(CURRENT_TIMESTAMP), MONTH(CURRENT_TIMESTAMP), DAY(CURRENT_TIMESTAMP)) ";
+            sql += "     DATEADD(DAY, -1, DATEFROMPARTS (YEAR(CURRENT_TIMESTAMP), MONTH(CURRENT_TIMESTAMP), DAY(CURRENT_TIMESTAMP))) ";
             sql += "order by idPelicula, idTeatro, frecuencia, idformato ";
 
             HandleDatabase hdb = null;

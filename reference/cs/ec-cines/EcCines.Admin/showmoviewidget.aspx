@@ -23,10 +23,10 @@
 <body>
     <form id="form1" runat="server">
         <div id="movieInfo">
-            <section class="seccion-planepoly">
+            <section class="seccion-cines">
                 <div class="buscador-peliculas">
                     <div class="content">
-                        <div class="logo-planepoly">
+                        <div class="logo-cines">
                         </div>
                         <div class="search">
                             <div id="movieByTheaters" class="input-busqueda teatro"></div>
