@@ -1,7 +1,10 @@
 File:     history.md
 Author:   Carlos Adolfo Ortiz Q
 Date:     Feb.21/2013
-Modified: Mar.27/2015
+Modified: Apr.01/2015
+
+Apr.01/2015 V1.0.3.90 Tag: V1.0.3.90-Apr.01/2015
+- Renames file README to README.md in order to be shown in github as such.
 
 Mar.27/2015 V1.0.3.85 Tag: V1.0.3.85-Mar.27/2015
 - Adds toastr.html as a reference material when debugging styles in toastr plugin (http://codeseven.github.io/toastr/)
