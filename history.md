@@ -1,7 +1,10 @@
 File:     history.md
 Author:   Carlos Adolfo Ortiz Q
 Date:     Feb.21/2013
-Modified: Apr.01/2015
+Modified: Apr.10/2015
+
+Apr.10/2015 V1.0.3.95 Tag: V1.0.3.95-Apr.10/2015
+- Adds an Eclipse project in the Java Reference folder with some Java 8 Lambda experiments. Folder names to java8lambdasandstuff.
 
 Apr.01/2015 V1.0.3.90 Tag: V1.0.3.90-Apr.01/2015
 - Renames file README to README.md in order to be shown in github as such.
