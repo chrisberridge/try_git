@@ -1,0 +1,71 @@
+val status = 500
+val message = status match {
+ case 200 =>
+ "ok"
+ case 400 => {
+ println("ERROR - we called the service incorrectly")
+ "error"
+ }
+ case 500 => {
+ println("ERROR - the service encountered an error")
+ "error"
+ }
+ }
+ 
+val day = "MON"
+val kind = day match {
+ case "MON" | "TUE" | "WED" | "THU" | "FRI" =>
+ "weekday"
+ case "SAT" | "SUN" =>
+ "weekend"
+ }
+ 
+ // Value Binding in a match expression
+val message = "Ok1"
+val status = message match {
+ case "Ok" => 200
+ case other => {
+ println(s"Couldn't parse $other")
+ -1
+ }
+}
+
+ // Wildcard
+val message = "Unauthorized"
+val status = message match {
+ case "Ok" => 200
+ case _ => {
+ println(s"Couldn't parse $message")
+ -1
+ }
+}
+ 
+// Pattern guard
+val response: String = null
+response match {
+   case s if s != null => println(s"Received '$s'")
+   case s => println("Error! Received a null response")
+}
+
+// Matching Types with Pattern Variables
+val x: Int = 12180
+val y: Any = x
+y match {
+  case x: String => s"'x'"
+  case x: Double => f"$x%.2f"
+  case x: Float => f"$x%.2f"
+  case x: Long => s"${x}l"
+  case x: Int => s"${x}i"
+}
+
+
+// Loops
+for (x <- 1 to 7) { println(s"Day $x:") }
+for (x <- 1 until 7) { println(s"Day $x:") }
+for (x <- 1 to 7) yield { s"Day $x:" } // A collection of Strings
+for (x <- 1 to 7) yield { x } // A collection of Ints
+for (x <- 1 to 7) yield x // A collection of Ints 
+
+
+// -- Off the record
+val stringList : List[String] = List.fill(3)("Hello!!")

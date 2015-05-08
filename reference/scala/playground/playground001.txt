@@ -1,0 +1,16 @@
+val zero = 0
+val isValid = zero > 0
+val nada = ()
+val s = "Apples " *16
+val s1 = "Apples " / 16
+(7.0 / 5).getClass
+5.asInstanceOf[Long]
+(5.0).isInstanceOf[Float]
+"A".hashCode
+20.toByte 
+47.toFloat
+(3.0 / 4.0).toString
+val info = (5, "Korben", true)
+val name = info._2
+val red = "red" -> "0xff0000"
+val reversed = red._2 -> red._1
