@@ -1,9 +1,14 @@
 File:     history.md
 Author:   Carlos Adolfo Ortiz Q
 Date:     Feb.21/2013
-Modified: Apr.15/2015
+Modified: May.19/2015
 
-Apr.15/2015 V1.0.4.10 Tag: V10.0.4.10-Apr.15/2015
+May.19/2015 V1.0.4.15 Tag: V1.0.4.15-May.19/2015
+- Corrects typos
+- Adds reference files for Groovy/Scala and restructures the programming languages snippets.
+- Adds version history tag.
+
+Apr.15/2015 V1.0.4.10 Tag: V1.0.4.10-Apr.15/2015
 - Adds Heroku to reference folder. 
   Want to make some Heroku app for Java. Use this as a starting point.
 

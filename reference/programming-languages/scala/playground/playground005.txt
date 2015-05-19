@@ -1,0 +1,6 @@
+// First Class Functions
+// Higher-Order Functions -> Map/Reduce pattern
+// Declarative Programming -> Better
+// Imperative Programming -> Not so better nowadays
+
+

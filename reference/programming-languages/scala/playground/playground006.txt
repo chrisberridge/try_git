@@ -1,0 +1,10 @@
+// Lists, Sets, and Maps
+// Let’s start with the List type, an immutable singly linked list. You can create a list by
+// invoking it as a function, passing in its contents in the form of comma-separated parameters:
+
+val numbers = List(32, 95, 24, 21, 17)
+val colors = List("red", "green", "blue")
+println(s"I have ${colors.size} colors: $colors")
+colors.head
+colors.tail
+

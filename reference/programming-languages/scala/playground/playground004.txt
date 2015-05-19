@@ -1,0 +1,154 @@
+// functions (pure and unpure)
+def hi = "hi"
+hi
+
+for (i <- 1 to 10) println(i + " " +hi) // prints a string 
+for (i <- 1 to 10) yield i + " " +hi // Create a list of strings
+
+def sayHi : String = "Say Hi"
+for (i <- 1 to 10) yield i + " " + sayHi // Create a list of string
+
+def mult(x : Int, y : Int) = { x * y}
+def multiplier(x: Int, y: Int): Int = { x * y }
+multiplier(6, 7)
+
+// Explicity return
+def safeTrim(s: String): String = {
+    if (s == null) return null
+    s.trim()
+}
+safeTrim(null)
+safeTrim("         abc     ")
+
+// Procedures
+def log(d: Double) = println(f"Got value $d%.2f")
+def log2(d: Double) : Unit = println(f"Got value $d%.2f")
+log(2.0)
+
+// DON'T
+// Don't use the following depreceted syntax for defining a procedure
+// def log(d: Double) { println(f"Got value $d%.2f") } 
+
+// Defining functions with empty parenthesis
+def sayHello() : String = "Hello you"
+for (i <- 1 to 5) yield sayHello()
+for (i <- 1 to 5) yield sayHello
+
+def formatEuro(amt: Double) = f"€$amt%.2f"
+formatEuro(3.4645)
+
+formatEuro { val rate = 1.32; 0.235 + 0.7123 + rate * 5.32 }
+formatEuro { 
+    val rate = 1.32
+    0.235 + 0.7123 + rate * 5.32
+} // Here the formal parameter for formatEuro amt is the result of the block expression
+// Let's see
+// val rate = 1.32, here rate is 1.32
+// 0.235 + 0.7123 + rate * 5.32
+// 0.235 + 0.7123 + 1.32 * 5.32
+// 0.235 + 0.7123 + 7.0224
+// 7.9697000000000005 is then set to parameter amt of formatEuro
+
+// Recursive function (handle with care!)
+
+// With following annotation we avoid the dreaded "Stack overflow"
+// But it works only if recursive call is last statement in the function
+@annotation.tailrec
+def power(x: Int, n: Int): Long = {
+	if (n >= 1) x * power(x, n-1)
+	else 1
+}
+
+// ... Error: Recursive call not in tail position
+@annotation.tailrec
+def power(x: Int, n: Int): Long = {
+    if (n < 1) 1
+    else x * power(x, n-1)
+}
+
+// ... Error: Recursive call not in tail position
+@annotation.tailrec
+def power(x: Int, n: Int): Long = {
+    if (n < 1) 1
+    else x * power(x, n-1)
+}
+
+// Notice that parameter t here has a default value of 1 so invoking this function is: power(2,3)
+// with t = 1 set.
+@annotation.tailrec
+def power(x: Int, n: Int, t: Int = 1): Int = {
+	if (n < 1) t
+	else power(x, n-1, x*t)
+}
+
+power(2, 3)
+
+// Nested Functions (Not included in Pure Java)
+def max(a: Int, b: Int, c: Int) = {
+	def max(x: Int, y: Int) = if (x > y) x else y
+	max(a, max(b, c))
+}
+max(42, 182, 19)
+
+// Calling Functions with Named Parameters
+def greet(prefix: String, name: String) = s"$prefix $name"
+val greeting1 = greet("Ms", "Brown")
+val greeting2 = greet(name = "Brown", prefix = "Mr")
+
+
+// Redefine Greet function to define a default value
+// Here notice that if prefix can be optional  but because calling greet("Paul") is not possible
+// because in the order of parameter naming, prefix is first, then name and this call
+// would replace prefix to "Paul" and then notices that name parameter is not supplied, thus an error is set
+def greet(prefix: String = "", name: String) = s"$prefix$name"
+// thus to call it you must use parameter names like so
+val greeting1 = greet(name = "Paul")
+
+// In order to have greet("Paul") works, let's reorganize parameters so required ones are first and 
+// Optionals last
+def greet(name : String, prefix : String = "") : String = { s"$prefix $name" }
+greet("Paul")
+
+// Vararg Parameters
+def sum(items: Int*): Int = {
+	var total = 0
+	for (i <- items) total += i
+	total
+}
+sum(10, 20, 30)
+
+// Parameter Groups (of not use here so far)
+def max(x: Int)(y: Int) = if (x > y) x else y
+max(10)(20)
+
+def identity[A](a: A): A = a
+identity[String]("Hello")
+identity[Int](20)
+val s: String = identity("Hello")
+val d: Double = identity(2.717)
+val s1 = identity("Hello")
+val d1 = identity(2.17)
+
+//Invoking a Method with Infix Dot Notation
+val s = "vacation.jpg"
+val isJPEG = s.endsWith(".jpg")
+
+val d = 65.642
+val d1 = d.round
+val d2 = d.floor
+val d3 = d.compare(18.0)
+val d4 = d.+(2.721)
+
+// In scala 2 + 3 uses operator notation (or infix operator notation) which forsakes the dot notation and uses spaces to 
+// separate the object, its operator method, and the single parameter to the method
+// thus 2+3 in operator notation is 2.+(3) in dot notation, very clever
+// This way Scala does not define +, -, *, /, etc.
+
+// Both are equivalent, operator notation is meant to be called with one parameter, if you
+// need more than one parameter use () to group them as follows
+"staring".substring(1, 4)
+"staring" substring (1,4)
+
+1 + 2 + 3
+(1.+(2)).+(3)
+
