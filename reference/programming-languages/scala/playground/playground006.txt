@@ -7,4 +7,203 @@ val colors = List("red", "green", "blue")
 println(s"I have ${colors.size} colors: $colors")
 colors.head
 colors.tail
+colors(0)
+colors(1)
 
+// Following three lines are the same way to accomplish task.
+for (c <- colors) { println(c) }
+colors.foreach( (c: String) => println(c) )
+colors.foreach( c => println(c))
+val sizes = colors.map( (c: String) => c.size )
+
+// Following two lines are the same way to accomplish task.
+var total = 0; for (i <- numbers) { total += i }
+val total = numbers.reduce( (a: Int, b: Int) => a + b )
+val total = numbers.reduce( (a, b) => a + b)
+
+// Set follows same operations as List (because it is a subtype of Iterable),
+// but Set elements are unique (it does not allow duplicates).
+val unique = Set(10, 20, 30, 20, 20, 10)
+val sum = unique.reduce( (a: Int, b: Int) => a + b )
+
+// Map is a key-value store. Receive also the name of hashmap, dictionary or assocative array
+// Map key is unique.
+// Map follows same operations as List (because it is a subtype of Iterable).
+val colorMap = Map("red" -> 0xFF0000, "green" -> 0xFF00, "blue" -> 0xFF)
+val redRGB = colorMap("red")
+val cyanRGB = colorMap("green") | colorMap("blue")
+val hasWhite = colorMap.contains("white")
+
+for (pairs <- colorMap) { println(pairs) }
+colorMap.foreach( pairs => println(pairs))
+
+val oddsAndEvents = List(List(1, 3, 5), List(2, 4, 6))
+val keyValues = List(('A', 65), ('B',66), ('C',67))
+val primes = List(2, 3, 5, 7, 11, 13)
+val first = primes(0)
+val fourth = primes(3)
+val first = primes.head
+val tail = primes.tail
+var i = primes
+while(! i.isEmpty) { print(i.head + ", "); i = i.tail }
+// Recursive version of the last statement
+def visit(i: List[Int]) { if (i.size > 0) { print(i.head + ", ");visit(i.tail) } }
+visit(primes)
+
+while(i != Nil) { print(i.head + ", "); i = i.tail }
+val l: List[Int] = List()
+l == Nil
+val m: List[String] = List("a")
+m.head
+m.tail == Nil
+
+// Another way to construct a list is by using the Right-Associative Operator (Cons operator)
+val numbers = 1 :: 2 :: 3 :: Nil
+val first = Nil.::(1) // This is the same to say 1 :: Nil
+val numbers2 = Nil.::(3).::(2).::(1) // This is the same to say 1 :: 2 :: 3 :: Nil
+val second = 2 :: first
+
+// Arithmetic operations on lists
+1 :: 2 :: Nil // New list
+List(1, 2) ::: List(2, 3) // Prepends a list
+List(1, 2) ++ Set(3, 4, 3) // Appends a list to another one
+List(1, 2) == List(1, 2) // True if lists are equal
+List(3, 5, 4, 3, 4).distinct // Returns the distinct elements
+List(6, 2, 3, 2, 5, 5, 4, 3, 4).distinct // Returns the distinct elements
+// 2, 3, 5, 4
+
+List('a', 'b', 'c', 'd') drop 2 // Subtracts first two elements from list
+List(23, 8, 14, 21) filter (_ > 18) 
+List(23, 8, 14, 21) filter (x => x > 18)
+
+List(List(1, 2), List(3, 4)).flatten
+List(1, 2, 3, 4, 5) partition (_ < 3) // Groups elements into a tuple of two lists based on the result of a true/false function.
+List(1, 2, 3).reverse // Reverses the list.
+
+List(2, 3, 5, 7) slice (1, 3) // Returns a segment of the list from the first index up to but not including the second index.
+List("apple", "to") sortBy (_.size) // Orders the list by the value returned from the given function.
+List("apple", "This is the longest", "to").sorted // Orders a list of core Scala types by their natural value.
+List(2, 3, 5, 7) splitAt 2 // Groups elements into a tuple of two lists based on if they fall before or after the given index.
+List(2, 3, 5, 7, 11, 13) take 3 // Extracts the first n elements from the list.
+List(1, 2) zip List("a", "b") // Combines two lists into a list of tuples of elements at each index.
+
+// Be careful not to use operations at end of list as they would incur in memory issues for large lists.
+// Examples follows
+val appended = List(1, 2, 3, 4) :+ 5
+val suffix = appended takeRight 3
+val middle = suffix dropRight 2
+
+// Mapping Lists
+List(0, 1, 0) collect {case 1 => "ok"} // Transforms each element using a partial function, retaining applicable elements.
+List("milk,tea") flatMap (_.split(',')) // Transforms each element using the given function and “flattens” the list of results into this list.
+List("milk,tea", "a,b,c") flatMap (_.split(','))
+
+List("milk","tea") map (_.toUpperCase) // Transforms each element using the given function.
+
+// Reducing Lists
+List(41, 59, 26).max //Finds the maximum value in the list.
+List(10.9, 32.5, 4.23, 5.67).min // Finds the minimum value in the list.
+List(5, 6, 7).product // Multiplies the numbers in the list.
+List(11.3, 23.5, 7.2).sum // Sums up the numbers in the list.
+List(34, 29, 18) contains 29 // Checks if the list contains this element.
+List(0, 4, 3) endsWith List(4, 3) // Checks if the list ends with a given list.
+List(24, 17, 32) exists (_ < 18) // Checks if a predicate holds true for at least one element in the list.
+List(24, 17, 32) forall (_ < 18) // Checks if a predicate holds true for every element in the list.
+List(0, 4, 3) startsWith List(0) // Tests whether the list starts with a given list.
+val validations = List(true, true, false, true, true, true)
+val valid1 = !(validations contains false)
+val valid2 = validations forall (_ == true)
+val valid3 = validations.exists(_ == false) == false
+def contains(x: Int, l: List[Int]): Boolean = {
+	var a: Boolean = false
+	for (i <- l) { if (!a) a = (i == x) }
+	a
+}
+val included = contains(19, List(46, 19, 92))
+
+
+def boolReduce(l: List[Int], start: Boolean)(f: (Boolean, Int) => Boolean): Boolean = {
+	var a = start
+	 for (i <- l) a = f(a, i)
+	 a
+}
+
+val included = boolReduce(List(46, 19, 92), false) { (a, i) =>
+	if (a) a else (i == 19)
+}
+
+def reduceOp[A,B](l: List[A], start: B)(f: (B, A) => B): B = {
+	var a = start
+	for (i <- l) a = f(a, i)
+	a
+}
+
+val included = reduceOp(List(46, 19, 92), false) { (a, i) =>
+	if (a) a else (i == 19)
+}
+
+val answer = reduceOp(List(11.3, 23.5, 7.2), 0.0)(_ + _)
+
+List(4, 5, 6).fold(0)(_ + _) // Reduces the list given a starting value and a reduction function.reduction function.
+List(4, 5, 6).foldLeft(0)(_ + _) // Reduces the list from left to right given a starting value and a reduction function.
+List(4, 5, 6).foldRight(0)(_ + _) // Reduces the list from right to left given a starting value and a reduction function.
+List(4, 5, 6).reduce(_ + _) // Reduces the list given a reduction function, starting with the first element in the list.
+List(4, 5, 6).reduceLeft(_ + _) // Reduces the list from left to right given a reduction function, starting with the first element in the list.
+List(4, 5, 6).reduceRight(_ + _) // Reduces the list from right to left given a reduction function, starting with the first element in the list.
+List(4, 5, 6).scan(0)(_ + _) // Takes a starting value and a reduction function and returns a list of each accumulated value.
+List(4, 5, 6).scanLeft(0)(_ + _) // Takes a starting value and a reduction function and returns a list of each accumulated value from left to right.
+List(4, 5, 6).scanRight(0)(_ + _) // Takes a starting value and a reduction function and returns a list of each accumulated value from right to left.
+
+
+// Converting Collections
+List(24, 99, 104).mkString(", ") // Renders a collection to a Set using the given delimiters.
+List('f', 't').toBuffer // Converts an immutable collection to a mutable one.
+Map("a" -> 1, "b" -> 2).toList // Converts a collection to a List.
+Set(1 -> true, 3 -> true).toMap // Converts a collection of 2-arity (length) tuples to a Map.
+List(2, 5, 5, 3, 2).toSet // Converts a collection to a Set.
+List(2, 5, 5, 3, 2).toString // Renders a collection to a String, including the collection’s type.
+
+// Java and Scala Collection Compatibility
+import collection.JavaConverters._
+List(12, 29).asJava // Converts this Scala collection to a corresponding Java collection.
+new java.util.ArrayList(5).asScala // Converts this Java collection to a corresponding Scala collection.
+
+// Pattern Matching with Collections
+val statuses = List(500, 404)
+val msg = statuses.head match {
+	case x if x < 500 => "okay"
+	case _ => "whoah, an error"
+}
+
+val msg = statuses match {
+	case x if x contains(500) => "has error"
+	case _ => "okay"
+}
+
+val msg = statuses match {
+	case List(404, 500) => "not found & error"
+	case List(500, 404) => "error & not found"
+	case List(200, 200) => "okay"
+	case _ => "not sure what happened"
+}
+
+val msg = statuses match {
+	case List(500, x) => s"Error followed by $x"
+	case List(e, x) => s"$e was followed by $x"
+}
+
+val head = List('r','g','b') match {
+	case x :: xs => x
+	case Nil => ' '
+}
+
+val code = ('h', 204, true) match {
+	case (_, _, false) => 501
+	case ('c', _, true) => 302
+	case ('h', x, true) => x
+	case (c, x, true) => {
+		println(s"Did not expect code $c")
+		x
+	}
+}
+code: Int =
