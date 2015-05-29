@@ -1,0 +1,22 @@
+val m = Map("AAPL" -> 597, "MSFT" -> 40)
+val n = m - "AAPL" + ("GOOG" -> 521)
+
+// Creating New Mutable Collections
+val nums = collection.mutable.Buffer(1)
+for (i <- 2 to 10) nums += i
+println(nums)
+val numsAsList = nums.toList
+
+val nums = collection.mutable.Buffer[Int]()
+for (i <- 1 to 10) nums += i
+println(nums)
+
+val sets = collection.mutable.Set[Int]()
+nums.foreach { x => 
+    sets += x
+    println(x) 
+}
+println(sets)
+
+// Creating Mutable Collections from Immutable Ones
+
