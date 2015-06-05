@@ -1,6 +1,135 @@
 // First Class Functions
 // Higher-Order Functions -> Map/Reduce pattern
 // Declarative Programming -> Better
-// Imperative Programming -> Not so better nowadays
+// Imperative Programming -> Not so better nowadays 
+
+// Function Type
+def double(x: Int): Int = x * 2
+double(5)
+val myDouble : (Int) => Int = double
+myDouble(10)
+
+val myDoubleCopy = myDouble
+myDoubleCopy(20) 
 
 
+// If a function type has one single parameter then parentheses can be omitted
+val myDouble2 : Int => Int = double
+
+// Assigns the function type as inferred by double function.
+val myDouble3 = double _
+
+def logStart() = "=" * 50 + "\nStarting NOW\n" + "=" * 50
+val start: () => String = logStart
+start()
+val start2 = () => "=" * 50 + "\nStarting NOW 1\n" + "=" * 50
+start2()
+
+// Higher-Order Functions
+def safeStringOp(s: String, f: String => String) = {
+	if (s != null) f(s) else s
+}
+def reverser(s: String) = s.reverse
+safeStringOp(null, reverser)
+
+safeStringOp("Ready", reverser)
+
+
+// Function Literals and Scala names this as Anonymous functions
+// Function LIterals also names as Lambda Expressions, Lambdas, functionN (with N the number of input parameters).
+val doubler = (x: Int) => x * 2 
+doubler(20)
+val doubled = doubler(22)
+
+val greeter = (name: String) => s"Hello, $name"
+greeter("Me")
+
+def max(a: Int, b: Int) = if (a > b) a else b
+val maximize: (Int, Int) => Int = max
+val maximize2 = max _
+maximize(20, 10)
+maximize2(10, 30)
+
+val maximizeAnonymousFunction = (a: Int, b: Int) => if (a > b) a else b
+maximizeAnonymousFunction(2, 3)
+
+
+safeStringOp("Ready", (s: String) => s.reverse) // Uses a function literal
+safeStringOp("Ready", (s) => s.reverse)
+safeStringOp("Ready", s => s.reverse)
+
+val doubler: Int => Int = _ * 2
+safeStringOp("Ready", _.reverse)
+
+def combination(x: Int, y: Int, f: (Int,Int) => Int) = f(x,y)
+combination(23, 12, _ * _)
+combination(23, 12, (x : Int, y : Int) => x * y)
+combination(23, 12, (x, y : Int) => x * y)
+
+def tripleOp(a: Int, b: Int, c: Int, f: (Int, Int, Int) => Int) = f(a,b,c)
+tripleOp(23, 92, 14, _ * _ + _)
+
+def tripleOp[A,B](a: A, b: A, c: A, f: (A, A, A) => B) = f(a,b,c)
+tripleOp[Int,Int](23, 92, 14, _ * _ + _)
+tripleOp[Int,Double](23, 92, 14, 1.0 * _ / _ / _)
+tripleOp[Int,Boolean](93, 92, 14, _ > _ + _)
+
+// Partial applied functions and currying
+def factorOf(x: Int, y: Int) = y % x == 0
+val f = factorOf _
+val x = f(7,20)
+val multipleOf3 = factorOf(3, _: Int)
+val y = multipleOf3(78)
+
+// Currying the function
+def factorOf(x: Int)(y: Int) = y % x == 0
+val isEven = factorOf(2) _
+val z = isEven(32)
+
+// By-Name Parameters
+def doubles(x: => Int) = {
+	println("Now doubling " + x)
+	x * 2
+}
+doubles(5)
+def f(i: Int) = { println(s"Hello from f($i)"); i }	
+
+doubles(f(8))
+
+//Invoking Higher-Order Functions with Function Literal Blocks
+val uuid = java.util.UUID.randomUUID.toString
+val timedUUID = safeStringOp(uuid, { s =>
+	 val now = System.currentTimeMillis
+ 	 val timed = s.take(24) + now
+ 	 timed.toUpperCase
+})
+
+val timeUUID2 = safeStringOp(java.util.UUID.randomUUID.toString, s=> {
+    val now = System.currentTimeMillis
+    val timed = s.take(24) + now
+    timed.toUpperCase()
+});
+
+val timeUUID3 = safeStringOp(java.util.UUID.randomUUID.toString) { s=> 
+    val now = System.currentTimeMillis
+    val timed = s.take(24) + now
+    timed.toUpperCase()
+}
+
+// For the latter to work 'safeStringOp' must be defined as follows
+def safeStringOp(s: String)(f: String => String) = {
+	if (s != null) f(s) else s
+}
+
+def timer[A](f: => A): A = {
+	def now = System.currentTimeMillis
+	val start = now; val a = f; val end = now
+	println(s"Executed in ${end - start} ms")
+	a
+}
+
+val veryRandomAmount = timer {
+	util.Random.setSeed(System.currentTimeMillis)
+	for (i <- 1 to 100000) util.Random.nextDouble
+	util.Random.nextDouble
+}

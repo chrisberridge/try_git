@@ -1,0 +1,55 @@
+// This is a way to print argument list to console. Imperative mode.
+  var i = 0
+  while (i < args.length) {
+    if (i != 0)
+      print(" ")
+    print(args(i))
+    i += 1
+  }
+  println()
+  
+  // This is the way to print argument list to console. Concise mode or declarative mode.
+  args.foreach(arg => println(arg))
+  
+  // ... or if you prefer
+  args.foreach(println)}
+
+// Parameteize Arrays with types
+val greetStrings = new Array[String](3)
+  
+greetStrings(0) = "Hello"
+greetStrings(1) = ", "
+greetStrings(2) = "world!\n"
+  
+    for (i <- 0 to 2)
+      print(greetStrings(i))  
+
+// Lines 24 and 25 gets converted by Scala Compiler as
+for (i <- 0.to(2)) {
+   print(greetString.apply(i))
+}
+
+// Lines 20 through 22 are compiled by Scala compiler as
+greetStrings.update(0, "Hello")
+greetStrings.update(1, ", ")
+greetStrings.update(2, "world!\n")
+
+val numNames = Array("zero", "one", "two")
+// is actually compiled as
+val numNames2 = Array.apply("zero", "one", "two")
+
+// Tuples
+val pair = (99, "Luftballons")
+println(pair._1)
+println(pair._2)
+	
+// Read lines from a file [link]
+    import scala.io.Source
+  
+    if (args.length > 0) {
+  
+      for (line <- Source.fromFile(args(0)).getLines)
+        print(line.length +" "+ line)
+    }
+    else
+      Console.err.println("Please enter filename")
