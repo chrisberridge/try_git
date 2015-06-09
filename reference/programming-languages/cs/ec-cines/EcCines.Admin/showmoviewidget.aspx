@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="showmoviewidget.aspx.cs" Inherits="EcCines.showmoviewidget" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="showmoviewidget.aspx.cs" Inherits="EcCines.Admin.showmoviewidget" %>
 
 <!DOCTYPE html>
 
@@ -19,6 +19,8 @@
     <script src="Scripts/movieservice.js"></script>
     <script src="Scripts/urlencode.js"></script>
     <link href="css/styles.css" rel="stylesheet" type="text/css" media="screen" />
+    <link rel="shortcut icon" href="./images/ec-logo.jpeg" />
+    <script src="Scripts/iframeResizer.contentWindow.min.js"></script>
 </head>
 <body>
     <form id="form1" runat="server">

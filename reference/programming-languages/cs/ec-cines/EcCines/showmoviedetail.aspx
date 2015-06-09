@@ -6,8 +6,9 @@
 <head runat="server">
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>Ver Detalle Pelicula</title>
-    <link href="css/styles.css" rel="stylesheet" type="text/css" media="screen" />
     <script src="Scripts/iframeResizer.contentWindow.min.js"></script>
+    <link href="css/styles.css" rel="stylesheet" type="text/css" media="screen" />
+    <link rel="shortcut icon" href="./images/ec-logo.jpeg" />
 </head>
 <body>
     <form id="frmMovieDetail" runat="server">

@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="moviedetailiframe.aspx.cs" Inherits="EcCines.moviedetailiframe" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="moviedetailiframe.aspx.cs" Inherits="EcCines.Admin.moviedetailiframe" %>
 
 <!DOCTYPE html>
 
@@ -8,6 +8,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="Scripts/iframeResizer.min.js"></script>
     <link href="css/styles.css" rel="stylesheet" type="text/css" media="screen" />
+    <link rel="shortcut icon" href="./images/ec-logo.jpeg" />
 </head>
 <body>
     <div id="Content">
@@ -20,8 +21,7 @@
             </asp:Panel>
             <asp:HiddenField runat="server" ID="idPelicula" />
             <iframe id="movieDetailFrame" src="" width="100%" frameborder="0" scrolling="no"></iframe>                        
-        </form>
-        <p id="callback">ICI</p>
+        </form>        
     </div>
 </body>
 <script language="javascript">

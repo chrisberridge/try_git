@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EcCines {
+namespace EcCines.Admin {
     
     
     public partial class moviedetailiframe {

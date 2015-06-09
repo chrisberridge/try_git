@@ -1,0 +1,38 @@
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8">
+<title>jQuery Real Person</title>
+<link rel="stylesheet" href="jquery.realperson.css">
+<style type="text/css">
+label { display: inline-block; width: 20%; }
+.realperson-challenge { display: inline-block }
+</style>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<script type="text/javascript" src="jquery.realperson.min.js"></script>
+<script type="text/javascript" src="realPersonBasic.js"></script>
+<script type="text/javascript">
+$(function() {
+	$('#defaultReal').realperson({includeNumbers: true, regenerate: 'Regenerar'});
+    $('#clickMe').click(function() {return doCheck(); } );
+});
+</script>
+</head>
+<body>
+<h1>jQuery Real Person</h1>
+<p>This page demonstrates the very basics of the
+	<a href="http://keith-wood.name/realPerson.html">jQuery Real Person plugin</a>.
+	It contains the minimum requirements for using the plugin and
+	can be used as the basis for your own experimentation.</p>
+<p>For more detail see the <a href="http://keith-wood.name/realPersonRef.html">
+	documentation reference</a> page.</p>
+<form action="http://localhost:62670/realperson.aspx" method="post" onsubmit="return doSubmit();">
+	<p><label>Other fields:</label><input type="text" id="field"></p>
+	<p><label>Please enter the letters displayed:</label>
+		<input type="text" id="defaultReal" name="defaultReal"></p>
+	<p style="clear: both;"><label>&nbsp;</label><input type="submit" value="Submit"></p>
+    <p style="clear: both;"><div id="clickMe" style="cursor:pointer;">Click me</div></p>
+    <p style="clear: both;"><div id="serverResponse"></div></p>
+</form>
+</body>
+</html>

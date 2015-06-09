@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EcCines {
+namespace EcCines.Admin {
     
     
     public partial class CinesHorarios {
@@ -76,13 +76,13 @@ namespace EcCines {
         protected global::System.Web.UI.UpdatePanel upPrincipal;
         
         /// <summary>
-        /// ListBox2 control.
+        /// lbTeatros control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ListBox ListBox2;
+        protected global::System.Web.UI.WebControls.ListBox lbTeatros;
         
         /// <summary>
         /// checkBoxPeliculas control.
@@ -101,5 +101,14 @@ namespace EcCines {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button guardarContinuar;
+        
+        /// <summary>
+        /// btnDisableEnter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnDisableEnter;
     }
 }

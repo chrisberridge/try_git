@@ -1,60 +1,69 @@
-﻿using System;
+﻿/*==========================================================================*/
+/* Source File:   HORARIO.ASPX.CS                                           */
+/* Description:   Management for hours in the schedule in movies            */
+/* Author:        Leonardino Lima (LLIMA)                                   */
+/*                Carlos Adolfo Ortiz Quirós (COQ)                          */
+/* Date:          Feb.11/2015                                               */
+/* Last Modified: May.05/2015                                               */
+/* Version:       1.12                                                      */
+/* Copyright (c), 2015 Arkix, El Colombiano                                 */
+/*==========================================================================*/
+
+/*===========================================================================
+History
+Feb.11/2015 LLIMA File created.
+Mar.26/2015 COQ   Init collaboration on web form.
+============================================================================*/
+
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using ELCOLOMBIANO.EcCines.Business;
 using ELCOLOMBIANO.EcCines.Common;
+using ELCOLOMBIANO.EcCines.Common.Extensions;
 using ELCOLOMBIANO.EcCines.Entities;
 using ELCOLOMBIANO.EcCines.Entities.Dtos;
+using ELCOLOMBIANO.EcCines.Web;
 using Newtonsoft.Json;
 
-namespace EcCines {
-    public partial class Horario : System.Web.UI.Page {
-        protected void Page_Load(object sender, EventArgs e) {
-            if (Session["autenticado"] == null || !(bool)Session["autenticado"])
-                Response.Redirect("Default.aspx");
-            if (!IsPostBack) {
-                String teatroSeleccionado = Session["teatroSeleccionado"].ToString();
-                if (string.IsNullOrEmpty(teatroSeleccionado))
-                    Response.Redirect("~/CinesHorarios.aspx", true);
-                String nombreTeatroSeleccionado = Session["nombreTeatroSeleccionado"].ToString();
-                poblarPeliculas(Convert.ToInt32(teatroSeleccionado));
-                Label2.Text = nombreTeatroSeleccionado;
-                ListBoxPeliculas.SelectedIndex = 0;
-                pintarProgramacion();
-            }
-        }
-
+namespace EcCines.Admin {
+    /// <summary>
+    /// Management for hours in the schedule in movies 
+    /// </summary>
+    public partial class Horario : WebPageBase {
+        /// <summary>
+        /// Loads movies to use to make schedule on it.
+        /// </summary>
+        /// <param name="teatro"></param>
         private void poblarPeliculas(int teatro) {
-            Dictionary<string, string> list = new Dictionary<string, string>();
-            Pelicula peliculaDao = new Pelicula();
-            List<PeliculaDto> listaPeliculas = null;
-            listaPeliculas = peliculaDao.getPeliculasPorTeatro(teatro);
-            PeliculaDto pelParametro = null;
-            foreach (var item in listaPeliculas) {
-                pelParametro = new PeliculaDto();
-                pelParametro.idPelicula = item.idPelicula;
-                List<DetallePeliculaDto> pelicula = peliculaDao.getPelicula(pelParametro);
-                foreach (var item2 in pelicula) {
-                    list.Add(item2.idPelicula.ToString(), item2.nombrePelicula);
-                }
+            if (log.IsDebugEnabled) {
+                log.Debug("poblarPeliculas Starts");
             }
-            ListBoxPeliculas.DataSource = list;
-            ListBoxPeliculas.DataTextField = "Value";
-            ListBoxPeliculas.DataValueField = "Key";
+            Pelicula peliculaDao = new Pelicula();
+            List<PeliculaDto> listaPeliculas = peliculaDao.getPeliculasPorTeatro(teatro);
+            listaPeliculas = listaPeliculas.OrderBy(x => x.nombrePelicula).ToList<PeliculaDto>();
+            ListBoxPeliculas.DataSource = listaPeliculas;
+            ListBoxPeliculas.DataTextField = "nombrePelicula";
+            ListBoxPeliculas.DataValueField = "idPelicula";
             ListBoxPeliculas.DataBind();
+            if (log.IsDebugEnabled) {
+                log.Debug("poblarPeliculas Ends");
+            }
         }
 
-        protected void ObtenerProgramacion(object sender, EventArgs e) {
-            pintarProgramacion();
-        }
-        protected void pintarProgramacion() {
-            if (Session["Formatos"] == null) {
-                var en = new Entidad();
-                Session["Formatos"] = en.obtenerValoresEntidad("SISTEMA_FORMATO_PELICULA");
+        /// <summary>
+        /// Loads the schedule for movie and generates the HTML to be used as a basis for its schedule.
+        /// </summary>
+        private void pintarProgramacion() {
+            if (log.IsDebugEnabled) {
+                log.Debug("pintarProgramacion Starts");
             }
+            if (Session["Formatos"] == null) {
+                Session["Formatos"] = new Entidad().getValoresEntidad("SISTEMA_FORMATO_PELICULA");
+            }            
             List<EntidadDto> formatos = (List<EntidadDto>)Session["Formatos"];
             int idPelicula = Convert.ToInt32(ListBoxPeliculas.SelectedValue);
-            int idTeatro = Convert.ToInt32(Session["teatroSeleccionado"].ToString());
+            int idTeatro = Convert.ToInt32(teatroSeleccionado.Value.ToString());
             List<PeliculaFullInfoDto> listaProgramacion = obtenerProgramacion(idPelicula, idTeatro);
             List<DateTime> fechas = listaProgramacion.Select(x => new DateTime(int.Parse(x.annoHorarioPelicula), int.Parse(x.mesHorarioPelicula), int.Parse(x.diaHorarioPelicula))).Distinct().OrderByDescending(x => x).ToList();
             ltFechas.Text = "";
@@ -78,69 +87,176 @@ namespace EcCines {
                 cont++;
             }
             //Llenar plantilla vacia para adicionar fecha
-            foreach (var formato in formatos)
+            foreach (var formato in formatos) {
                 codNuevaFecha.Value += string.Format("<div class='formatos' idFormato='{0}' idHorarioPelicula='{2}'><span class='nombre_formato'>Formato - {1}</span><span class='masHora_nuevo'><img class='imgFechas'  title='Adicionar Hora' src='images/MasHora.png'/></span><br></div><hr>", formato.idEntidad, formato.valorEntidad, 0);
+            }
             codNuevaFecha.Value = string.Format("<div class='fechas'><div class='fecha'><input class='txt_fecha' type='text' value=''/><span class='mas_nuevo'><img id='imgExpand' title='Ver Elementos' class='imgFechas' src='images/FlechaAba.png'/></span><span class='clon_nuevo'><img class='imgFechas' title='Clonar Fecha' src='images/Clonar.png'/></span></div><div class='horas expanded'>{0}</div></div>", codNuevaFecha.Value);
-
+            if (log.IsDebugEnabled) {
+                log.Debug("HTML generated is [" + codNuevaFecha.Value + "]");
+                log.Debug("pintarProgramacion Ends");
+            }
         }
 
-        public List<PeliculaFullInfoDto> obtenerProgramacion(int idPelicula, int idTeatro) {
+        /// <summary>
+        /// Retrieves the schedule so far for the supplied parameters.
+        /// </summary>
+        /// <param name="idPelicula">Movie Id</param>
+        /// <param name="idTeatro">Theater Id</param>
+        /// <returns>A list of PeliculaFullInfoDto</returns>
+        private List<PeliculaFullInfoDto> obtenerProgramacion(int idPelicula, int idTeatro) {
+            if (log.IsDebugEnabled) {
+                log.Debug("obtenerProgramacion Starts");
+                log.Debug("idPelicula=[" + idPelicula + "]");
+                log.Debug("idTeatro=[" + idTeatro + "]");
+            }
+            infoProgramacion.Value = ListBoxPeliculas.SelectedValue;
+            List<PeliculaFullInfoDto> listResultado = new Pelicula().getProgramacionPelicula(idPelicula, idTeatro);
+            if (log.IsDebugEnabled) {
+                log.Debug("obtenerProgramacion Ends");
+            }
+            return listResultado;            
+        }
+
+        /// <summary>
+        /// Saves the schedule for selected movie/theater.
+        /// </summary>
+        private void guardarHorario() {
+            if (log.IsDebugEnabled) {
+                log.Debug("guardarHorario Starts");
+            }
             DetalleProgramacion programacionObj;
             try {
                 programacionObj = JsonConvert.DeserializeObject<DetalleProgramacion>(infoProgramacion.Value);
             } catch (Exception) {
                 programacionObj = null;
             }
-            infoProgramacion.Value = ListBoxPeliculas.SelectedValue;
-            List<PeliculaFullInfoDto> listResultado = new List<PeliculaFullInfoDto>();
-            Pelicula peliculaDao = new Pelicula();
-            listResultado = peliculaDao.obtenerProgramacionPelicula(idPelicula, idTeatro);
-            if (programacionObj != null)
+            if (programacionObj != null) {
+                if (log.IsDebugEnabled) {
+                    log.Debug("JSon Format to save is [" + infoProgramacion.Value + "]");
+                }
                 guardarProgramacion(programacionObj);
-            return listResultado;
+            }
+            if (log.IsDebugEnabled) {
+                log.Debug("guardarHorario Ends");
+            }
         }
 
-
-        public void guardarProgramacion(DetalleProgramacion datosProgramacion) {
-            Pelicula peliculaObj = new Pelicula();
-            ProgramacionPeliculaDto programacionDto;
-            if (datosProgramacion == null)
+        /// <summary>
+        /// Saves all information about the schedule for movie/theater back to disk.
+        /// </summary>
+        /// <param name="datosProgramacion">An object representing the information to save from JSON format</param>
+        private void guardarProgramacion(DetalleProgramacion datosProgramacion) {
+            if (log.IsDebugEnabled) {
+                log.Debug("guardarProgramacion Starts");
+            }
+            if (datosProgramacion == null) {
+                if (log.IsDebugEnabled) {
+                    log.Debug("Supplied parameter is not set");
+                }
                 return;
+            }
+            Pelicula peliculaDao = new Pelicula();
+            ProgramacionPeliculaDto programacionDto = null;            
             foreach (var itemFechas in datosProgramacion.fs) {
                 foreach (var itemFormatos in itemFechas.fms) {
                     programacionDto = new ProgramacionPeliculaDto();
-                    programacionDto.horaMinutoPelicula = itemFormatos.h;
                     programacionDto.idHorarioPelicula = itemFormatos.idh;
+                    String[] hhmm = itemFormatos.h.Split(',');
+                    List<string> hhmmList = new List<string>();
+                    foreach (var shhmm in hhmm) {
+                        if (shhmm != "00:00") {
+                            hhmmList.Add(shhmm);
+                        }
+                    }
+                    programacionDto.horaMinutoPelicula = hhmmList.ToStringDelimited(",");
                     if (!String.IsNullOrEmpty(programacionDto.horaMinutoPelicula) || programacionDto.idHorarioPelicula != 0) {
-                        if (string.IsNullOrEmpty(itemFechas.f))
+                        if (string.IsNullOrEmpty(itemFechas.f)) {
                             continue;
-                        var s = itemFechas.f.Split('/');
-                        DateTime fecha = new DateTime(int.Parse(s[2]), int.Parse(s[1]), int.Parse(s[0]));
+                        }
+                        
+                        DateTime fecha = itemFechas.f.DDMMYYYYToDateTime();                        
                         programacionDto.idFormato = itemFormatos.idf;
                         programacionDto.idPelicula = datosProgramacion.id;
-                        programacionDto.idTeatro = Convert.ToInt32(Session["teatroSeleccionado"].ToString());
+                        programacionDto.idTeatro = Convert.ToInt32(teatroSeleccionado.Value.ToString());
                         programacionDto.mesHorarioPelicula = fecha.Month;
                         programacionDto.annoHorarioPelicula = fecha.Year;
                         programacionDto.diaHorarioPelicula = fecha.Day;
-                        programacionDto.nombreDiaSemanaHorarioPelicula = Util.getNombreDiaEspañol(fecha.DayOfWeek.ToString());
-                        programacionDto.frecuencia = Util.getNumeroDia(fecha.DayOfWeek.ToString());
-                        peliculaObj.crearActualizarProgramacionPelicula(programacionDto);
+                        programacionDto.nombreDiaSemanaHorarioPelicula = Utils.getDayNameSpanish(fecha.DayOfWeek.ToString());
+                        programacionDto.frecuencia = Utils.getDayNameNumber(fecha.DayOfWeek.ToString());
+                        peliculaDao.createUpdateProgramacionPelicula(programacionDto);                                    
                         programacionDto = null;
                     }
                 }
             }
+            if (log.IsDebugEnabled) {
+                log.Debug("guardarProgramacion Starts");
+            }
         }
 
+        /// <summary>
+        /// Saves current state for schedule and updates the billboard.
+        /// </summary>
+        /// <param name="sender">Objet which sends event</param>
+        /// <param name="e">event parameteres</param>
         protected void OnButtonGuardar(object sender, EventArgs e) {
-            int idPelicula = Convert.ToInt32(ListBoxPeliculas.SelectedValue);
-            int idTeatro = Convert.ToInt32(Session["teatroSeleccionado"].ToString());
-            List<PeliculaFullInfoDto> listaProgramacion = obtenerProgramacion(idPelicula, idTeatro);
-            // pintarProgramacion();
+            if (log.IsDebugEnabled) {
+                log.Debug("OnButtonGuardar Starts");
+            }
+            guardarHorario();
             string imgPathUrl = Request.Url.Scheme + "://" + Request.Url.Authority + "/" + Settings.ImageFolder + "/";
             ManageMovieCatalog mmc = new ManageMovieCatalog(Settings.JSONFolder + @"\" + Settings.FileMovieCatalog, Settings.JSONFolder + @"\" + Settings.FileMovies, imgPathUrl.Replace(@"\", "/"));
             mmc.CompileAllMoviesSchedule();
-
+            if (log.IsDebugEnabled) {
+                log.Debug("OnButtonGuardar Ends and redirects to CinesHorarios.aspx");
+            }
             Response.Redirect("~/CinesHorarios.aspx");
+        }
+
+        /// <summary>
+        /// Saves current schedule and loads the new one requested.
+        /// </summary>
+        /// <param name="sender">Objet which sends event</param>
+        /// <param name="e">event parameteres</param>
+        protected void ObtenerProgramacion(object sender, EventArgs e) {
+            guardarHorario();
+            pintarProgramacion();
+        }
+
+        /// <summary>
+        /// Page Load Event
+        /// </summary>
+        /// <param name="sender">Object which fires the event</param>
+        /// <param name="e">Event argument</param>
+        protected void Page_Load(object sender, EventArgs e) {
+            if (log.IsDebugEnabled) {
+                log.Debug("Page_Load Starts");
+            }
+            if (Session["autenticado"] == null || !(bool)Session["autenticado"]) {
+                if (log.IsDebugEnabled) {
+                    log.Debug("Not authenticated, redirects to Default.aspx (aka login page)");
+                }
+                Response.Redirect("Default.aspx");
+            }            
+            if (!IsPostBack) {
+                teatroSeleccionado.Value = Request["t"].ToString();
+                lblTeatroSeleccionado.Text = Request["nt"].ToString();
+                if (string.IsNullOrEmpty(teatroSeleccionado.Value)) {
+                    Response.Redirect("~/CinesHorarios.aspx", true);
+                }
+                poblarPeliculas(Convert.ToInt32(teatroSeleccionado.Value));                
+                ListBoxPeliculas.SelectedIndex = 0;
+                pintarProgramacion();
+            }
+            if (log.IsDebugEnabled) {
+                log.Debug("Page_Load Starts");
+            }
+        }
+
+        /// <summary>
+        /// Default Constructor
+        /// </summary>
+        public Horario()
+            : base() {
         }
     }
 }

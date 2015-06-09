@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EcCines {
+namespace EcCines.Admin {
     
     
     public partial class Index {
@@ -67,6 +67,24 @@ namespace EcCines {
         protected global::System.Web.UI.WebControls.Button btnAdminCines;
         
         /// <summary>
+        /// smUpdate control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.ScriptManager smUpdate;
+        
+        /// <summary>
+        /// upPrincipal control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdatePanel upPrincipal;
+        
+        /// <summary>
         /// nombre control.
         /// </summary>
         /// <remarks>
@@ -85,15 +103,6 @@ namespace EcCines {
         protected global::System.Web.UI.WebControls.TextBox url;
         
         /// <summary>
-        /// imgPoster control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Image imgPoster;
-        
-        /// <summary>
         /// imgUpload control.
         /// </summary>
         /// <remarks>
@@ -101,6 +110,24 @@ namespace EcCines {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.FileUpload imgUpload;
+        
+        /// <summary>
+        /// btnUpload control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnUpload;
+        
+        /// <summary>
+        /// imgPoster control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Image imgPoster;
         
         /// <summary>
         /// listGenero control.
@@ -139,6 +166,15 @@ namespace EcCines {
         protected global::System.Web.UI.WebControls.HiddenField idPelicula;
         
         /// <summary>
+        /// posterImageName control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField posterImageName;
+        
+        /// <summary>
         /// btnVistaPrevia control.
         /// </summary>
         /// <remarks>
@@ -175,24 +211,6 @@ namespace EcCines {
         protected global::System.Web.UI.WebControls.Button btnCancelar;
         
         /// <summary>
-        /// lblMsg control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblMsg;
-        
-        /// <summary>
-        /// lblError control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Label lblError;
-        
-        /// <summary>
         /// txtBuscar control.
         /// </summary>
         /// <remarks>
@@ -202,13 +220,13 @@ namespace EcCines {
         protected global::System.Web.UI.WebControls.TextBox txtBuscar;
         
         /// <summary>
-        /// ButtonLimpiar control.
+        /// btnLimpiar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button ButtonLimpiar;
+        protected global::System.Web.UI.WebControls.Button btnLimpiar;
         
         /// <summary>
         /// btnBuscar control.
@@ -227,5 +245,23 @@ namespace EcCines {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.GridView grdInfo;
+        
+        /// <summary>
+        /// btnDisableEnter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnDisableEnter;
+        
+        /// <summary>
+        /// updPanelProgress control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.UpdateProgress updPanelProgress;
     }
 }

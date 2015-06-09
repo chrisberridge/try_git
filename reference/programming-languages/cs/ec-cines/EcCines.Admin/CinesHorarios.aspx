@@ -1,15 +1,20 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CinesHorarios.aspx.cs" Inherits="EcCines.CinesHorarios" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="CinesHorarios.aspx.cs" Inherits="EcCines.Admin.CinesHorarios" %>
 
 <!DOCTYPE html>
 
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title>Sala de cine y películas</title>
+    <script src="Scripts/jquery-2.1.3.min.js"></script>
+    <script src="Scripts/toastr.min.js"></script>
+    <script src="Scripts/global.js"></script>
+    <link href="css/toastr.min.css" rel="stylesheet" />
     <link href="css/styles.css" rel="stylesheet" type="text/css" media="screen" />
+    <link rel="shortcut icon" href="./images/ec-logo.jpeg" />
 </head>
 <body>
     <div id="Content">
-        <form id="form1" runat="server">
+        <form id="form1" runat="server" defaultbutton="btnDisableEnter">
             <div>
                 <div class="head">
                     <div class="logo">
@@ -36,21 +41,22 @@
                 <ContentTemplate>
                     <div class="divDerecho" id="Derecho">
                         <div class="title">
-                            <span class="titulo_sala">Salas de cine</span>                            
+                            <span class="titulo_sala">Salas de cine</span>
                         </div>
-                        <asp:ListBox ID="ListBox2" runat="server" Height="297px" Width="393px" AutoPostBack="true" OnSelectedIndexChanged="ListBox2_SelectedIndexChanged"></asp:ListBox>
+                        <asp:ListBox ID="lbTeatros" runat="server" Height="297px" Width="393px" AutoPostBack="true" OnSelectedIndexChanged="lbTeatros_SelectedIndexChanged"></asp:ListBox>
                     </div>
                     <div class="divIzquierdo" id="izquierdo">
                         <div class="title">
-                            <span>Películas</span>                            
+                            <span>Películas</span>
                         </div>
-                        <div>
-                            <asp:CheckBoxList ID="checkBoxPeliculas" runat="server" Height="289px" Width="386px" TextAlign="Right" AutoPostBack="true" OnSelectedIndexChanged="checkBoxPeliculas_SelectedIndexChanged"></asp:CheckBoxList>
-                        </div>
-                        <asp:Button ID="guardarContinuar" runat="server" OnClick="submitGuardar" Text="Guardar y continuar" CssClass="btn btnHorario"/>
+                        <div style="width:398px; height:297px; overflow:auto;">
+                            <asp:CheckBoxList ID="checkBoxPeliculas" runat="server" TextAlign="Right" AutoPostBack="true" OnSelectedIndexChanged="checkBoxPeliculas_SelectedIndexChanged"></asp:CheckBoxList>
+                        </div>                        
                     </div>
                 </ContentTemplate>
             </asp:UpdatePanel>
+            <asp:Button ID="guardarContinuar" runat="server" OnClick="submitGuardar" Text="Guardar y continuar" CssClass="btn btnHorario" />
+            <asp:Button ID="btnDisableEnter" runat="server" Text="" OnClientClick="return false;" style="display:none;"/>
         </form>
     </div>
 </body>

@@ -4,8 +4,8 @@
 /*                Movies.                                                   */
 /* Author:        Carlos Adolfo Ortiz Quirós (COQ)                          */
 /* Date:          Feb.11/2015                                               */
-/* Last Modified: Mar.11/2015                                               */
-/* Version:       1.4                                                       */
+/* Last Modified: May.05/2015                                               */
+/* Version:       1.6                                                       */
 /* Copyright (c), 2015 Arkix, El Colombiano                                 */
 /*==========================================================================*/
 
@@ -16,12 +16,14 @@ Feb.11/2015 COQ File created.
 
 using System;
 using ELCOLOMBIANO.EcCines.Business;
+using ELCOLOMBIANO.EcCines.Common;
+using ELCOLOMBIANO.EcCines.Web;
 
 namespace EcCines {
     /// <summary>
     /// Microservice that returns a JSON when asked to search for Movies.
     /// </summary>
-    public partial class ecmoviesearch : System.Web.UI.Page {
+    public partial class ecmoviesearch : WebPageBase {
         /// <summary>
         /// Given parameters 't:for theater id', 'm:Movie Id', and 'g:Gender id', computes a lookup in the catalog
         /// matched records. All results must be guaranteed to be sorted.
@@ -31,6 +33,10 @@ namespace EcCines {
         /// <param name="g">Gender Id. Possible value are '-1', or '2'</param>
         /// <returns>A list of 'Movie'  objects serialized as JSON. If list is empty, serialized should be empty.</returns>
         protected void Page_Load(object sender, EventArgs e) {
+            if (log.IsDebugEnabled) {
+                log.Debug("Page_Load Starts");
+            }
+
             ManageMovieCatalog mmc = new ManageMovieCatalog(Settings.JSONFolder + @"\" + Settings.FileMovieCatalog, Settings.JSONFolder + @"\" + Settings.FileMovies);
             string t = Request.QueryString["t"];
             string m = Request.QueryString["m"];
@@ -64,8 +70,24 @@ namespace EcCines {
             } catch (Exception) {
                 g = "-1";
             }
+            if (log.IsDebugEnabled) {
+                log.Debug("Parameters received");
+                log.Debug("t=[" + t + "]");
+                log.Debug("t=[" + m + "]");
+                log.Debug("t=[" + g + "]");
+            }
             Response.Write(mmc.Search(t, m, g));
             Response.AddHeader("Access-Control-Allow-Origin", "*");
+            if (log.IsDebugEnabled) {
+                log.Debug("Page_Load Ends");
+            }
+        }
+
+        /// <summary>
+        /// Default Constructor
+        /// </summary>
+        public ecmoviesearch()
+            : base() {
         }
     }
 }

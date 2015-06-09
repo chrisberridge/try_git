@@ -1,0 +1,1 @@
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="realperson.aspx.cs" Inherits="EC.Web.RealPersonWeb" %>

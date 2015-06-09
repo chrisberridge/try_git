@@ -1,72 +1,95 @@
-﻿using System;
-using System.Web.UI;
-using ELCOLOMBIANO.EcCines.Business;
+﻿/*==========================================================================*/
+/* Source File:   DEFAULT.ASPX.CS                                           */
+/* Description:   Login window                                              */
+/* Author:        Leonardino Lima (LLIMA)                                   */
+/*                Carlos Adolfo Ortiz Quirós (COQ)                          */
+/* Date:          Feb.11/2015                                               */
+/* Last Modified: May.05/2015                                               */
+/* Version:       1.11                                                       */
+/* Copyright (c), 2015 Arkix, El Colombiano                                 */
+/*==========================================================================*/
 
-namespace EcCines {
-    public partial class Default : System.Web.UI.Page {
-        protected void Page_Load(object sender, EventArgs e) {
+/*===========================================================================
+History
+Feb.11/2015 LLIMA File created.
+Mar.26/2015 COQ   Init collaboration on web form.
+============================================================================*/
 
-        }
+using System;
+using ELCOLOMBIANO.EcCines.Common;
+using ELCOLOMBIANO.EcCines.Web;
+
+namespace EcCines.Admin {
+    /// <summary>
+    /// Login window
+    /// </summary>
+    public partial class Default : WebPageBase {
 
         /// <summary>
-        /// Valida las credenciales ingresadas por el usuario y crea la autenticacion en sesion para la validación posterior
+        /// Takes user credentials and if user match then a record is stored in session variable.        
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Objet which sends event</param>
+        /// <param name="e">event parameteres</param>
         protected void AutenticarUsuario(object sender, EventArgs e) {
+            if (log.IsDebugEnabled) {
+                log.Debug("AutenticarUsuario Starts");
+            }
             if (string.IsNullOrEmpty(txtUsuario.Text) && string.IsNullOrEmpty(txtContrasena.Text)) {
-                MostrarMsg(TipoMensaje.Error, "Ingrese el usuario y la contraseña");
+                registerToastrMsg(MessageType.Error, "Ingrese el usuario y la contraseña.");
                 txtUsuario.Focus();
+                if (log.IsDebugEnabled) {
+                    log.Debug("No User/password credentials supplied");
+                    log.Debug("AutenticarUsuario Starts");
+                }
                 return;
             }
             if (string.IsNullOrEmpty(txtUsuario.Text)) {
-                MostrarMsg(TipoMensaje.Error, "Ingrese el usuario");
+                registerToastrMsg(MessageType.Error, "Ingrese el usuario.");
                 txtUsuario.Focus();
+                if (log.IsDebugEnabled) {
+                    log.Debug("Invalid User credentials");
+                    log.Debug("AutenticarUsuario Starts");
+                }
                 return;
             }
             if (string.IsNullOrEmpty(txtContrasena.Text)) {
-                MostrarMsg(TipoMensaje.Error, "Ingrese la contraseña");
+                registerToastrMsg(MessageType.Error, "Ingrese la contraseña.");
                 txtContrasena.Focus();
+                if (log.IsDebugEnabled) {
+                    log.Debug("Invalid Password credentials");
+                    log.Debug("AutenticarUsuario Starts");
+                }
                 return;
             }
-            Session["autenticado"] = txtUsuario.Text == Settings.Usuario && txtContrasena.Text == Settings.Contrasena;
+            var b = txtUsuario.Text == Settings.User && txtContrasena.Text == Settings.Password;
+            if (!b) {
+                registerToastrMsg(MessageType.Error, "Usuario y/o contrasena no válidos. Intente nuevamente.");
+                if (log.IsDebugEnabled) {
+                    log.Debug("Invalid User/Pwd credentials");
+                    log.Debug("AutenticarUsuario Starts");
+                }
+                return;
+            }
+
+            Session["autenticado"] = b;
             if ((bool)Session["autenticado"]) {
                 Session.Timeout = 60;
+                
+                if (log.IsDebugEnabled) {
+                    log.Debug("Flag for authenticate user stored in Session");                    
+                }
+                if (log.IsDebugEnabled) {
+                    log.Debug("AutenticarUsuario Ends");
+                }
                 Response.Redirect("Index.aspx");
-            }
-            MostrarMsg(TipoMensaje.Error, "Usuario o contraseña invalidos");
+            }            
         }
 
         /// <summary>
-        /// Metodo que muestra un mensaje del tipo que se seleccione en el parametro t
+        /// Default constructor
         /// </summary>
-        /// <param name="t">TipoMensaje</param>
-        /// <param name="mensaje">string</param>
-        public void MostrarMsg(TipoMensaje t, string mensaje) {
-            switch (t) {
-                case TipoMensaje.Informacion:
-                    var js1 = string.Format("toastr.info('{0}');", mensaje);
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), Guid.NewGuid().ToString(), js1, true);
-                    break;
-                case TipoMensaje.Error:
-                    var js2 = string.Format("toastr.error('{0}', 'Error');", mensaje);
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), Guid.NewGuid().ToString(), js2, true);
-                    break;
-                case TipoMensaje.Advertencia:
-                    var js3 = string.Format("toastr.warning('{0}');", mensaje);
-                    ScriptManager.RegisterStartupScript(this, typeof(Page), Guid.NewGuid().ToString(), js3, true);
-                    break;
-                default:
-                    break;
-            }
-        }
-        /// <summary>
-        /// Define los tres tipos de mensajes que se pueden mostrar
-        /// </summary>
-        public enum TipoMensaje {
-            Informacion,
-            Error,
-            Advertencia
+        public Default()
+            : base() {
         }
     }
 }

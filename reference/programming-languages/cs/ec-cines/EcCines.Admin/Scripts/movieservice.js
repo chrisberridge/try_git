@@ -1,8 +1,8 @@
-/*
+﻿/*
 Date:     Feb.16/2014
-Modified: Mar.09/2015
+Modified: Apr.15/2015
 */
-var hostBaseSearch = 'http://localhost:56633/';
+var hostBaseSearch = 'http://localhost:8001/';
 var hostBaseWidgetMovie = hostBaseSearch;
 var hostBaseWidgetEvent = hostBaseSearch;
 var movieSearchData;
@@ -73,7 +73,7 @@ fillTheaterByMovieList = function () {
 }
 fillMovieList = function () {
     var items = [];
-    items.push("<h6>Buscar por pel�cula</h6>");
+    items.push("<h6>Buscar por película</h6>");
     items.push("<select id='byMovie'>");
     items.push("<option value='-1'>- seleccione -</option>");
     for (var i in movieSearchData.movies) {
@@ -95,7 +95,7 @@ fillMovieList = function () {
 fillMovieByTeatherList = function () {
     var items = [];
     var theaterSelectedText = $(idTheaters + ' option:selected').text();
-    items.push("<h6>Buscar por pel�cula</h6>");
+    items.push("<h6>Buscar por película</h6>");
     items.push("<select id='byMovie'>");
     items.push("<option value='-1'>- seleccione -</option>");
     var movieList = movieSearchData.theaterMovies[theaterSelectedText];
@@ -117,7 +117,7 @@ fillMovieByTeatherList = function () {
 }
 fillGenreList = function () {
     var items = [];
-    items.push("<h6>Buscar por genero</h6>");
+    items.push("<h6>Buscar por género</h6>");
     items.push("<select id='genres'>");
     items.push("<option value='-1'>- seleccione -</option>");
     for (var i in movieSearchData.genres) {
@@ -151,8 +151,19 @@ paintMovies = function (data, theaterSelected, byMovieSelected, byGenreSelected)
         }
         items.push('<div class="pelicula">');
         items.push('<figure class="poster-pelicula">');
+
+        var isPremiere;
+
+        if ($.isArray(data)) {
+            isPremiere = data[i].premiere;
+        } else {
+            isPremiere = data.premiere;
+        }
+        if (isPremiere == 'S') {
+            items.push('<div class="new-movie"><img border="0" src="' + hostBaseSearch + '/images/titular-estreno.png"></div>');
+        }
         items.push('<a href="' + urlModified + '" target="_blank">');
-        items.push('<img src="' + data[i].img + '" alt="" border="" width="221px" height="309px"/>');
+        items.push('<img src="' + data[i].img + '" alt="" border="0" width="221px" height="309px"/>');
         items.push('</a>');
         items.push('</figure>');
         items.push('</div>');
@@ -193,8 +204,19 @@ paintMovieOnly = function (data, theaterSelected, byMovieSelected, byGenreSelect
     }
     items.push('<div class="pelicula">');
     items.push('<figure class="poster-pelicula">');
+
+    var isPremiere;
+
+    if ($.isArray(data)) {
+        isPremiere = data[i].premiere;
+    } else {
+        isPremiere = data.premiere;
+    }
+    if (isPremiere == 'S') {
+        items.push('<div class="new-movie"><img border="0" src="' + hostBaseSearch + '/images/titular-estreno.png"></div>');
+    }
     items.push('<a href="' + urlModified + '" target="_blank">');
-    items.push('<img src="' + data.img + '" alt="" border="" width="221px" height="309px"/>');
+    items.push('<img src="' + data.img + '" alt="" border="0" width="221px" height="309px"/>');
     items.push('</a>');
     items.push('</figure>');
     items.push('</div>');
@@ -280,7 +302,7 @@ onMovieSearch = function () {
         success: function (data) {
             if (data != null && data.length == 0) {
                 $(errorBox).empty();
-                $(errorBox).append("<span>No se encontraron resultados</span>");
+                $(errorBox).append("<div class='content'><span>No se encontraron resultados</span></div>");
                 $(idShowMovieList).css('display', 'none');
                 $(errorBox).css('display', 'block');
             } else {

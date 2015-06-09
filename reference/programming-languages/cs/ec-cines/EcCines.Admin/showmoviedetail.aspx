@@ -1,4 +1,4 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="showmoviedetail.aspx.cs" Inherits="EcCines.showmoviedetail" %>
+﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="showmoviedetail.aspx.cs" Inherits="EcCines.Admin.showmoviedetail" %>
 
 <!DOCTYPE html>
 
@@ -8,6 +8,7 @@
     <title>Ver Detalle Pelicula</title>
     <script src="Scripts/iframeResizer.contentWindow.min.js"></script>
     <link href="css/styles.css" rel="stylesheet" type="text/css" media="screen" />
+    <link rel="shortcut icon" href="./images/ec-logo.jpeg" />
 </head>
 <body>
     <form id="frmMovieDetail" runat="server">

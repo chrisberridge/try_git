@@ -1,27 +1,161 @@
-﻿using System;
+﻿/*==========================================================================*/
+/* Source File:   CINESHORARIOS.ASPX.CS                                     */
+/* Description:   Select a theater and movies to assign schedule later      */
+/* Author:        Leonardino Lima (LLIMA)                                   */
+/*                Carlos Adolfo Ortiz Quirós (COQ)                          */
+/* Date:          Feb.11/2015                                               */
+/* Last Modified: May.05/2015                                               */
+/* Version:       1.10                                                      */
+/* Copyright (c), 2015 Arkix, El Colombiano                                 */
+/*==========================================================================*/
+
+/*===========================================================================
+History
+Feb.11/2015 LLIMA File created.
+Mar.26/2015 COQ   Init collaboration on web form.
+============================================================================*/
+
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Web.UI.WebControls;
+using ELCOLOMBIANO.EcCines.Common;
 using ELCOLOMBIANO.EcCines.Entities;
 using ELCOLOMBIANO.EcCines.Entities.Dtos;
+using ELCOLOMBIANO.EcCines.Web;
 
-namespace EcCines {
-    public partial class CinesHorarios : System.Web.UI.Page {
-
-        List<PeliculaDto> lstPeliculasPorTeatroMemoria = null;
-        int teatroSeleccionado;
-
-        protected void Page_Load(object sender, EventArgs e) {
-            if (Session["autenticado"] == null || !(bool)Session["autenticado"])
-                Response.Redirect("Default.aspx");
-            if (IsPostBack)
-                return;
-            poblarTeatros();
-            poblarPeliculas();
-            ListBox2.SelectedIndex = 0;
-            seleccionarPeliculas();
+namespace EcCines.Admin {
+    /// <summary>
+    /// Select a theater and movies to assign schedule later
+    /// </summary>
+    public partial class CinesHorarios : WebPageBase {
+        /// <summary>
+        /// Loads theaters in combobox
+        /// </summary>
+        protected void poblarTeatros() {
+            if (log.IsDebugEnabled) {
+                log.Debug("poblarTeatros Starts");
+            }
+            List<TeatroDto> listaTeatros = new Teatro().getTeatros();
+            listaTeatros = listaTeatros.OrderBy(x => x.nombreTeatro).ToList<TeatroDto>();
+            lbTeatros.DataSource = listaTeatros;
+            lbTeatros.DataTextField = "nombreTeatro";
+            lbTeatros.DataValueField = "idTeatro";
+            lbTeatros.DataBind();
+            if (log.IsDebugEnabled) {
+                log.Debug("poblarTeatros Ends");
+            }
         }
 
+        /// <summary>
+        /// Loads Active Movies to relate to a theater which use them.
+        /// </summary>
+        protected void poblarPeliculas() {
+            if (log.IsDebugEnabled) {
+                log.Debug("poblarPeliculas Starts");
+            }
+            List<DetallePeliculaDto> listaPeliculas = new Pelicula().getPeliculasActivas();
+            listaPeliculas = listaPeliculas.OrderBy(x => x.nombrePelicula).ToList<DetallePeliculaDto>();
+            checkBoxPeliculas.DataSource = listaPeliculas;
+            checkBoxPeliculas.DataTextField = "nombrePelicula";
+            checkBoxPeliculas.DataValueField = "idPelicula";
+            checkBoxPeliculas.DataBind();
+            if (log.IsDebugEnabled) {
+                log.Debug("poblarPeliculas Ends ");
+            }
+        }
+
+        /// <summary>
+        /// Load movies for selected theater to check which movies it has selected.
+        /// </summary>
+        protected void checkPeliculas() {
+            if (log.IsDebugEnabled) {
+                log.Debug("checkPeliculas Starts");
+            }
+            int teatroSeleccionado = Convert.ToInt32(lbTeatros.SelectedValue);
+            List<PeliculaDto> lstPeliculasPorTeatroMemoria =  new Pelicula().getPeliculasPorTeatro(teatroSeleccionado);
+
+            foreach (var item in lstPeliculasPorTeatroMemoria) {
+                foreach (ListItem pelicula in checkBoxPeliculas.Items) {
+                    if (pelicula.Value.Equals(item.idPelicula.ToString())) {
+                        pelicula.Selected = true;
+                    }
+                }
+            }
+            if (log.IsDebugEnabled) {
+                log.Debug("checkPeliculas Ends");
+            }
+        }
+
+        /// <summary>
+        /// Clear checkbox flags.
+        /// </summary>
+        protected void limpiarCheckPeliculas() {
+            if (log.IsDebugEnabled) {
+                log.Debug("limpiarCheckPeliculas Starts");
+            }
+            int i = 0;
+            foreach (ListItem pelicula in checkBoxPeliculas.Items) {
+                checkBoxPeliculas.Items[i++].Selected = false;
+            }
+            if (log.IsDebugEnabled) {
+                log.Debug("limpiarCheckPeliculas Ends");
+            }
+        }
+
+        /// <summary>
+        /// Select movies to be related to a  selected theater.
+        /// </summary>
+        protected void seleccionarPeliculas() {
+            if (log.IsDebugEnabled) {
+                log.Debug("seleccionarPeliculas Starts");
+            }
+            limpiarCheckPeliculas();
+            checkPeliculas();
+            if (log.IsDebugEnabled) {
+                log.Debug("seleccionarPeliculas Ends");
+            }
+        }
+
+        /// <summary>
+        /// Page Load Event
+        /// </summary>
+        /// <param name="sender">Object which fires the event</param>
+        /// <param name="e">Event argument</param>
+        protected void Page_Load(object sender, EventArgs e) {
+            if (log.IsDebugEnabled) {
+                log.Debug("Page_Load Starts");
+            }
+            if (Session["autenticado"] == null || !(bool)Session["autenticado"]) {
+                if (log.IsDebugEnabled) {
+                    log.Debug("Not authenticated, redirects to Default.aspx (aka login page)");
+                }
+                Response.Redirect("Default.aspx");
+            }
+            if (IsPostBack) {
+                if (log.IsDebugEnabled) {
+                    log.Debug("Page_Load Starts");
+                }
+                return;
+            }
+            poblarTeatros();
+            poblarPeliculas();
+            lbTeatros.SelectedIndex = 0;
+            seleccionarPeliculas();
+            if (log.IsDebugEnabled) {
+                log.Debug("Page_Load Starts");
+            }
+        }
+
+        /// <summary>
+        /// Saves the checkboxes for a movie and proceeds to create the movie schedule for selected theater.
+        /// </summary>
+        /// <param name="sender">Objet which sends event</param>
+        /// <param name="e">event parameteres</param>
         protected void submitGuardar(object sender, EventArgs e) {
+            if (log.IsDebugEnabled) {
+                log.Debug("submitGuardar Starts");
+            }
             int cnt = 0;
 
             foreach (ListItem t in checkBoxPeliculas.Items) {
@@ -30,61 +164,44 @@ namespace EcCines {
                 }
             }
             if (cnt > 0) {
-                Response.Redirect("~/Horario.aspx");
+                if (log.IsDebugEnabled) {
+                    log.Debug("Redirects to Horario.aspx with theater Id=[" + lbTeatros.SelectedValue + "] and theater name =[" + lbTeatros.SelectedItem + "]");
+                }
+                Response.Redirect("~/Horario.aspx?t=" + lbTeatros.SelectedValue + "&nt=" + lbTeatros.SelectedItem);
             }
-            //Msg.Text = "Debe seleccionar al menos una película";
-        }
-
-        void poblarTeatros() {
-            Dictionary<string, string> list = new Dictionary<string, string>();
-            Cine cineDao = new Cine();
-            List<TeatroDto> listaTeatros = null;
-            listaTeatros = cineDao.getTeatros();
-            foreach (var item in listaTeatros) {
-                list.Add(item.idTeatro.ToString(), item.nombreTeatro);
+            if (log.IsDebugEnabled) {
+                log.Debug("No theater selected");
             }
-            ListBox2.DataSource = list;
-            ListBox2.DataTextField = "Value";
-            ListBox2.DataValueField = "Key";
-            ListBox2.DataBind();
-        }
-
-        void poblarPeliculas() {
-            Dictionary<string, string> list = new Dictionary<string, string>();
-            Pelicula peliculaDao = new Pelicula();
-            PeliculaDto peliculaParametro = new PeliculaDto();
-            List<DetallePeliculaDto> listaPeliculas = null;
-            listaPeliculas = peliculaDao.getPeliculas(peliculaParametro);
-            foreach (var item in listaPeliculas) {
-                list.Add(item.idPelicula.ToString(), item.nombrePelicula);
+            registerToastrMsg(MessageType.Warning, "Debe seleccionar al menos una película");
+            if (log.IsDebugEnabled) {
+                log.Debug("submitGuardar Ends");
             }
-
-            checkBoxPeliculas.DataSource = list;
-            checkBoxPeliculas.DataTextField = "Value";
-            checkBoxPeliculas.DataValueField = "Key";
-            checkBoxPeliculas.DataBind();
         }
 
-        void cargarPeliculasPorTeatroEnMemoria(int teatro) {
-            Pelicula peliculaDao = new Pelicula();
-            lstPeliculasPorTeatroMemoria = peliculaDao.getPeliculasPorTeatro(teatro);
-            Session["lstPeliculasPorTeatroMemoria"] = lstPeliculasPorTeatroMemoria;
-        }
-
-        protected void ListBox2_SelectedIndexChanged(object sender, EventArgs e) {
+        /// <summary>
+        /// When a theater index is changed.
+        /// </summary>
+        /// <param name="sender">Objet which sends event</param>
+        /// <param name="e">event parameteres</param>
+        protected void lbTeatros_SelectedIndexChanged(object sender, EventArgs e) {
+            if (log.IsDebugEnabled) {
+                log.Debug("lbTeatros_SelectedIndexChanged Starts");
+            }
             seleccionarPeliculas();
+            if (log.IsDebugEnabled) {
+                log.Debug("lbTeatros_SelectedIndexChanged Ends");
+            }
         }
 
-        void seleccionarPeliculas() {
-            teatroSeleccionado = Convert.ToInt32(ListBox2.SelectedValue);
-            Session["teatroSeleccionado"] = teatroSeleccionado;
-            Session["nombreTeatroSeleccionado"] = ListBox2.SelectedItem;
-            limpiarCheckPeliculas();
-            cargarPeliculasPorTeatroEnMemoria(teatroSeleccionado);
-            checkearPeliculas();
-        }
-
+        /// <summary>
+        /// When a checkbox is changed.
+        /// </summary>
+        /// <param name="sender">Objet which sends event</param>
+        /// <param name="e">event parameteres</param>
         protected void checkBoxPeliculas_SelectedIndexChanged(object sender, EventArgs e) {
+            if (log.IsDebugEnabled) {
+                log.Debug("checkBoxPeliculas_SelectedIndexChanged Starts");
+            }
             string peliculas = "";
             foreach (ListItem pelicula in checkBoxPeliculas.Items) {
                 if (pelicula.Selected) {
@@ -96,33 +213,17 @@ namespace EcCines {
                     }
                 }
             }
-            teatroSeleccionado = Convert.ToInt32(ListBox2.SelectedValue);
-            Pelicula peliculaDao = new Pelicula();
-            peliculaDao.crearPeliculaTeatro(teatroSeleccionado, peliculas);
-        }
-
-        void checkearPeliculas() {
-            teatroSeleccionado = Convert.ToInt32(Session["teatroSeleccionado"]);
-            List<PeliculaDto> lstPeliculasPorTeatroMemoria = Session["lstPeliculasPorTeatroMemoria"] as List<PeliculaDto>;
-
-            foreach (var item in lstPeliculasPorTeatroMemoria) {
-                int i = 0;
-                foreach (ListItem pelicula in checkBoxPeliculas.Items) {
-                    if (pelicula.Value.Equals(item.idPelicula.ToString())) {
-                        pelicula.Selected = true;
-                    }
-                    i = i++;
-                }
+            new Pelicula().createPeliculaTeatro(Convert.ToInt32(lbTeatros.SelectedValue), peliculas);
+            if (log.IsDebugEnabled) {
+                log.Debug("checkBoxPeliculas_SelectedIndexChanged Ends");
             }
         }
 
-        public void limpiarCheckPeliculas() {
-            int i = 0;
-            foreach (ListItem pelicula in checkBoxPeliculas.Items) {
-                checkBoxPeliculas.Items[i].Selected = false;
-                i = i + 1;
-            }
+        /// <summary>
+        /// Default constructor
+        /// </summary>
+        public CinesHorarios()
+            : base() {
         }
-
     }
 }

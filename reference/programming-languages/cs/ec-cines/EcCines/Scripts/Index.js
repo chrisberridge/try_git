@@ -1,4 +1,8 @@
-﻿windowOpen = function (movieId) {
+﻿/*
+Date:     Feb.11/2014
+Modified: Apr.08/2015
+*/
+windowOpen = function (movieId) {
     var url = window.location.origin;
     if (url == "undefined") {
         url = window.location.protocol + "//" + window.location.host;
@@ -7,12 +11,15 @@
     window.open(url, "VistaPreviaPelicula");
     return false;
 }
-$(document).ready(function () {
-    $('#btnVistaPrevia').click(function (event) {
+bindEvents = function () {
+    $('#btnVistaPrevia').on('click', function (e) {
         var movieId = $('#idPelicula').val();
         if (movieId != "0") {
             windowOpen(movieId);
-        }        
-        event.preventDefault();
+        }
+        e.preventDefault();
     });
+}
+$(document).ready(function () {    
+    bindEvents();
 });

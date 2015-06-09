@@ -11,6 +11,8 @@
     <AssemblyName>ELCOLOMBIANO.EcCines.Entities.Dtos</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <SolutionDir Condition="$(SolutionDir) == '' Or $(SolutionDir) == '*Undefined*'">..\</SolutionDir>
+    <RestorePackages>true</RestorePackages>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -30,6 +32,13 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="log4net">
+      <HintPath>..\packages\log4net.2.0.3\lib\net40-full\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\Newtonsoft.Json.6.0.8\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -39,39 +48,50 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CineDto.cs" />
-    <Compile Include="ContactoCineDto.cs" />
-    <Compile Include="DetallePeliculaDto.cs" />
-    <Compile Include="DetalleProgramacion.cs" />
-    <Compile Include="EntidadDto.cs" />
-    <Compile Include="F.cs" />
-    <Compile Include="Fm.cs" />
-    <Compile Include="FormatoPeliculaDto.cs" />
-    <Compile Include="HoraDto.cs" />
-    <Compile Include="HorarioPeliculaDto.cs" />
-    <Compile Include="KeyValue.cs" />
-    <Compile Include="Movie\MovieCatalog.cs" />
-    <Compile Include="Movie\MovieFormatShort.cs" />
-    <Compile Include="Movie\MovieGenreShort.cs" />
-    <Compile Include="Movie\Movie.cs" />
-    <Compile Include="Movie\MovieFormat.cs" />
-    <Compile Include="Movie\MovieFullInfo.cs" />
-    <Compile Include="Movie\MovieLocation.cs" />
-    <Compile Include="Movie\MovieShortCompact.cs" />
-    <Compile Include="Movie\MovieShow.cs" />
-    <Compile Include="Movie\MovieShowHour.cs" />
-    <Compile Include="Movie\MovieShortFormat.cs" />
-    <Compile Include="Movie\MovieLocationShort.cs" />
-    <Compile Include="ParametroSistemaDto.cs" />
-    <Compile Include="PeliculaDto.cs" />
-    <Compile Include="PeliculaFullInfoDto.cs" />
-    <Compile Include="ProgramacionPeliculaDto.cs" />
+    <Compile Include="src\AbstractCommonDomain.cs" />
+    <Compile Include="src\General\CineDto.cs" />
+    <Compile Include="src\General\ContactoCineDto.cs" />
+    <Compile Include="src\General\DetallePeliculaDto.cs" />
+    <Compile Include="src\General\DetalleProgramacion.cs" />
+    <Compile Include="src\General\EntidadDto.cs" />
+    <Compile Include="src\General\F.cs" />
+    <Compile Include="src\General\Fm.cs" />
+    <Compile Include="src\General\FormatoPeliculaDto.cs" />
+    <Compile Include="src\General\HoraDto.cs" />
+    <Compile Include="src\General\HorarioPeliculaDto.cs" />
+    <Compile Include="src\General\KeyValue.cs" />
+    <Compile Include="src\Movie\MovieCatalog.cs" />
+    <Compile Include="src\Movie\MovieFormatShort.cs" />
+    <Compile Include="src\Movie\MovieGenreShort.cs" />
+    <Compile Include="src\Movie\Movie.cs" />
+    <Compile Include="src\Movie\MovieFormat.cs" />
+    <Compile Include="src\Movie\MovieFullInfo.cs" />
+    <Compile Include="src\Movie\MovieLocation.cs" />
+    <Compile Include="src\Movie\MovieShortCompact.cs" />
+    <Compile Include="src\Movie\MovieShow.cs" />
+    <Compile Include="src\Movie\MovieShowHour.cs" />
+    <Compile Include="src\Movie\MovieShortFormat.cs" />
+    <Compile Include="src\Movie\MovieLocationShort.cs" />
+    <Compile Include="src\General\ParametroSistemaDto.cs" />
+    <Compile Include="src\General\PeliculaDto.cs" />
+    <Compile Include="src\General\PeliculaFullInfoDto.cs" />
+    <Compile Include="src\General\ProgramacionPeliculaDto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="TeatroDto.cs" />
-    <Compile Include="TeatroExDto.cs" />
-    <Compile Include="UsuarioDto.cs" />
+    <Compile Include="src\General\TeatroDto.cs" />
+    <Compile Include="src\General\TeatroExDto.cs" />
+    <Compile Include="src\General\UsuarioDto.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\ELCOLOMBIANO.EcCines.Common\ELCOLOMBIANO.EcCines.Common.csproj">
+      <Project>{d47139e8-6469-4868-b423-dea4929a2119}</Project>
+      <Name>ELCOLOMBIANO.EcCines.Common</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(SolutionDir)\.nuget\NuGet.targets" Condition="Exists('$(SolutionDir)\.nuget\NuGet.targets')" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
   <Target Name="BeforeBuild">

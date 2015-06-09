@@ -1,0 +1,27 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Iframe Resize Double</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="Scripts/iframeResizer.min.js"></script>
+</head>
+<body>
+    <iframe id="firstIFrame" src="http://cines.elcolombiano.com.co/admin/showmoviedetail.aspx?m=41" width="100%" frameborder="0" scrolling="no"></iframe>    
+    <iframe id="secondIFrame" src="http://cines.elcolombiano.com.co/showmoviebillboardwidget.html" width="100%" frameborder="0" scrolling="no"></iframe>
+    <script language="javascript">
+        $(document).ready(function () {            
+            $('#firstIFrame').iFrameResize({
+                log: false,
+                enablePublicMethods: true,
+                enableInPageLinks: true
+            });
+            $('#secondIFrame').iFrameResize({
+                log: false,
+                enablePublicMethods: true,
+                enableInPageLinks: true
+            });
+        });
+
+    </script>
+</body>
+</html>

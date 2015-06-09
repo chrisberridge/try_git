@@ -1,0 +1,26 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Express 2012 for Web
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ec.utils", "ec.utils\ec.utils.csproj", "{3171A4D5-27D3-40DE-B71F-2A8348987B2A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "realperson", "realperson\realperson.csproj", "{2F347E1E-895F-411E-B647-5808F5F3AF5A}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3171A4D5-27D3-40DE-B71F-2A8348987B2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3171A4D5-27D3-40DE-B71F-2A8348987B2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3171A4D5-27D3-40DE-B71F-2A8348987B2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3171A4D5-27D3-40DE-B71F-2A8348987B2A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2F347E1E-895F-411E-B647-5808F5F3AF5A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2F347E1E-895F-411E-B647-5808F5F3AF5A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2F347E1E-895F-411E-B647-5808F5F3AF5A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2F347E1E-895F-411E-B647-5808F5F3AF5A}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

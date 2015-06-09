@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace EcCines {
+namespace EcCines.Admin {
     
     
     public partial class Horario {
@@ -67,6 +67,15 @@ namespace EcCines {
         protected global::System.Web.UI.ScriptManager smUpdate;
         
         /// <summary>
+        /// btnGuardarTop control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnGuardarTop;
+        
+        /// <summary>
         /// upPrincipal control.
         /// </summary>
         /// <remarks>
@@ -76,13 +85,13 @@ namespace EcCines {
         protected global::System.Web.UI.UpdatePanel upPrincipal;
         
         /// <summary>
-        /// Label2 control.
+        /// lblTeatroSeleccionado control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label Label2;
+        protected global::System.Web.UI.WebControls.Label lblTeatroSeleccionado;
         
         /// <summary>
         /// ListBoxPeliculas control.
@@ -101,6 +110,15 @@ namespace EcCines {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Literal ltFechas;
+        
+        /// <summary>
+        /// teatroSeleccionado control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.HiddenField teatroSeleccionado;
         
         /// <summary>
         /// infoProgramacion control.
@@ -128,5 +146,14 @@ namespace EcCines {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnGuardar;
+        
+        /// <summary>
+        /// btnDisableEnter control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Button btnDisableEnter;
     }
 }
