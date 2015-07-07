@@ -1,6 +1,6 @@
 ##try_git README
 
-V1.0.4.15-May.19/2015
+V1.0.4.20-Jul.07/2015
 
 This is the Hello World example from git Tutorial.
 

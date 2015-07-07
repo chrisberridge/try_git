@@ -1,7 +1,11 @@
 File:     history.md
 Author:   Carlos Adolfo Ortiz Q
 Date:     Feb.21/2013
-Modified: May.19/2015
+Modified: Jul.07/2015
+
+Jul.07/2015 V1.0.4.20 Tag: V1.0.4.20-Jul.07/2015
+- Adds a new reference material in folder reference under html/twittertypeahead
+  It implements a demo for typeahead with remote URL.
 
 May.19/2015 V1.0.4.15 Tag: V1.0.4.15-May.19/2015
 - Corrects typos
