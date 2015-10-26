@@ -1,9 +1,9 @@
 File:     history.md
 Author:   Carlos Adolfo Ortiz Q
 Date:     Feb.21/2013
-Modified: Oct.22/2015
+Modified: Oct.26/2015
 
-Oct.22/2015 V1.0.4.30 Tag: V1.0.4.30-Oct.26/2015
+Oct.26/2015 V1.0.4.30 Tag: V1.0.4.30-Oct.26/2015
 - Add new reference material to the JS reference folder
   Navigate to [SELF]\reference\programming-languages\js\gulp
   
