@@ -1,8 +1,12 @@
 File:     history.md
 Author:   Carlos Adolfo Ortiz Q
 Date:     Feb.21/2013
-Modified: Jul.15/2015
+Modified: Oct.22/2015
 
+Oct.22/2015 V1.0.4.30 Tag: V1.0.4.30-Oct.26/2015
+- Add new reference material to the JS reference folder
+  Navigate to [SELF]\reference\programming-languages\js\gulp
+  
 Jul.15/2015 V1.0.4.25 Tag: V1.0.4.25-Jul.15/2015
 - Adds new reference HTML about the usage of jquery iframeresize
   IFrameResizer jquery plugin is hosted in https://github.com/davidjbradshaw/iframe-resizer
