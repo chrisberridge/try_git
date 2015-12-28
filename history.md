@@ -1,7 +1,10 @@
 File:     history.md
 Author:   Carlos Adolfo Ortiz Q
 Date:     Feb.21/2013
-Modified: Oct.26/2015
+Modified: Dec.28/2015
+
+Dec.28/2015 V1.0.4.35 Tag: V1.0.4.35-Dec.28/2015
+- Adds documentation to git reference.
 
 Oct.26/2015 V1.0.4.30 Tag: V1.0.4.30-Oct.26/2015
 - Add new reference material to the JS reference folder
