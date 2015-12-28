@@ -1,5 +1,5 @@
 Date:     Dec.26/2012
-Modified: Jan.28/2012
+Modified: Dec.28/2015
 User:     cortizqgithub
 
 NOTE: A good tutorial named as Git immersion (http://gitimmersion.com) you can follow so you can get full 
@@ -109,3 +109,9 @@ and execute accordingly in order for your commits to be fully referenced in the 
 
 Lastly there is a configuration file for SSH keys in this folder for you to check out
 the process.
+
+
+Since V2.0 of git it is possible to use the matching to use git push.
+Use the following command like so:
+
+git config --global push.default matching
