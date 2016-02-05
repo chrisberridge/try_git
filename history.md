@@ -1,8 +1,12 @@
 File:     history.md
 Author:   Carlos Adolfo Ortiz Q
 Date:     Feb.21/2013
-Modified: Dec.28/2015
+Modified: Feb.05/2016
 
+Feb.05/2016 V1.0.4.40 Tag: V1.0.4.40-Feb.05/2016
+- Adds maven-jdbcdrivers\MicrosoftJDBCDriverInstallMVN\ folder to reference material. 
+  This has to do with installing to a local maven repository the Microsoft JDBC Driver.
+  
 Dec.28/2015 V1.0.4.35 Tag: V1.0.4.35-Dec.28/2015
 - Adds documentation to git reference.
 
