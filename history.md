@@ -1,7 +1,11 @@
 File:     history.md
 Author:   Carlos Adolfo Ortiz Q
 Date:     Feb.21/2013
-Modified: Feb.05/2016
+Modified: Feb.15/2016
+
+Feb.15/2016 V1.0.4.45 Tag: V1.0.4.45-Feb.15/2016
+- Adds file POCConcurrencyIDTransaction.sql and a new folder reference for database hints.
+- New folder is named: reference\programming-languages\databases\t-sql\
 
 Feb.05/2016 V1.0.4.40 Tag: V1.0.4.40-Feb.05/2016
 - Adds maven-jdbcdrivers\MicrosoftJDBCDriverInstallMVN\ folder to reference material. 
