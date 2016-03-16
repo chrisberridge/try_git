@@ -12,3 +12,5 @@ exec sp_who2
 
 dbcc inputbuffer(66)
 commit
+
+kill spid
