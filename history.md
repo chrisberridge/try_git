@@ -1,7 +1,10 @@
 File:     history.md
 Author:   Carlos Adolfo Ortiz Q
 Date:     Feb.21/2013
-Modified: Feb.15/2016
+Modified: Jun.02/2016
+
+Jun.02/2016 V1.0.4.50 Tag: V1.0.4.50-Jun.02/2016
+- Adds a SQL Server script named ShowBlockedStatement.sql to report the SQL Statement which blocks the database.
 
 Feb.15/2016 V1.0.4.45 Tag: V1.0.4.45-Feb.15/2016
 - Adds file POCConcurrencyIDTransaction.sql and a new folder reference for database hints.
