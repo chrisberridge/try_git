@@ -3,6 +3,9 @@ Author:   Carlos Adolfo Ortiz Q
 Date:     Feb.21/2013
 Modified: Jun.02/2016
 
+Aug.03/2016 V1.0.4.55 Tag: V1.0.4.55-Aug.03/2016
+- Adds new reference to Java 8 language.
+
 Jun.02/2016 V1.0.4.50 Tag: V1.0.4.50-Jun.02/2016
 - Adds a SQL Server script named ShowBlockedStatement.sql to report the SQL Statement which blocks the database.
 
