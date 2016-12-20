@@ -1,7 +1,11 @@
 File:     history.md
 Author:   Carlos Adolfo Ortiz Q
 Date:     Feb.21/2013
-Modified: Jun.02/2016
+Modified: Dec.20/2016
+
+Dec.20/2016 V1.0.5.1 Tag: V1.0.5.1-Dec.20/2016
+-- Adds C# Class CSoftZ.Common.Utils RegexUtilities in folder 
+   [project]/reference/programming-languages/cs-utils/RegexUtilities.cs 
 
 Aug.03/2016 V1.0.4.55 Tag: V1.0.4.55-Aug.03/2016
 - Adds new reference to Java 8 language.
