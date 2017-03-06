@@ -1,11 +1,14 @@
 File:     history.md
 Author:   Carlos Adolfo Ortiz Q
 Date:     Feb.21/2013
-Modified: Jan.22/2017
+Modified: Mar.06/2017
+
+Mar.06/2017 V1.0.5.3 Tag: V1.0.5.3-Mar.06/2017
+- Updates instructions given for git setup in file setup.txt.
 
 Jan.22/2017 V1.0.5.2 Tag: V1.0.5.2-Jan.22/2017
--- Adds a useful tip for Git. It referes to the way to pull all branches from remote.
-   [project]/reference/git/tips/cloneallbranches.sh
+- Adds a useful tip for Git. It referes to the way to pull all branches from remote.
+ [project]/reference/git/tips/cloneallbranches.sh
 
 Dec.20/2016 V1.0.5.1 Tag: V1.0.5.1-Dec.20/2016
 -- Adds C# Class CSoftZ.Common.Utils RegexUtilities in folder 

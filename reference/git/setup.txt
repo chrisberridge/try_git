@@ -67,7 +67,8 @@ NOTE: Write down the file where you created the keys into.
 $ ssh-add id_rsa_carlosorgit --> and any other you SSH key file you need.
 
 3. Check your saved files.
-$ ssh-add -l
+$ ssh-add -l  
+If agent is not present type $eval $(ssh-agent) in bash.
 
 4. Create a SSH config file to be like the following sample (remember, a sample file is located near this file).
 #Default GitHub
@@ -82,7 +83,7 @@ Host github.com-carlosorgit
   User git
   IdentityFile ~/.ssh/id_rsa_carlosorgit
   
-NOTE: Read along for a usage of this step.
+NOTE: Read along for a usage of this step. Don't forget to set up the HostName.
 
 5. Now change the remote origin in git config files to point to the required SSH identity file.
 Here let's suppose we want to use the id_rsa_carlosorgit then your config file must be set as 
@@ -115,3 +116,10 @@ Since V2.0 of git it is possible to use the matching to use git push.
 Use the following command like so:
 
 git config --global push.default matching
+
+
+Mar.06/2017
+If you want to use a default IdentityFile for SSH communication other than id_rsa file, put in Config file at the beginning the following line.
+IdentityFile ~/.ssh/id_rsa_cortizq_arkix_gitlab
+
+Another good article for multile SSH accounts https://coderwall.com/p/7smjkq/multiple-ssh-keys-for-different-accounts-on-github-or-gitlab
