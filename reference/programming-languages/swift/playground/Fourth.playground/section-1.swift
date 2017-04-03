@@ -4,8 +4,12 @@ import UIKit
 
 var str = "Hello, playground"
 
-var conditionalString : String? = "a string"if let theString = conditionalString? {
-    println("The string is '\(theString)'")} else{    println("The string is nil")}
+var conditionalString : String? = "a string"
+if let theString = conditionalString? {
+    print("The string is '\(theString)'")
+} else{
+    print("The string is nil")
+}
 
 let myNumber = 3
 let myString = "My number is \(myNumber)"
@@ -13,7 +17,7 @@ let myOtherString = "My number plus one is \(myNumber + 1)"
 
 // Functions
 func firstFunction() {
-    println("Hello")
+    print("Hello")
 }
 firstFunction()
 
@@ -25,16 +29,16 @@ secondFunction()
 func thirdFunction(firstValue: Int, secondValue: Int) -> Int {
    return firstValue + secondValue
 }
-thirdFunction(1, 2)
+thirdFunction(1, secondValue: 2)
 
 func fourthFunction(firstValue: Int, secondValue: Int) -> (doubled: Int, quadrupled: Int) {
     return (firstValue * 2, secondValue * 4)
 }
-fourthFunction(2, 4)
-fourthFunction(2, 4).0
-fourthFunction(2, 4).1
-fourthFunction(2, 4).doubled
-fourthFunction(2, 4).quadrupled
+fourthFunction(2, secondValue: 4)
+fourthFunction(2, secondValue: 4).0
+fourthFunction(2, secondValue: 4).1
+fourthFunction(2, secondValue: 4).doubled
+fourthFunction(2, secondValue: 4).quadrupled
 
 // In the previous examples, no names were given to parameters.
 // If you give names to parameters is very useful when it might not be immediately
@@ -48,7 +52,7 @@ addNumbers(firstNumber: 2, toSecondNumber: 4)
 // that is, the actual parameter to be used inside the function.
 // If you need that the external name be the same as the internal name, use a pound sign (#)
 // in front of the parameter name, as follows:
-func multiplyNumbers(#firstNumber : Int, #multiplier : Int) ->Int {
+func multiplyNumbers(firstNumber firstNumber : Int, multiplier : Int) ->Int {
     return firstNumber * multiplier
 }
 // this is how to invoke a function with
@@ -79,8 +83,8 @@ func sumNumber2(startBase : Int = 0, numbers: Int...) -> Int {
     }
     return total
 }
-let sum = sumNumber2(startBase:200, 2,3,4,5)
-println(sum)
+let sum = sumNumber2( 200, numbers: 2,3,4,5)
+print(sum)
 
 // Parameters are always by Value, if you need them by Reference use the inout modifier
 // as follows
@@ -91,7 +95,7 @@ func swapValues(inout firstValue: Int, inout secondValue : Int) {
 }
 var swap1 = 2
 var swap2 = 3
-swapValues(&swap1, &swap2)
+swapValues(&swap1, secondValue: &swap2)
     
 // Using Functions as Variables
 var numbersFunc : (Int, Int) ->Int
@@ -113,7 +117,7 @@ func doSomethingToNumber(aNumber: Int, thingToDo : (Int)->Int) -> Int {
     return thingToDo(aNumber)
 }
 // Give the 'timesThree' function to use as 'thingToDo'
-doSomethingToNumber(4, timesThree)
+doSomethingToNumber(4, thingToDo: timesThree)
 
 // Functions can also return other functions.
 func createAdder(numberToAdd : Int) -> (Int) -> Int {
@@ -150,7 +154,7 @@ incrementByFifteen()
 
 // Closures
 var sortingInline = [2,5,98,2,13]
-sort(&sortingInline)
+sortInPlace(&sortingInline)
 sortingInline
 
 var numbers = [2, 1, 56, 32, 120,13]
@@ -178,14 +182,14 @@ class Vehicle {
     }
     
     func travel() {
-        println("Traveling at \(self.maxSpeed) kph")
+        print("Traveling at \(self.maxSpeed) kph")
     }
 }
 
 class Car : Vehicle {
     // Inherited classes can override functions
     override func description() -> String {
-        var description = super.description()
+        let description = super.description()
         return description + ", which is a car"
     }
 }
@@ -205,19 +209,19 @@ carVehicle.description()
 class InitAndDeinitExample {
     // Designated (i.e., main) initializer
     init() {
-       println("I´ve been created!")
+       print("I´ve been created!")
     }
     
     // Convenience initializer, required to call the
     // designated initializer (above)
     convenience init(text: String) {
         self.init() // This is mandatory
-        println("I was called with the convenience initializer!")
+        print("I was called with the convenience initializer!")
     }
     
     // Deinitializer
     deinit {
-        println("I´m going away")
+        print("I´m going away")
     }
 }
 

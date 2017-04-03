@@ -1,7 +1,11 @@
 File:     history.md
 Author:   Carlos Adolfo Ortiz Q
 Date:     Feb.21/2013
-Modified: Mar.06/2017
+Modified: Apr.03/2017
+
+Apr.03/2017 V1.0.6 Tag: V1.06-Apr.03/2017
+- Adds new reference for tips in Apple OS X 
+- Changes verion numbering to have only three digits.
 
 Mar.06/2017 V1.0.5.3 Tag: V1.0.5.3-Mar.06/2017
 - Updates instructions given for git setup in file setup.txt.

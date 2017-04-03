@@ -1,0 +1,7 @@
+Created: Apr.03/2017
+Modified: Apr.03/2017
+
+If you want to save the account login picture, use this command
+$ dscl . -read /Users/short_username JPEGPhoto | tail -1 | xxd -r -p > 
+/PATH/TO/accountImage.jpg
+
