@@ -1,9 +1,12 @@
 File:     history.md
 Author:   Carlos Adolfo Ortiz Q
 Date:     Feb.21/2013
-Modified: Apr.03/2017
+Modified: Apr.20/2017
 
-Apr.03/2017 V1.0.6 Tag: V1.06-Apr.03/2017
+Apr.20/2017 V1.0.7 Tag: V1.0.7-Apr.20/2017
+- Adds a tip in Apple reference to fix camera not connected.
+
+Apr.03/2017 V1.0.6 Tag: V1.0.6-Apr.03/2017
 - Adds new reference for tips in Apple OS X 
 - Changes verion numbering to have only three digits.
 
