@@ -5,3 +5,7 @@ If you want to save the account login picture, use this command
 $ dscl . -read /Users/short_username JPEGPhoto | tail -1 | xxd -r -p > 
 /PATH/TO/accountImage.jpg
 
+
+How to reset camera not conected/not working
+$ sudo killall VDCAssistant
+$ sudo killall AppleCameraAssistant —> To test if everything is correct.
