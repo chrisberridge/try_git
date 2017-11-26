@@ -1,7 +1,11 @@
 File:     history.md
 Author:   Carlos Adolfo Ortiz Q
 Date:     Feb.21/2013
-Modified: Apr.20/2017
+Modified: Nov.26/2017
+
+Nov.26/2017 V1.0.8 Tag: V1.0.8-Nov.27/2017
+- Adds a tip in Git reference to explain SSH connections.
+- Fixs documentation typos.
 
 Apr.20/2017 V1.0.7 Tag: V1.0.7-Apr.20/2017
 - Adds a tip in Apple reference to fix camera not connected.

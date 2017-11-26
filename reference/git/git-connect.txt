@@ -1,0 +1,7 @@
+Created:  Nov.26/2017
+Modified: Nov.26/2017
+
+- Github supports two different notations for connecting using SSH.
+https://help.github.com/articles/using-ssh-over-the-https-port/
+1. git@github.com:cortizqgithub/try_git.git but if it is not possible use following item.
+2. ssh://git@ssh.github.com:443/cortizqgithub/try_git.git
