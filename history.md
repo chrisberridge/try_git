@@ -1,7 +1,10 @@
 File:     history.md
 Author:   Carlos Adolfo Ortiz Q
 Date:     Feb.21/2013
-Modified: Nov.26/2017
+Modified: Dec.05/2017
+
+Dec.05/2017 V1.0.9 Tag: V1.0.9-Dec.05/2017
+- Documents to use several URLs for SSH mode.
 
 Nov.26/2017 V1.0.8 Tag: V1.0.8-Nov.27/2017
 - Adds a tip in Git reference to explain SSH connections.

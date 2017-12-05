@@ -1,7 +1,39 @@
 Created:  Nov.26/2017
-Modified: Nov.26/2017
+Modified: Dec.05/2017
+
+When you try to connect via SSH in Github, Bitbucket, etc., and it may happen
+that outgoing port 22 is blocked then it is necessary to connect via the
+alternate syntax (see examples below).
 
 - Github supports two different notations for connecting using SSH.
 https://help.github.com/articles/using-ssh-over-the-https-port/
 1. git@github.com:cortizqgithub/try_git.git but if it is not possible use following item.
 2. ssh://git@ssh.github.com:443/cortizqgithub/try_git.git
+
+- Bitbucket supports two different notations for connecting using SSH.
+1. git@bitbucket.org:cortizqbitbucket/ceiba-crystal-sis-new.git
+2. ssh://git@altssh.bitbucket.org:443/cortizqbitbucket/ceiba-crystal-sis-new.git
+
+NOTE: When port 22 is blocked then you must use the notation given in (2) for
+both github and bitbucket above.
+
+Following are some examples about how to connect via SSH.
+- git@bitbucket.org:cortizqbitbucket/ceiba-crystal-sis-new.git
+- ssh://git@altssh.bitbucket.org:443/cortizqbitbucket/ceiba-crystal-sis-new.git
+
+- git@github.com:cortizqgithub/try_git.git
+- ssh://git@ssh.github.com:443/cortizqgithub/try_git.git
+
+NOTE: Don't forget to register SSH locations in .ssh folder in the config file.
+
+
+There is a way to use both remote urls if needs arises by defining remote
+origins.
+To do use the following commands
+
+$ git add remote sshorigin ssh://git@ssh.github.com:443/cortizqgithub/try_git.git
+NOTE: Name the remote destination accordingly, in example it is 'sshorigin'.
+
+$ git remote -v
+
+See https://help.github.com/articles/adding-a-remote/
