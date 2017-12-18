@@ -1,7 +1,11 @@
 File:     history.md
 Author:   Carlos Adolfo Ortiz Q
 Date:     Feb.21/2013
-Modified: Dec.05/2017
+Modified: Dec.18/2017
+
+Dec.18/2017 V1.0.10 Tag: V1.0.10-Dec.18/2017
+- Adds Oracle PL/SQL tips (reference/programming-languages/databases/Oracle)
+- Adds Mapstruct tips (reference/MapStruct)
 
 Dec.05/2017 V1.0.9 Tag: V1.0.9-Dec.05/2017
 - Documents to use several URLs for SSH mode.

@@ -1,0 +1,666 @@
+Oracle PL/SQL
+https://www.tutorialspoint.com/oracle_plsql
+
+Created: Dec.11/2017
+Modified: Dec.14/2017
+
+
+Benefits
+. Performance benefits
+. Modularization
+. Portable
+. Programming features
+. Exception handling
+-------
+begin
+    dbms_output.put_line('Welcome to Oracle PL');
+end;
+-----
+set serveroutput on
+
+------
+declare var1 varchar2(10);
+     num1 number(3);
+begin
+   var1 := 'Tutorials';
+   num1 := 100;
+   dbms_output.put_line('Val1: ' || var1);
+   dbms_output.put_line('Num1: ' || num1);
+end;
+-----
+
+declare
+   name varchar2(10);
+   sal number(10,2);
+begin
+   select Frist_Name, Salary into name, sal  from Employees
+   where Employee_id = 100;
+   dbms_output.put_line('Name: ' || name);
+   dbms_output.put_line('Salary: ' || sal);
+end;
+----
+
+declare
+   name Employees.First_Name%TYPE
+   sal Employees.Salary%TYPE
+begin
+   select Frist_Name, Salary into name, sal  from Employees
+   where Employee_id = 100;
+   dbms_output.put_line('Name: ' || name);
+   dbms_output.put_line('Salary: ' || sal);
+end;
+
+-------
+declare
+   name Employees.First_Name%TYPE
+   sal Employees.Salary%TYPE
+   lastname name%TYPE 
+begin
+   select Frist_Name, Salary into name, sal  from Employees
+   where Employee_id = 100;
+   dbms_output.put_line('Name: ' || name);
+   dbms_output.put_line('Salary: ' || sal);
+end;
+----
+
+----
+declare 
+   record Employees%ROWTYPE;
+begin
+   select * into record from Employees
+   from Employee_id = 100;
+   dbms_output.put_line(record.Frist_Name || ' | ' || record.Last_Name || ' | ' || record.salary);
+end;
+
+----
+. IF THEN END IF
+. IF THEN ELSE END IF
+. IF THEN ELSIF END IF
+. CASE
+----
+
+----
+
+----
+declare 
+   deptid number(2);
+   sal number(10, 2);
+begin
+   select Salary, Department_id into sal, deptid from Employees where Employee_id = 105;
+   dbms_output.put_line(sal || ' : ' || deptid);
+   if deptid = 30 then
+      sal := sal + 3;
+   end if;
+   dbms_output.put_line(sal || ' : ' || deptid);
+end;
+
+
+----
+
+
+----
+declare 
+   deptid number(2);
+   sal number(10, 2);
+begin
+   select Salary, Department_id into sal, deptid from Employees where Employee_id = 105;
+   dbms_output.put_line(sal || ' : ' || deptid);
+   if deptid = 30 then
+      sal := sal + 3;
+   else 
+      sal := sal + 10;
+   end if;
+   dbms_output.put_line(sal || ' : ' || deptid);
+end;
+
+
+----
+
+
+----
+declare 
+   deptid number(2);
+   sal number(10, 2);
+begin
+   select Salary, Department_id into sal, deptid from Employees where Employee_id = 105;
+   dbms_output.put_line(sal || ' : ' || deptid);
+   if deptid = 30 then
+      sal := sal + 3;
+   elsif deptid = 60 then 
+      sal := sal + 6;
+   else    
+      sal := sal + 10;
+   end if;
+   dbms_output.put_line(sal || ' : ' || deptid);
+end;
+
+
+----
+
+
+----
+declare 
+   deptid number(2);
+   sal number(10, 2);
+begin
+   select Salary, Department_id into sal, deptid from Employees where Employee_id = 105;
+   dbms_output.put_line(sal || ' : ' || deptid);
+   if deptid = 30 then
+      sal := sal + 3;
+   elsif deptid = 60 then 
+      sal := sal + 6;
+   else    
+      sal := sal + 10;
+   end if;
+   update Employees set Salary = sal where where Employee_id = 105;
+   dbms_output.put_line(sal || ' : ' || deptid);
+end;
+
+
+----
+
+
+----
+declare 
+   num number(1) := &Weekday;
+   dayname varchar2(10)
+begin
+   dayname := Case num 
+      when 1 then 'Monday'
+	  when 2 then 'Tuesday'
+	  when 3 then 'Wednesday'
+	  else 'Sunday'
+	  end;
+	  dbms_output.put_line(dayname);
+end;
+
+
+----
+. Basic Loop
+. For Loop
+. While Loop
+
+----
+declare
+   i number(2);
+begin
+   i := 1;
+   loop 
+      dbms_output.put_line(i);
+	  i := i + 1;
+	  exit when i > 10;
+   end loop
+end;
+----
+
+----
+declare
+   i number(2);
+begin
+   i := 1;
+   while i <= 10 loop
+      dbms_output.put_line('i = ' || i);
+	  i := i + 1;
+   end loop;
+end;
+----
+
+----
+begin 
+   for i in 1..10 loop
+      dbms_output.put_line('i = ' || i);
+   end loop;
+end;
+----
+
+----
+begin 
+   for i in reverse 1..10 loop
+      dbms_output.put_line('i = ' || i);
+   end loop;
+end;
+----
+
+- IMPLICIT CURSORS
+. Is a private SQL work area.
+. Oracle uses implicit cursors to execute SQL statements and is declared for
+  all DML and PLSQL Select statement.
+. Programmers design explicit cursor as per their requirement.
+
+Cursor Attributes
+%ROWCOUNT
+%FOUND
+%NOTFOUND
+%ISOPEN
+
+----
+declare 
+   cnt number(3);
+begin
+   update Employees set saalary = salary + 2 where deparment_id = 20;
+   cnt := SQL%Rowcount;
+   dbms_output.put_line(cnt || ' rows updated');
+end;
+----
+
+- EXPLICIT CURSORS
+. Declare
+. Open
+. Fetch
+. Close
+
+----
+declare
+   v_empno employees.employee_id%TYPE;
+   v_ename employees.last_name%TYPE;
+   cursor emp_cursor is
+      select employee_id, last_name 
+	  from employees;
+begin
+   open emp_cursor;
+      fetch emp_cursor into v_empno, v_ename;
+	  exit when emp_cursor%ROWCOUNT > 10 or emp_cursor%NOTFOUND
+	  dbms_output.put_line(v_empno || ' : ' || v_ename);
+   end loop;
+   close emp_cursor;
+end;
+----
+
+
+- ADVANCED CURSORS
+. Parameterized Cursors
+. FOR UPDATE clause
+. WHERE CURRENT OF Clause
+
+----
+declare
+   v_empno employees.employee_id%TYPE;
+   v_ename employees.last_name%TYPE;
+   cursor emp_cursor(p_did NUMBER) is
+      select employee_id, last_name 
+	  from employees
+	  where department_id = p_did;
+begin
+   open emp_cursor(10);
+      fetch emp_cursor into v_empno, v_ename;
+	  exit when emp_cursor%ROWCOUNT > 10 or emp_cursor%NOTFOUND
+	  dbms_output.put_line(v_empno || ' : ' || v_ename);
+   end loop;
+   close emp_cursor;
+   dbms_output.put_line('------------------------------------------------------');
+   open emp_cursor(20);
+      fetch emp_cursor into v_empno, v_ename;
+	  exit when emp_cursor%ROWCOUNT > 10 or emp_cursor%NOTFOUND
+	  dbms_output.put_line(v_empno || ' : ' || v_ename);
+   end loop;
+   close emp_cursor;
+   
+end;
+----
+
+----
+declare
+   cursor sal_cursor is
+      select employee_id, last_name, salary
+	  from employees
+	  where deparment_id = 50
+	  for update of salary nowait;
+begin
+   update employees set salary = salary + 10 where deparment_id = 50;
+end;
+----
+http://www.dba-oracle.com/t_adv_plsql_for_update_where_current.htm
+
+----
+----
+declare
+   cursor sal_cursor is
+      select employee_id, last_name, salary
+	  from employees
+	  where deparment_id = 50
+	  for update of salary nowait;
+begin
+   for emp_record in sal_cursor
+   loop
+      if emp_record.salary < 5000 then
+	     update employees
+		 set salary = salary + 500
+		 where current of sal_cursor;
+	  end if
+   end loop;
+end;
+----
+
+----
+-- Taken from http://www.dba-oracle.com/t_adv_plsql_for_update_where_current.htm
+DECLARE
+  l_rt_emp employees%rowtype;
+  CURSOR cur IS
+    SELECT * FROM employees WHERE TO_CHAR(hire_date,'RRRR')<'2000' FOR UPDATE;
+BEGIN
+  OPEN cur;
+  LOOP
+    FETCH cur INTO l_rt_emp;
+    EXIT WHEN cur%notfound;
+    INSERT INTO employees_archive VALUES l_rt_emp;
+    DELETE FROM employees WHERE CURRENT OF cur;
+  END LOOP;
+  Commit;
+  CLOSE cur;
+END;
+/
+-----
+
+- Exception Handling
+. Exception is an identifier which is raised during execution either implicitly or explicitly.
+. Developer needs to trap it with a handler
+. An Exception block can be placed after Begin block to put the exception handling code.
+
+Predefined Exceptions - IMPLICIT
+User defined exception - Explicit
+
+-----
+declare 
+   v_lastname employees.last_name%TYPE;
+   v_salary employees.salary%TYPE;
+begin
+   select last_name, salary
+   into v_lastname, v_salary
+   from employees;
+   where employee_id = 300;
+   
+   dbms_output.put_line(v_lastname || ' ' earns ' || v_salary);
+   
+exception
+   when no_data_found then
+      dbms_output.put_line('No Records');
+   when too_many_rows then
+      dbms_output.put_line('More than 1 recordd found');
+   when others then
+      dbms_output.put_line('Some error found');
+end;
+-----
+
+-----
+declare 
+   v_lastname employees.last_name%TYPE;
+   v_salary employees.salary%TYPE;
+   e_invalid_dept EXCEPTION;
+begin
+   update employees
+   set salary = salary + 200
+   where department_id = 200;
+   
+   if sql%notfound then 
+      raise e_invalid_dept
+   end if;
+   commit;
+   
+exception
+   when no_data_found then
+      dbms_output.put_line('No Records');
+   when too_many_rows then
+      dbms_output.put_line('More than 1 recordd found');
+   when e_invalid_dept then
+      dbms_output.put_line('Not Such Department Exists');
+   when others then
+      dbms _output.put_line('Some error found');
+end;
+-----
+
+
+- CREATING PROCEDURE
+. A type of subprogram
+. Is a databzse object used to perform repeated execution.
+. Value can be supplied through parameters
+. Formal parameters is passed when we define procedure whilt Actual parameter is passed when we invoke.
+
+IN Parameter
+OUT Parameter
+IN OUT parameter
+
+
+----
+create or replace procedure test_procedure is
+begin
+   dbms_output.put_line('Test procedure executed successfully.');
+end;
+----
+
+-----
+create or replace procedure add_dept
+(p_did IN departments.department_id%TYPE,
+p_dname IN departments.deparment_name%TYPE,
+p_mid in departments.manager_id%TYPE,
+p_lid in departments.location_id%TYPE)
+is
+begin
+   insert into departments values(p_did, p_dname, p_mid, p_lid);
+   dbms_output.put_line('Department added');
+end;
+-----
+
+
+-----
+create or replace procedure get_dept_name
+(p_did in departments.department_id%TYPE,
+p_dname OUT departments.department_name%TYPE)
+is
+begin
+   select department_name into p_dname
+   from departments
+   where department_id = p_did;
+end;
+
+----> To execute it
+declare dname varchar(20);
+begin
+   get_dept_name(500, dname);
+   dbms_output.put_line(dname);
+end;
+
+-----
+
+-----
+create or replace procedure format_phone_number(p_phone IN OUT varchar2) is
+begin
+   p_phone := '(' || substr(p_phone_no, 1, 3) || ')' ||
+                     substr(p_phone_no, 4, 3) || '-' ||
+					 substr(p_phone_no, 7);
+end;
+-----
+
+FUNCTIONS
+. Is a named PLSQL block which retur4ns a value
+. Provides reusability
+. Can be invoked by a select clause, where clause.
+
+----
+create or replace function get_tax_amount(p_salary number) return number is
+begin
+   return (p_salary *10 / 100);
+end;
+----
+
+PACKAGES
+. Groups logically related subprograms
+. Divided in two parts, i.e., Specification and Body
+. Public package constructs are declared in Specification.
+- Private package constructs are solely defined in Body
+. Packages itself cannot be invoked
+. On the first call of packaged block, whole package is loaded in memory.
+
+
+----
+create or replace package manage_employees is
+   procedure add_emp(p_id number, p_name varchar2);
+   procedure edit_emp(p_id number, p_name varchar2);
+end manage_employees;
+
+
+create or replace package body manage_employees is
+   procedure add_emp(p_id number, p_name varchar2) is
+   begin
+      dbms_output.put_line('Employee Added');
+   end add_emp;
+   
+   procedure edit_emp(p_id number, p_name varchar2) is 
+   begin
+      dbms_output.put_line('Employee Updated');
+   end edit_emp;
+end manage_employees;
+
+
+----
+
+ADVANCED CONCEPTS
+. Creating Bodiless packages
+. Working with Overloading
+. Working with Forward Declaration
+. Creating One-Time-Only procedure
+
+Bodiless packages
+create or replace package global_constants is
+  mile_to_km constant number := 1.6093;
+  km_to_mile constant number := 0.6214;
+end;
+
+to use it
+execute dbms_output.put_line(20 * global_constants.mile_to_km);
+
+Working with overloading
+
+create or replace package manage_employees is
+begin
+   procedure add_emp(p_id number, p_name varchar2);
+   procedure add_emp(p_id number, p_name varchar2, p_salary number);
+   procedure add_emp(p_id number, p_name varchar2, p_salary number, p_dept number);
+end;
+
+-- Now body 
+create or replace package manage_employees is
+begin
+   procedure add_emp(p_id number, p_name varchar2) is
+   begin
+   end add_emp;
+   
+   procedure add_emp(p_id number, p_name varchar2, p_salary number) is
+   begin
+   end add_emp;
+   
+   procedure add_emp(p_id number, p_name varchar2, p_salary number, p_dept number) is
+   begin
+   end add_emp;
+   
+end;
+---------------------
+-- Forward declarations
+create or replace package manage_employees is
+   procedure add_emp(p_id number, p_name varchar2);
+   procedure edit_emp(p_id number, p_name varchar2);
+end manage_employees;
+   
+create or replace package body manage_employees is
+begin
+   procedure search_emp(p_id number);
+   
+   procedure add_emp(p_id number, p_name varchar2) is
+   begin
+      dbms_output.put_line('Employee Added');
+   end add_emp;
+   
+   procedure edit_emp(p_id number, p_name varchar2) is
+   begin
+      search_emp(p_id);
+	  dbms_output.put_line('Employee Updated')
+   end edit_emp;
+
+   procedure search_emp(p_id number) is
+   begin 
+      dbms_output.put_line('Employee searched');
+   end search_emp;
+end;
+
+TRIGGERS
+. Is a named PLSQL block
+. Is planned for a particular event and timing
+. Is executed implicitly on that event
+. Is designed to perform related actions or to centralize global actions
+. Excessive us of triggers may result in complex interdependencies.
+
+Kinds
+. Application Trigger
+. Database Trigger
+
+DML Trigger
+Instead of Trigger
+DDL Trigger
+
+-----
+create or replace trigger emp_insert
+after insert on tbl_employees
+begin
+   dbms_output.put_line('Record insert')
+end;
+
+
+----
+create or replace trigger restricted_insert
+before insert on tbl_employees
+begin
+   if (to_char(sysdate, 'HH24:MI') NOT between '09:00' and '18:00' then
+      raise_application_error(-20123, 'You can add employees only between 9AM and 6PM.');
+   end if;
+end;
+
+-----
+create or replace trigger restricted_insert
+before insert or update or delete on tbl_employees
+begin
+   if (to_char(sysdate, 'HH24:MI') NOT between '09:00' and '18:00' then
+      raise_application_error(-20123, 'You can add employees only between 9AM and 6PM.');
+   end if;
+end;
+
+-- Checked Triggers
+create or replace trigger salary_update_check
+before update of salary on tbl_employees
+for each row
+begin
+   if :new.salary < :old.salary then
+      raise_application_error(-20125, 'Updated salary cannot be lesser than current salary');
+   end if
+end;
+
+-- Triggers on view
+create or replace trigger emp_dept_insert
+instead of insert on empdata
+for each row
+declare
+   v_did number;
+begin
+   select deptid into v_did from tbl_departments where lower(deptname)=lower(:new.deptname)
+   if inserting then
+      insert into tbl_employees values(:new.empid, :new.firstname, :new.lastname, :new.salary, v_did);
+   end if;
+end;
+
+ADVANCED DB Triggers
+create or replace trigger restrict_drop_table
+before drop on database
+begin
+   raise_application_error(-20125, 'Cannot drop table from this database');
+end;
+
+
+create or replace trigger login_trigger
+after logon on schema
+begin 
+   insert into login_details values(user, to_char(sysdate, 'dd-mm-yyyy hh24:mi:ss'), 'Logoin');
+end;
+
+create or replace trigger logoff_trigger
+before logoff on schema
+begin
+   insert into login_details values(user, to_char(sysdate, 'dd-mm-yyyy hh24:mi:ss'), 'Logout');
+end;

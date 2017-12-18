@@ -1,0 +1,33 @@
+@Mapper
+public interface CustomerMapper {
+
+@Mapping(target = "customerNumber", source="customerId") // Different names
+@Mapping(target = "lastLogin", dateFormat="dd.MM.yyyy") // Format number date when converted to string.
+
+
+// Use this if you don't want to generate submappings generation.
+@Mapper(componentModel="cdi",  disableSubMappingMethodsGeneration = true)
+public interface CustomerMapper {
+
+If Customer has an object Address to map, use the following def
+@Mapper(componentModel="cdi", disableSubMappingMethodsGeneration=true, uses=AddressMapper.class)
+public interface CustomerMapper {
+
+
+
+
+@Mapper(componentModel="spring", uses=AddressMapper.class)
+public interface CustomerMapper {
+   @Mapping(target="customerNumber", source="customerId")
+   @Mapping(target="lastLogin", dateFormat="dd.MM.yyyy")
+   CustomerDTO cutomer2DTO(Customer customer);
+   
+   @InheritConfiguration
+   void updateCustomerDTO(Customer customer, @MappingTarget CustomerDTO dto);
+      
+   @InheritInverseConfiguration(name="customer2DTO")
+   Customer dto2Customer(CustomerDTO dto);
+}
+
+
+@Mapping(target="fullName", expression="java(customer.getFirstName() + customer.getFirstName())")
