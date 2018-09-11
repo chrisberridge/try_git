@@ -1,7 +1,10 @@
 File:     history.md
 Author:   Carlos Adolfo Ortiz Q
 Date:     Feb.21/2013
-Modified: Dec.18/2017
+Modified: Sep.11/2018
+
+Sep.11/2018 V1.0.11 Tag: V1.0.11-Sep.11/2018
+- Adds to root folder git config files.
 
 Dec.18/2017 V1.0.10 Tag: V1.0.10-Dec.18/2017
 - Adds Oracle PL/SQL tips (reference/programming-languages/databases/Oracle)
