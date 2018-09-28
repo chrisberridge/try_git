@@ -1,7 +1,10 @@
 File:     history.md
 Author:   Carlos Adolfo Ortiz Q
 Date:     Feb.21/2013
-Modified: Sep.11/2018
+Modified: Sep.28/2018
+
+Sep.28/2018 V1.0.12 Tag: V1.0.11-Sep.28/2018
+-Adds a new Eclipse Tips folder.
 
 Sep.11/2018 V1.0.11 Tag: V1.0.11-Sep.11/2018
 - Adds to root folder git config files.

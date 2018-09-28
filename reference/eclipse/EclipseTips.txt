@@ -1,0 +1,11 @@
+Created:  Sep.28/2018
+Modified: Sep.28/2018
+
+Dealing with Eclipse and Very Small Icons on Ultra High Density Displays
+https://mcuoneclipse.com/2017/10/11/dealing-with-eclipse-and-very-small-icons-on-ultra-high-density-displays/
+
+This latter one is one way to do so.
+The other way around is to put the following parameter to Eclipse.ini or SpringToolSuite4.ini
+
+LINE IS: -Dswt.autoScale=100
+and put at end of file.
